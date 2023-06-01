@@ -76,7 +76,7 @@ def main():
             docs = VectorStore.similarity_search(query=query, k=3)
             # os.environ['openai_key']=st.secrets["openai_key"]
             
-            llm = OpenAI( model="davinci")
+            llm = OpenAI( model="text-davinci-003")
             chain = load_qa_chain(llm=llm, chain_type="stuff")
             with get_openai_callback() as cb:
                 response = chain.run(input_documents=docs, question=query)
