@@ -1,5 +1,5 @@
 chatgpt_env
-AI_venv
+ai_env
 test_env
 .env
 logs
