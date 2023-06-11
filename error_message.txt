@@ -1,0 +1,39 @@
+Retrying langchain.chat_models.openai.ChatOpenAI.completion_with_retry.<locals>._completion_with_retry in 1.0 seconds as it raised APIConnectionError: Error communicating with OpenAI: HTTPSConnectionPool(host='api.openai.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self signed certificate in certificate chain (_ssl.c:1007)'))).
+Retrying langchain.chat_models.openai.ChatOpenAI.completion_with_retry.<locals>._completion_with_retry in 2.0 seconds as it raised APIConnectionError: Error communicating with OpenAI: HTTPSConnectionPool(host='api.openai.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self signed certificate in certificate chain (_ssl.c:1007)'))).
+Retrying langchain.chat_models.openai.ChatOpenAI.completion_with_retry.<locals>._completion_with_retry in 4.0 seconds as it raised APIConnectionError: Error communicating with OpenAI: HTTPSConnectionPool(host='api.openai.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self signed certificate in certificate chain (_ssl.c:1007)'))).
+Retrying langchain.chat_models.openai.ChatOpenAI.completion_with_retry.<locals>._completion_with_retry in 8.0 seconds as it raised APIConnectionError: Error communicating with OpenAI: HTTPSConnectionPool(host='api.openai.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self signed certificate in certificate chain (_ssl.c:1007)'))).
+Retrying langchain.chat_models.openai.ChatOpenAI.completion_with_retry.<locals>._completion_with_retry in 16.0 seconds as it raised APIConnectionError: Error communicating with OpenAI: HTTPSConnectionPool(host='api.openai.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self signed certificate in certificate chain (_ssl.c:1007)'))).
+---------------------------------------------------------------------------
+SSLCertVerificationError                  Traceback (most recent call last)
+File c:\Users\matan.s\Desktop\python\AI\ai_env\lib\site-packages\urllib3\connectionpool.py:714, in HTTPConnectionPool.urlopen(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, **response_kw)
+    713 # Make the request on the httplib connection object.
+--> 714 httplib_response = self._make_request(
+    715     conn,
+    716     method,
+    717     url,
+    718     timeout=timeout_obj,
+    719     body=body,
+    720     headers=headers,
+    721     chunked=chunked,
+    722 )
+    724 # If we're going to release the connection in ``finally:``, then
+    725 # the response doesn't need to know about the connection. Otherwise
+    726 # it will also try to release it and we'll have a double-release
+    727 # mess.
+
+File c:\Users\matan.s\Desktop\python\AI\ai_env\lib\site-packages\urllib3\connectionpool.py:403, in HTTPConnectionPool._make_request(self, conn, method, url, timeout, chunked, **httplib_request_kw)
+    402 try:
+--> 403     self._validate_conn(conn)
+    404 except (SocketTimeout, BaseSSLError) as e:
+    405     # Py2 raises this as a BaseSSLError, Py3 raises it as socket timeout.
+
+
+
+File c:\Users\matan.s\Desktop\python\AI\ai_env\lib\site-packages\urllib3\connectionpool.py:1053, in HTTPSConnectionPool._validate_conn(self, conn)
+...
+    617     request_id=result.headers.get("X-Request-Id"),
+    618 )
+    619 # Don't read the whole stream for debug logging unless necessary.
+
+APIConnectionError: Error communicating with OpenAI: HTTPSConnectionPool(host='api.openai.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self signed certificate in certificate chain (_ssl.c:1007)')))
+Output is truncated. View as a scrollable element or open in a text editor. Adjust cell output settings...
