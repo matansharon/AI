@@ -1,8 +1,5 @@
 ai_env
-<<<<<<< HEAD
 test_env
-=======
->>>>>>> bb2b8ba52fc90fabf40a479ea1c892173d8167ba
 .env
 logs
-test_gpu
+cifar-10-batches-py
