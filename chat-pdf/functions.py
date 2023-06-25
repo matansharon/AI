@@ -34,5 +34,32 @@ def learn_pdf(file_path):
     pdf_files.close()
     
 def Answer_from_document(user_input):
-    return "This is a dummy answer from document"
+    user_query_vector=get_embedding(user_input,engine='text-embedding-ada-002')
+    with open('my_knowledge_base.json','r',encoding='utf-8') as jasonfile:
+        data=json.load(jasonfile)
+        for item in data:
+            item['embedding']=np.array(item['embedding'])
+        
+        for item in data:
+            item['similarity']=cosine_similarity(item['embedding'],user_query_vector)
+        
+        
+        sorted_data=sorted(data,key=lambda x:x['similarity'],reverse=True)
+        
+        context=''
+        for item in sorted_data[:2]:
+            context+=item['text']
+        
+        my_message=[
+            {"role":'system','content':"your a helpful AI"},
+            {"role":'user','content':"the folowing is a context: \n {}\n\n is the answer to your question"},
+            
+        ]
+        response=openai.Completion.create(
+            model='gpt-3.5-turbo',
+            messages=my_message,
+            max_tokens=200
+        )
+        return response['choices'][0]['message']['content']
+        
     
