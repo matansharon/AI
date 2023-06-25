@@ -31,6 +31,8 @@ def learn_pdf(file_path):
     with open(json_file_path,'w',encoding='utf-8') as f:
         json.dump(data,f,ensure_ascii=False,indent=4)
     
+    pdf_files.close()
+    
 def Answer_from_document(user_input):
     return "This is a dummy answer from document"
     
