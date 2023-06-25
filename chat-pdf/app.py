@@ -13,6 +13,15 @@ def main():
     if uploadfile is not None:
         save_uploaded(uploadfile)
         st.write("Please wait while we process your file...")
+        learn_pdf(uploadfile.name)
+        st.write("File processed successfully!")
+        os.remove(uploadfile.name)
+    
+    user_input=st.text_input("Enter your question here:")
+    if st.button("Send"):
+        st.write("you:",user_input)
+        response=Answer_from_document(user_input)
+        st.write("bot:",response)
         
 
 
