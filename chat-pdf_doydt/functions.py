@@ -11,7 +11,8 @@ def save_uploaded(uploadfile):
 def learn_pdf(file_path):
     content_chunks=[]
     pdf_files=open(file_path,'rb')
-    pdf_reader=PyPDF2.PdfFileReader(pdf_files)
+    pdf_reader=PyPDF2.PdfReader(pdf_files)
+    print(len(pdf_reader.pages))
     for page in pdf_reader:
         content=page.extractText()
         obj={
