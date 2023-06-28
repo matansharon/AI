@@ -16,5 +16,5 @@ import os
 
 subprocess.run('git add --all')
 
-subprocess.run('git commit -m "finish the backend of chat-pdf with liam"')
+subprocess.run('git commit -m "from mac"')
 subprocess.run('git push ai_github master')
