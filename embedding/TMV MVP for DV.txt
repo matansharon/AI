@@ -1,0 +1,49 @@
+1. General
+1.1. Project Name: 
+1.2. Project ID#: PRS-0003
+Project Description: The GNTP Injector Pen is an electro-mechanical reusable auto-injector (AI) pen for use with GNTP drug for subcutaneous injection.
+The product elements include a reusable injection device and a disposable cartridge.
+2. Purpose
+2.1. This Test Method Validation Master Plan (TM VMP) serves as a summary of the overall strategy and outlines the validation activities to establish TM used in Genotropin Injector pen Device test plan
+
+3. Scope
+This VMP will cover the overall strategy for the validation activities to be performed by E3D to establish TM used in the device test plan for the following products:
+
+NameCATFrenly Device391773GH COACH Device391774
+
+4. Responsibilities
+4.1. The table below defines the relevant functions involved in the method validation process and the activities they responsible for:
+
+FunctionResponsibilityE3D Manufacturing Engineer* Develop the test method and create the plans, protocols and reports* E3D Quality Engineer* Review and approval of plans, protocols and reportsTesting department employees* Perform the tests and document the results* Customer* According to DDP plan* Hermon Laboratories* Execute EMC tests according to IEC 606015. References
+5.1. Documents:
+DescriptionDocument IDRevision* Test Method Validation - TMV* SOP 7-04-02* 2* PRS-0003-Genotropin Injector pen - Device Test Plan* Doc-284065* 1
+6. Terms, Acronyms and Definitions
+AcronymsDefinitionsE3DElcam Drug Delivery DeviceGNTPGenotropin drug productNHFNeedle Hiding FeaturePRDProduct Requirement DocumentPRSSystem ProjectQEQuality EngineerTMTest MethodTMVTest Method Validation7. Validation Strategy 
+7.1. Elementary and Self-Evident Test Methods do not require a TMV
+7.2. For standard test methods (tests based on scientific principles and are included in recognized standard) a test method validation is not required. 
+7.3. All PRD requirements concerning software (e.g. visual/audio checks) test method validations are not required as these will be validated as part of the software validation
+7.4. For non-standard methods, laboratory-developed methods and standard methods used outside of the supplier scope that are not covered by sections? 5.1- ?5.3, a Test method validation will be performed (see list below).
+7.5. Minor changes may be addressed by the project team and summarized in the validation report. Deviations/changes from the plan that require a change in the validation strategy and or plan will be communicated and agreed upon with the customer.
+
+7.6. List of tests:
+ItemTest nameTM SOP+Revision (if applicable)Test performed by: (specify location+ site + department)TMV required?
+(If no, justify)Remarks1. Training parts8.1E3D R&D, Elcam LaboratoryNoElementary /Self-Evident TM2. Dose Accuracy Test 8.3, 8.6, 8.161) E3D R&D, Elcam Laboratory
+2) Hermon labs Yes2 validations are required- 1 per location3. Sensors8.4E3D R&D, Elcam LaboratoryNoElementary /Self-Evident TM4. Battery Performance8.5E3D R&D, Elcam LaboratoryNoElementary /Self-Evident TM5. NHF Maximum Retraction Force8.9E3D R&D, Elcam LaboratoryYesN/A6. NHF Minimum Retraction Force8.18E3D R&D, Elcam LaboratoryYesN/A7. Injection Force8.14E3D R&D, Elcam LaboratoryYesN/A8. Door Closing Force8.8E3D R&D, Elcam LaboratoryYesN/A9. Door Pulling Force8.12E3D R&D, Elcam LaboratoryYesN/A10. Cartridge Removal Force 8.13E3D R&D, Elcam LaboratoryNoA rational will be written11. Cartridge Insertion Force 8.13E3D R&D, Elcam LaboratoryNoA rational will be written12. Mechanical Buttons Force8.111) E3D R&D, Elcam Laboratory
+2) HermonYes2 validations are required- Hermon TMV for injection button only13. NHF Pulling Force8.10E3D R&D, Elcam LaboratoryNoA rational will be written14. Injection Time8.7E3D R&D, Elcam LaboratoryYesN/A15. Cartridge Temperature8.2E3D R&D, Elcam LaboratoryNoA rational will be written16. Accelerometer8.15E3D R&D, Elcam LaboratoryNoElementary /Self-Evident TM17. Fridge Storage Case Lifetime8.19E3D R&D, Elcam LaboratoryYesN/A18. Cartridge Compatibility8.17E3D R&D, Elcam LaboratoryNoDimension and tolerance analysis19. Torque to attach needle between 0.06Nm to 0.08NmPRD-1429
+Hermon Lab Yesnot accredited with ISO-11608-2,5), External Lab responsibility20. Torque to remove needle up to 0.1NmPRD-1430
+Hermon Lab Yesnot accredited with ISO-11608-2,5), External Lab responsibility21. Dose Accuracy Test (ISO 11608-2)PRD-1417Hermon Lab Yesnot accredited with ISO-11608-2,5), External Lab responsibility22. NHF requirements according to the standard (ISO 11608-5, 5.6)PRD-1431Hermon Lab Nonot accredited with ISO-11608-2,5), Elementary test method
+7.7. Final validation report will include a summery of the validations performed from the plan, results, deviations, and a final conclusion.  
+
+8. Version Management
+Version NumberDescription of the ChangeUpdated byDate of update1NewTal Millar31/08/2023
+9. Approvals
+SignatureDateNamePosition31/08/2023Tal MillarProduct Engineer / Manufacturing EngineerR&D Manager /Manufacturing Engineering ManagerQA Manager/engineer-End of Document-
+
+
+
+
+
+SOP#7-04-02 Appendix#3Appendix Rev1Valid from31/08/2023Appendix statusRelease   Project nameDocument Owner	R&DGenotropin Injector penDocument statusReleasedWritten byTal MillarTitleRevision		1Test Method Validation (TMV) protocol    - E3DRelease Date		-Document#Doc-289273Project ID0003Work Report Code		80195Budget code#02402Page 2 of  2
+
+
+
