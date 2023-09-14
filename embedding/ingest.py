@@ -40,17 +40,19 @@ class Data:
             res+=page.extract_text()
         return {'file_name':file_path.split('\\')[-1], 'content':data}
 
-    def read_all_files(self,path):
+    def read_all_files(self,path=''):
         if path=='':
             path=self.default_path
         print(path)
-        # for file in os.listdir(path):
-        #     if file.endswith(".txt"):
-        #         self.read_txt(path+'\\'+file)
-        #     elif file.endswith(".pdf"):
-        #         self.read_pdf(path+'\\'+file)
-        #     else:
-        #         print("Not a valid file format")
+        for file in os.listdir(path):
+            if file.endswith(".txt"):
+                # self.read_txt(path+'\\'+file)
+                print(file)
+            elif file.endswith(".pdf"):
+                # self.read_pdf(path+'\\'+file)
+                print(file)
+            else:
+                print("Not a valid file format")
     
     def add(self,path):
         pass
@@ -58,4 +60,5 @@ class Data:
 
 if __name__=="__main__":
     data=Data()
-    
+    # print(data.get_path())
+    data.read_all_files()
