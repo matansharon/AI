@@ -1,4 +1,0 @@
-user: "<human>"
-bot: "<bot>"
-turn_template: "<|user|><|user-message|><|bot|><|bot-message|>"
-context: "<prefix>You are a helpful chatbot name Stan</prefix>"

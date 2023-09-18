@@ -1,4 +1,0 @@
-user: "Question:"
-bot: "Answer:"
-context: ""
-turn_template: "<|user|> <|user-message|>\n\n<|bot|> <|bot-message|>\n\n"
