@@ -1,0 +1,383 @@
+hello guys welcome to yet another video about custom chatbots for documents
+right I have created a video about llama 2 using chroma TV and in the previous
+videos in the Lang change series I have used different Vector stores but many of
+you asked me to create the videos using 5 CPU or pine cone or all the things
+right what I'm planning to do in this video is everything is same as you can
+see here in the first page we are going to ingest the document or we are going to take the text file is
+split into chunks use the embedding API and store that into the vector restore
+bot not only in one vector store will be storing in Pine Cone 5 CPU and chroma DB
+and we'll create three different applications using that particular Vector stores right and let's see which
+one performs the better and at the end I will also show you how you can just plug
+in the open AI models in the existing code and for that I am going to use chroma DB as an example by the end of
+this video you will have a working repository in the git where you can just
+freely use all the resources and you will have a video where I will
+be explaining all the different vector restores and I hope after this video you don't need to jump around different
+repositories everything will be in one repository and in one video
+let's get started I am on the GitHub repository right so there are many ways how you can follow this everything is
+Setup
+documented in the readme file right but what I'm going to do is as usual run it
+on the GitHub code space right there are many ways that you can follow one is you
+can go to this plus icon and then import the repository or new query space and
+create a new Kodi space or next thing is you can go to the code part and then go to Kodi space and you can run the
+quality space from here but one thing that you need to notice is in order to run the llama2 models we need minimum of
+16 GB of RAM right for that if you go to this code space part the default one will not be sometimes of 16 GB so for
+that what you can do is first go and Fork this repository give Star if you
+like it and then once you do that go to this plus icon go to this new query
+space I'll open this in new tab right and from here you can choose the Repository
+let me choose the Llama to different Vector stores and the main branch the
+region where you are choose the one that you are closed and then there will be the two cores right but we can go with
+the four course that is 16 GB of RAM and 32 GB of storage right if you want more
+than this because it might not be even enough then you can pay some money in GitHub quality space and just use the
+resources right but for me I have already cloned this thing and now it is
+running here right if I go here delete this llama too and I can just open this
+in the new tab right so here it is I have already opened this and what you need to do now right there are different
+steps that you need to follow now this is the cloning part that we don't need to do if we are in the GitHub code
+space and next thing you need to copy the example.env to EnV right
+example.enb contains the API keys right so just these are the things that we
+need to provide I will show you what are the different things but for hogging face and open AI you can go to the
+different links here this is the open AI link this is the hogging face link go just go there and then get the API keys
+if you don't have account create the account and then just paste it in the dot EnV which is just a
+copy of example.env right and then you need to create a virtual
+environment and there is one thing that I have mentioned here if you have python 3.11 just creating with this command
+might work but sometimes it doesn't work if you have python 3.11 or lower so for
+that you need to have the conda installed and if you are working on GitHub code space you don't even need to
+install because if you do conda version there is already the Konda installed in
+the GitHub code space right you can just run this particular command specifying
+that you want to use python 3.11 so that we are good to go now if I do a python
+version right it will show me 3.11.4 but d by default
+it is 3.10 meaning that I have already created the virtual environment using
+this particular python 3.11 I hope that is clear now and the next thing is you
+need to install the necessary packages after installing the virtual environment please remember that
+create the virtual environment before and then install the necessary packages what are the packages it's mentioned
+here you can just run this particular command in the terminal right so I can
+just sit down what is the next thing that you need to do is now you need to create a folder called modal and then go
+inside the folder I have already created the folder mkdir model from the root
+directory remember that and root directly meaning that I am on the Llama to different directory stores
+and you go inside the model and I have already provided you the command also what to run just run this command in the
+terminal then you are you good to go but from where did I get this URL if you go up here there is this hugging face model
+right if you click this it is taken to the hogging Fish website this is the model that we are going to
+use the block glamor27 billion charts gml right and you can just right click
+here and then copy link address or you can just directly download and upload in
+GitHub correspass it's up to you if you are using locally you can just download this and place it inside the model
+folder right once that is done then we are good to go let's see what is the step next is just
+to run the ingest chroma DB right then we can just ingest the file and then we
+can run the app using chain lead let's go through each and every step and one thing that you need to remember is
+although there are different things that are being used right in just there is chroma files pine cone the syntax is
+different but the process that we are going to use using line chain is similar
+ChromaDB with Llama2 (ingest + app)
+okay so how we will proceed is first go through one one vector store right I
+will go with the chroma and then we we will run the app and then we will be following the files and the pine cone
+part right let's go with the ingest right for that what you need to do is go inside the ingest folder right and if
+you go inside the ingest folder there is this ingest chroma.pi right so as I said
+before the syntax is little bit different I will explain you little bit about chroma and other things will be
+the same right here these are all the necessary things that you need to download right and there is this hogging
+face API token part we are loading that API token we are creating the
+directories for DB chroma to store the embeddings and the data is here for the
+data I'm just going to use the State of the Union txt it is in the GitHub repo so you don't need to download this right
+what are we going to do now here I have just explained all the different things that you can do because I have
+uncommented the code here so you can just use this particular code if you want to use PDF files or text file or so
+on I've explained this in my previous video about llama 2 also you can refer to that right but in this case I'm just
+going to use the dot txt for the demonstration purpose only so I'm going to use the DDX reloader
+data directory is here I'm just going to use all the txt files I'm going to use
+the text loader and we can just load this particular thing and if you want to print you can even print I'm not going
+to go through here now and now there is the text splitter part I'm taking the Chong size 1000 and so on overlap is 100
+you can just play around with this whichever best fits your use case right and then there is this stronged
+documents and that is what we pass the loaded documents here then that it chunked after that we will have the
+hogging face embedding we will take the hogging face embeddings sentence Transformer all mini lml6 V2 right and
+then we will be using the CPU and what what do we need now we create and process the chroma Vector Restore
+for cyst meaning that we will store that somewhere right and when we run this particular ingest chroma file a new
+folder called Vector restore will be created so the document is song documents embedding is the embedding
+right and purchase directory is the DB chroma path meaning that if you go up
+here we have DB chroma path right in this particular folder it will be
+created and stored right and then we can just run this file so if I go here okay
+let me just cancel this and go here and what I can do here is just to Python 3
+right and I need to run this particular file so what is the file name ingest
+underscore Chrome dot Pi remember that I am inside the ingest folder right and
+then I can just run enter what it will do now is create a vector store folder
+inside that it will create a what is the name DB chroma folder right and then all
+the embeddings will be stored there it will take some time in order to do the embedding part so it is doing behind
+the scene and now you will see the vector store folder being created here it will take some time let's wait
+and once that is done we can proceed to the app using the
+chroma DB right so as you can see here the vector stored folder is being created inside the
+vector store there is DB chroma folder being created and inside there are the embeddings right so now our document
+embedding part is done meaning that in the diagram until the place where we
+store this Vector store is being done now the next part we need to follow right which one is the folder okay this
+one now I can go back right I can go CD dot dot I can go inside the app folder
+because I need to run from there just showing you step by step so now I can go
+to the app folder and there is this app chroma.pi right so I'll just walk you through this now
+let me make this bigger so here is just a normal importing things here is the normal things that V
+for loading the environment variables and then DB chroma path and the modal path right we downloaded the model
+inside the model folder right so we need to provide the model also and then there
+is the prompt template you can just set the custom prompt I have explained this
+in my last video also but yeah we just create a prompt we created a retrieval qhn right and we pass all the necessary
+things here if you have lost my line chain videos I think you are familiar with these kind of things we need to
+pass the last language model chain type stuff and what is the retrieval we want to use we want to have the similarity
+source of three different documents chunks right and return Source we want
+the source to be returned true and we just passed the chain type arguments prompt as prompt
+right and then we load the model right model path it is mentioned here just go
+through the repository and then what we do is we have the last language model we use C Transformer we use the model path
+model type and then we have the max new tokens and the temperature right and
+this is all mentioned here so as you can see here that's all we need to do right now we
+return the last language model and then we have the create retrieval QA bot part
+right for that we need to use the same embedding model that we use for ingestion part and we have the DB
+chromopath from where we want to take that particular embeddings and we want to use the CPU so we retrieve the things
+question answer we have the question it needs to go to the part right as you go to the example we have the question we
+need to do the embeddings using the same embedding API and we need to do the similarity source and it goes to the
+vector restore find the ranked results right depends how many similar documents
+you want from we want free right and these documents are passed into the large language model and then we have
+the answer right so that is all what is happening here right retrieval QA part is here and then after this we have the
+embedding as you can see here and we have the load model right and
+then you can see here there is the create retrieval QA chain and we retrieve the bot answer here so
+what we want create retrieval QA bot and then yeah that's all the answer we
+return the bot response and this part is just for the chain lead application to to show you right so here is the channel
+Tab and here is the one to process the incoming chat messages so yeah that's all for this we can just control s if
+you have changed something here now you can go here and then just run the app so
+chain lead run and we need to provide the name of the file right app and then
+we have chroma dot PI right and we can just pass test w if we make any changes it will reload
+automatically that's what the desktop blue does right it says that your app is available at localhost 8000.
+I can open it from here or I can hit open from here I can control click here
+so it is going to open the app this is similar how you open the app locally also in a localhost right now we have
+the chat we have the readme for some reason it takes some time to load this one because it is still provides the
+same thing here and here right when this is loading just a good reference for you there are some useful links in the file
+so if you want to get started with chain lead I have created a playlist and with the land chain also I have created a
+playlist you can just go around here and if you want to support me here is buy me a coffee or Patron whatever you want to
+do right so yeah it is taking some time still to load let me see if it loaded or
+not yeah here it says hi welcome to chat with documents using llama2 and Lang chain right so we can ask the questions
+now related to that statement right so what I can ask is
+what is the president saying about NATO right about all the different things you can just refer to the file state of the
+union file right this is the file which we open inside data so you can ask as many questions as you want from here
+right so you can say officer Mora was 27 years old right so you can ask the
+question what is the age of officer mura right let me ask that question actually let me go here and say what is the age
+of office or Mora right so if it provides the answer or not now I'm going
+to ask the same question for each of the vector stores and see which one provides
+the correct answer right and then at last I will ask the same question with open AI model also and let's see which
+one gives us the best result right it is now going to take some time right it is
+saying here retrieval using retrieval QA using stuff documents chain using llm
+chain and it is running right so these are all the different things we have mentioned in the app this is the good
+part of chain lead also that you can see which is currently running and what will
+be the result of this I can just go here and just remove this and you can even go to this icon here and in the settings
+you can say expand messages it will automatically expand that right you can
+hide this High chain of thoughts so it will not show you what is happening behind the scene it will just provide
+you the answer right and the dark mode if you want to have the dark mode or the light mode
+Let's go with the light mode for now I hope you also know how to use the UI part so yeah it just could not reach the
+server for some reason it always says this when I was running with llama2 it will take some time to provide the
+answer so it's up to you if you want to use these kind of models in production or not but I will show you the example
+using all the different things as well as with openai model so you will get the idea and it's up to you to decide which
+one to use right but yeah let's see it is still taking some time
+okay it took some time and provide the answer but you can see that the answer is not correct right so the answer is
+okay what can you may I do you all the different things and it's just sources and restore and yeah these are the
+things that is showing here and it shows the sources okay let's stop seeing each other as enemies all the different
+things and yeah officer was 22 Rivera
+was 22 officer Mora was 27 years old meaning that it is going through the
+same document right it should provide the answer right as you can see here answer is there in the source where it
+collected meaning that llama2 model was not able to provide us the answer based
+on the sources the chroma DB has provided right because it does not
+provide us the answer but from the chunk it provides the correct answer from here
+right because it took the right part of that from here so yeah that's how the chroma DB provided right so now let's go
+and see how the answer will be compared to chroma DB with 5 CPU okay so now I
+can just go to the terminal and run Ctrl C which is now the app is not running
+right so this is how the chroma DB works now let's go to the file CPU I can close this in just and the app chroma I can
+FAISS with Llama2 (ingest + app)
+even close this State of the Union right so now I can go to the ingest files file
+right so as I said everything is same but some syntax is different here so everything until here is the same so if
+you go down here the loading part is also the same the text splitter part is also the same right but and the loading
+model part is also the same embedding model but here the vector database this
+is also the same right but when you want to store it you need to provide Vector
+database dot save local and you need to provide the path of the files this is
+just the difference I'm not going through all this again because you get the idea this is just the one step right
+I can go back I can go inside ingest and what I can do is I can just run in just
+and files Dot PI right when I run this because we already have the vector store
+folder created here and we just have the DB chroma but now what it will do is it
+will create a new folder called DV files right as you can see here
+we have DV files but the vector is stored the higher level directory is the same right so yeah it completed and if
+you go inside Vector store there is DB chroma and there is DV files right inside DB files we have all the
+different vectors embeddings being stored right so now what we can do we can go again one step back we can go in
+the app and now we need to run the app.fius.pi right now I'm not going to
+go through all again everything is same except the part that the syntax is different to retrieve the information
+right so how to do the retrieval part if I scroll little bit down if I scroll little bit down still
+is still down because everything is almost the same there right so here so DB right so here is the FiOS dot load
+local and the file we need to provide the path and the embeddings just to show
+you that what it was in the chroma here is the chroma right let me click it here
+if I scroll little bit down uh no this is not this is uh here right so if I go
+to the chroma part and if I go up here so where is the retrieval part so here
+so here you can see there is DB chroma persist directory forces directory and
+embedding function is embedding this is how we can use or retrieve the DB using
+chroma but with where is the file again here after files here it is 5s.load
+local right here is load local and we need to provide the path and the embedding but in the case of chroma it
+is chroma persist directory and the embedding function is the same right but little bit different things what you
+need to provide so now I can just go here in the terminal clear the screen and run chain
+lead run right I can say app if I do auto complete 5S I can say no
+cash because I don't want to store it right now here right if you are creating the application you can store it in the
+cache right I can then now run the app it will run the app it says you know it is running in the Local Host right so
+yeah it is going to run here there is the chat read me hi welcome to the chat with document using llama2 let me make
+these here and what I can ask here now is the same question that I asked before what is the age of official mura right
+so if I go here and run enter so what is happening now is now it is using fire
+CPU locally instead of chroma DB and let's see what will be the answer as it
+was taking some time before I will get back to you once this okay it took some time around the same time that it took
+for the chroma DB but it says here the above I do my answer below the question
+answer this can address the okay it does not provide the answer right and but the
+same thing happens here is but in the source document there is the answer right official Mora
+was 27 years old meaning that again the fire CPU Vector H2 is working correctly
+it is getting that particular chunk right and then that is passed to the
+Llama 2 model but the Llama 2 model is not able to provide us the answer why
+because I think the ram is not enough uh for this because I'm just running on
+GitHub code space using 16 GB of RAM right I just want to show you how it behaves in Ram but you can see the
+retrieval part is doing what it needs to do right so yeah that's all for this
+five CPU also now what we can do is go here to terminal and we can just say Ctrl C so it cancels
+I can clear this right now what we what we will do is we will go through the
+Pinecone Llama2 (ingest + app)
+pine cone and here it's little bit different because we are not going to store this locally but we are going to
+create the index in the cloud in in the Pinecone website so this might be
+helpful to you I'll walk you through each and every step to create the vector stored in Pinecone website and how to
+re-trip out of it okay now let's go through the pine cone part right we can go to the ingest pine cone dot Pi so
+it's little bit different as I said you before we are going to store this in the website of pine cone right so the
+importing things are here we want to import the pine cone from Lang chain Vector stores we want to load the
+environment variables but we need to provide this pine cone API key and pine
+cone ENB right for that I will provide the link in the readme file as well as in the description of this video this is
+the Pinecone website right app.pinecone.io here you need to create the API keys right so if you go to the
+API Keys part so here is the environment right ACR Southeast one gcp so this is
+what I have provided here right so uh pine cone pine cone e and V and that is
+stored in the dot EnV as I said you before right and then you need to have this API Keys you can just copy it from
+here right and then you can just paste it there this is the first step that you need to do in order to use the pine cone
+API key and pine cone EnV right and then here is data directory is data because
+we want to use the same data right and you you notice that we don't have the vector restore data folder here now
+because we are installing this in the cloud right so what we need to do here
+is yeah all the things are the same until here right because we are using
+land chain for that we are using the text loader we are including that we are doing the splitting part same thing and
+then we are using the hogging face embeddings same thing until now right but what we need to do
+is there are different steps that you can do you can create the index in the Pinecone website and then just retrieve
+the information but what I am doing here is creating the index already from the
+code so it's easier right what we need to do is we we need to initialize the pine cone right so you need to run this
+code pine cone init API API key and the environment we just grabbed
+on the top here right we are just using this part here and what is the next step we need to provide the name of the index
+this is the name that you need to provide right lamba 2 land chain this is what I have already provided here if you
+go to the indexes part there is llama to land chain and now if you go back here I'm saying
+delete index if same name already exist right so if index name in Pine Cone list
+indices indexes you delete that I will show you that it will delete or not
+right because when you are doing the Prototype you want to use different projects and you don't you want to just
+overwrite this meaning that you can delete this and then create the new one if the same name exists right and then
+you want to create the new index provide the same name and this Dimension you need to be careful here because this is
+different from for different embeddings for this embeddings all mini LML 6v2 the
+dimension is 384. we need to provide that and the Matrix we want to use the cosine
+so you can use this in the UI of pine cone but it's easier with a single line of code here right so then we then that
+is created and then we use the same thing now right so pine cone from
+documents we pass the document we have the embeddings and index name is what we
+want to pass the index name but before if you go to the fires what we provided here is we don't provide here anything
+but we want to store this locally right same as in chroma here if you go we are
+providing the path where we want to persist that similar to this for pine
+cone we have to provide the index name that's the difference then we run this I
+will show you what happens right it will first delete the one it is running here right and then it will create the new
+one let me go to the terminal let me go one step back inside in just
+right and then I can run Python 3 and what is the name in just and it is pine
+cone dot PI right I can run enter when this is running if you go to the website
+now it will detect that there is this llama2 land chain index it will delete this right I don't know if this will
+refresh automatically but I will refresh here now as you can see here okay
+it me it is initializing meaning that it deleted the one that that was there
+before right and then it created a new one now so the dimensions 384 total pod is one
+and the environment is ACR Southeast one gcp that we provided right and if you click this all the different information
+will be here and now here is the vector count how many is going to be ingested
+and all the different things I'm not going through all the details now in the Pinecone website that would be a
+different video if you want let me know I will create a new one but this is how it works and yeah now it is being
+created it took some time and now we saw that it is being created meaning that if we go now to the terminal it's done
+right so so the injection part is now completed now there is 43 vectors Let me
+refresh this if there is many okay it refreshes okay so zero vectors is still loading
+here we have 43 so 43 vectors are being stored here right that's fine and we can
+now go to the app part right what I can do now is see the dot dot see the app
+right I can clear the screen I will now show you what is inside the app Pine
+code so here also so this is the importing part normal things we load the
+environment variables pine cone API key and pine cone EnV right this is what we
+need to provide again and we initialize the pine cone but now we don't need to
+create the index because we already have the index we retrieve the information right so now we have the
+model path because we need to use that llama2 model and then we provide the
+index because we initialize here then we can use the index so we can just say
+pine cone dot index and provide the name Lama to index Lang chain be careful that
+it needs to be the same that we created in the pine cone that's the normal case
+right then everything is same here we can go to the retrieval part now right if you go down here in the retrieval
+part where is the retrieval part okay still down here
+not here here so there is the retrieval part DB pine cone Dot from existing
+index so that is just the syntax difference we need to provide the index name and the embeddings
+it's kind of same all the different Vector stores but some syntax is different I will just save this right
+now now we can go here and provide ask the question with the app right so for
+that what we can do by the way the command I haven't provided all the commands here but as you can see here I
+say chain leader on app chroma.pi and you need to repeat step 5 and 6 for different Vector stores meaning that
+generally drawn app pine cone right so that is just the change you need to make
+so it is chain lead run app right and
+that is pine cone dot pi and you need to provide no cache
+s w right but if you are creating the application in the production label you
+want to use the cash so if you don't provide anything then it will be in the case so now it is it will it will load
+it says okay hi welcome again so you can go to the History part what is the age of official Mora if I ask the question
+again the same thing is going to happen it is going to get the information not
+locally but from the pine cone website from the index that we created here and
+then it is going to be passed into the last language model same process again happens now I hope you see this figure
+for many time now I hope now it's already been clear to you but just pause the video and just go through this if
+you want to know what is happening again behind the scene right now if we go here
+so it's still running and let me see if the app is running so it is still running it will take some time again I
+will get back to you once this is done okay so now this is done it took almost the same time that it took before but
+again the answer is not correct as you can see her body camera I use these you are you don'ts and something something
+right but again the the thing here is the sources are again correct and official Mora was 27 years old meaning
+that in Pine Cone also because we are using Lan chain to do the splitting right so whatever it is doing it is
+doing the same thing and it is going into the vector store and the retrieval part is exactly showing to the resources
+that we want and there are three different sources right there is document one here as you can see here
+there is document 2 here and if we scroll down here that should be document three yeah here is the document three
+meaning that we want three similarity sorts and it finds three similarity
+Source out of that songs right but the answer is not correct now as of optional
+thing let's go and use open ai's model instead of lava 2 and use the chroma DB
+just for an example to see how the answer will be okay now I can just cancel this now from the terminal Ctrl C
+right so let me clear the screen once but now we are going to use the open AI
+ChromDB with OpenAI model (ingest + app)
+right for that what we can do we can go to ingest chroma open AI dot PI right so
+everything is same here and there is the data there is the data chroma path I have given different name DB chroma open
+AI you can even use the same embeddings that is being stored but we are using we
+are providing the DB chroma open AI embeddings right so we are loading the open AI API key from here and we create
+the vector database so here what we can do is yeah here as you can see until
+this step it is the same right but we we don't need to initialize the hogging
+phase embedding now but we are going to use the open air embeddings and everything I have passed here by default
+we are using the default model provided by open AI right and yeah other things are the same because storing into the
+vector store is the same the only difference in this file is using the open AI embeddings instead of hogging
+phase embeddings and using this particular model right so what we can do is go to the terminal go to ingest
+folder and then we can run Python 3 right and then I can just keep the
+ingest and then I can just say what is the name in just
+chroma and then it is open AI dot PI right once this is done it is going to
+create DB chroma openia here as you can see it is created here and the embeddings are here so that is how the
+embeddings are being stored right now what we can do we can go back one step here we can go to the app see the app
+right let me clear the screen so now I can go to the app and here is the app chroma open AI dot PI right I can go
+inside here so here I said here it is 5 it is not files right it is chroma
+typo okay I can save this DB chroma path right and here is the chroma I am using
+the vector and then there is this loading things and all the things are
+the same except the modal part right so if you go here retrieving information is the same and
+bought here in state of the Llama 2 I'm using chat open Ai and the model is GPT
+3.5 turbo right and by the way you can just import here open air embedding so chat open AI from launching because that
+is what the framework we are using and then what you can do is here create retrieval QA right the model name is
+text embedding r.002 meaning that this is the embedding model that we provided
+before if I go back to here this is the text embedding r.002 that is being used at the
+embedding and we need to pass again this is not the files I am using chroma
+right I can say Ctrl s and then what happens is everything is same here right
+and we are just using the chroma right and persistence directory embedding
+embedding right this is how we can extract the information by the way this is same what we used in the chroma right
+if I go to app chroma.pi here chroma purchase directory and this directory
+must be different in different cases because we have different folders right what we can do is here everything is now
+the same so we just pass all the things there is the app part and same things what we can do now is
+just go here and run not in the capital chain lead
+Ron and it is app chroma openai dot Pi I can say no cash
+W right so when I run this it is going to run the app locally it will open in the terminal
+yeah and now we are going to ask the same question let's see if it provides the answer or not we can go here what is
+the age of official Mora we can run this and it is going to go through the part
+as you can see here it says official Mora was 27 years old that is the answer
+we want and the answer is quite fast right and as you can see here the source is the same document one
+it is there all right there is the source that is document 2 and there is document 3 Right Here documentary all
+the sources or the similarities Source part and the three documents that we
+want right similarity Source are the same but the answer now it just provided
+in just seconds using the open AI models so so why I am showing you this is
+because if you are running some app in the production you can see the difference
+which model you want to use I'm not the one to tell you which one to use but from this experiment also you know that
+open AI is performing quite better here right so yeah you can just test this in
+your use cases and decide which model large language models to use either open
+AIS model or there are other different models also or open source models and which Vector
+is stored to use now I can just go back to the terminal and Ctrl C and the app is not running now it says could not
+reach the server that's all now I hope you know how to use different vectorate
+Conclusion
+stores with open source as well as open AI models
+and and have the conversation with your documents and yeah I just showed you the
+example of text file but you can use PDF or whatever you want but you need to modify some code based on that right so
+yeah that's all for this video it went quite long but I hope you learned many things thank you for watching and see
+you in the next one
