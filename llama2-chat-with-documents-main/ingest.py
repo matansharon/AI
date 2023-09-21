@@ -10,7 +10,7 @@ from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Chroma
 
-ABS_PATH: str = os.path.dirname(os.path.abspath(__file__))
+ABS_PATH: str = os.path.dirname(os.path.abspath(os.path.abspath(os.getcwd())))
 DB_DIR: str = os.path.join(ABS_PATH, "db")
 
 
@@ -60,3 +60,4 @@ def create_vector_database():
 
 if __name__ == "__main__":
     create_vector_database()
+    print("hello world")
