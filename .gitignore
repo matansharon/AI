@@ -6,3 +6,4 @@ cifar-10-batches-py
 ggml-gpt4all-j-v1.3-groovy.bin
 models/
 .venv
+db/
