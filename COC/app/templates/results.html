@@ -12,127 +12,239 @@
     
     <div class="container">
         <header class="app-header">
-            <h1 class="app-title">Extracted Data Results</h1>
-            <p class="app-subtitle">View and analyze the extracted information from your PDF documents</p>
+            <h1 class="app-title">Document Comparison Results</h1>
+            <p class="app-subtitle">View and analyze the extracted information from your documents</p>
         </header>
         
-        <div class="results-container">
-            <div class="file-results">
-                <div class="file-results-header">
-                    <span class="icon-pdf"></span>
-                    <h2>{{ results.file1.filename }}</h2>
-                </div>
-                <div class="file-results-body">
-                    <div class="meta-data">
-                        <div class="data-item">
-                            <div class="data-label">
-                                <span class="icon-pages"></span> Pages
-                            </div>
-                            <div class="data-value">{{ results.file1.pages }}</div>
-                        </div>
-                        
-                        <!-- Add additional extracted fields here -->
-                    </div>
-                    
-                    <div class="text-sample-header">
-                        <span class="icon-text"></span> Text Preview
-                    </div>
-                    <div class="text-sample">
-                        {{ results.file1.text_sample }}
-                    </div>
-                </div>
+        <!-- Document Type Information Card -->
+        <div class="card" style="margin-bottom: 30px;">
+            <div class="card-header">
+                <h2>Document Type Information</h2>
             </div>
-            
-            <div class="file-results">
-                <div class="file-results-header">
-                    <span class="icon-pdf"></span>
-                    <h2>{{ results.file2.filename }}</h2>
-                </div>
-                <div class="file-results-body">
-                    <div class="meta-data">
-                        <div class="data-item">
-                            <div class="data-label">
-                                <span class="icon-pages"></span> Pages
+            <div class="card-body">
+                <div class="doc-type-container">
+                    <div class="doc-type-box">
+                        <h3>Document 1</h3>
+                        <div class="doc-type-content">
+                            <p><strong>Type:</strong> <span class="doc-type-value">{{ results.doc1.type }}</span></p>
+                            <p><strong>Filename:</strong> {{ results.doc1.file_path }}</p>
+                            <div class="doc-type-json">
+                                <pre>{{ results.doc1|default({})|tojson(indent=2) }}</pre>
                             </div>
-                            <div class="data-value">{{ results.file2.pages }}</div>
                         </div>
-                        
-                        <!-- Add additional extracted fields here -->
                     </div>
-                    
-                    <div class="text-sample-header">
-                        <span class="icon-text"></span> Text Preview
-                    </div>
-                    <div class="text-sample">
-                        {{ results.file2.text_sample }}
+                    <div class="doc-type-box">
+                        <h3>Document 2</h3>
+                        <div class="doc-type-content">
+                            <p><strong>Type:</strong> <span class="doc-type-value">{{ results.doc2.type }}</span></p>
+                            <p><strong>Filename:</strong> {{ results.doc2.file_path }}</p>
+                            <div class="doc-type-json">
+                                <pre>{{ results.doc2|default({})|tojson(indent=2) }}</pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         
+        <div class="results-container">
+            <div class="file-results">
+                <div class="file-results-header">
+                    <span class="icon-pdf"></span>
+                    <h2>Document 1: {{ results.doc1.type }}</h2>
+                </div>
+                <div class="file-results-body">
+                    <div class="meta-data">
+                        <div class="data-item">
+                            <div class="data-label">Filename</div>
+                            <div class="data-value">{{ results.doc1.file_path }}</div>
+                        </div>
+                        
+                        {% if results.doc1.data is not none %}
+                            {% if not results.doc1.data.get('error') %}
+                                {% for field, value in results.doc1.data.items() %}
+                                    {% if value %}
+                                    <div class="data-item">
+                                        <div class="data-label">{{ field|replace('_', ' ') }}</div>
+                                        <div class="data-value">{{ value }}</div>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <div class="data-item">
+                                    <div class="data-label">Error</div>
+                                    <div class="data-value">{{ results.doc1.data.get('error', 'Unknown error') }}</div>
+                                </div>
+                            {% endif %}
+                        {% else %}
+                            <div class="data-item">
+                                <div class="data-label">Status</div>
+                                <div class="data-value">No data available</div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="file-results">
+                <div class="file-results-header">
+                    <span class="icon-pdf"></span>
+                    <h2>Document 2: {{ results.doc2.type }}</h2>
+                </div>
+                <div class="file-results-body">
+                    <div class="meta-data">
+                        <div class="data-item">
+                            <div class="data-label">Filename</div>
+                            <div class="data-value">{{ results.doc2.file_path }}</div>
+                        </div>
+                        
+                        {% if results.doc2.data is not none %}
+                            {% if not results.doc2.data.get('error') %}
+                                {% for field, value in results.doc2.data.items() %}
+                                    {% if value %}
+                                    <div class="data-item">
+                                        <div class="data-label">{{ field|replace('_', ' ') }}</div>
+                                        <div class="data-value">{{ value }}</div>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <div class="data-item">
+                                    <div class="data-label">Error</div>
+                                    <div class="data-value">{{ results.doc2.data.get('error', 'Unknown error') }}</div>
+                                </div>
+                            {% endif %}
+                        {% else %}
+                            <div class="data-item">
+                                <div class="data-label">Status</div>
+                                <div class="data-value">No data available</div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Comparison Results Section -->
+        <div class="card" style="margin-top: 30px;">
+            <div class="card-header">
+                <h2>Document Comparison Results</h2>
+            </div>
+            <div class="card-body">
+                {% if results.comparison is not none %}
+                    {% if not results.comparison.get('error') %}
+                        <div class="comparison-status">
+                            <h3 class="{% if results.comparison.overall_match %}success-text{% else %}error-text{% endif %}">
+                                {% if results.comparison.overall_match %}
+                                    <span class="icon-check"></span> All fields match
+                                {% else %}
+                                    <span class="icon-alert"></span> Discrepancies detected
+                                {% endif %}
+                            </h3>
+                        </div>
+                    
+                    {% if results.comparison.mismatched_fields %}
+                        <div class="comparison-section">
+                            <h4 class="section-title error-text">Mismatched Fields</h4>
+                            <div class="comparison-table">
+                                <div class="table-header">
+                                    <div class="table-cell">Field</div>
+                                    <div class="table-cell">Jabil Value</div>
+                                    <div class="table-cell">Elcam Value</div>
+                                </div>
+                                {% for field in results.comparison.mismatched_fields %}
+                                    <div class="table-row">
+                                        <div class="table-cell">{{ field.jabil_field|replace('_', ' ') }} / {{ field.elcam_field|replace('_', ' ') }}</div>
+                                        <div class="table-cell">{{ field.jabil_value }}</div>
+                                        <div class="table-cell">{{ field.elcam_value }}</div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    {% if results.comparison.matching_fields %}
+                        <div class="comparison-section">
+                            <h4 class="section-title success-text">Matching Fields</h4>
+                            <div class="comparison-table">
+                                <div class="table-header">
+                                    <div class="table-cell">Field</div>
+                                    <div class="table-cell">Value</div>
+                                </div>
+                                {% for field in results.comparison.matching_fields %}
+                                    <div class="table-row">
+                                        <div class="table-cell">{{ field.jabil_field|replace('_', ' ') }} / {{ field.elcam_field|replace('_', ' ') }}</div>
+                                        <div class="table-cell">{{ field.value }}</div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    {% if results.comparison.unique_fields %}
+                        <div class="comparison-section">
+                            <h4 class="section-title warning-text">Fields Missing in One Document</h4>
+                            <div class="comparison-table">
+                                <div class="table-header">
+                                    <div class="table-cell">Document</div>
+                                    <div class="table-cell">Field</div>
+                                    <div class="table-cell">Value</div>
+                                </div>
+                                {% for field in results.comparison.unique_fields %}
+                                    <div class="table-row">
+                                        <div class="table-cell">{{ field.document }}</div>
+                                        <div class="table-cell">{{ field.field|replace('_', ' ') }}</div>
+                                        <div class="table-cell">{{ field.value }}</div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% else %}
+                        <div class="error-message">
+                            {{ results.comparison.error }}
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div class="error-message">
+                        No comparison data available.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
         <a href="{{ url_for('index') }}" class="back-button">
             <span class="icon-back back-icon"></span>
-            Upload New Files
+            Upload New Documents
         </a>
     </div>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Add any interactive elements for the results page here
+            // Add hover effects for data items
+            const dataItems = document.querySelectorAll('.data-item');
             
-            // Example: Add click to copy functionality for extracted text
-            const textSamples = document.querySelectorAll('.text-sample');
-            
-            textSamples.forEach(sample => {
-                sample.addEventListener('click', function() {
-                    const textToCopy = this.innerText;
-                    navigator.clipboard.writeText(textToCopy).then(() => {
-                        // Create a temporary toast notification
-                        const toast = document.createElement('div');
-                        toast.className = 'toast toast-success';
-                        toast.innerHTML = `
-                            <div class="toast-icon icon-text"></div>
-                            <div class="toast-message">Text copied to clipboard</div>
-                            <div class="toast-close">×</div>
-                        `;
-                        document.body.appendChild(toast);
-                        
-                        // Add close functionality
-                        toast.querySelector('.toast-close').addEventListener('click', function() {
-                            toast.classList.add('hidden');
-                            setTimeout(() => {
-                                document.body.removeChild(toast);
-                            }, 300);
-                        });
-                        
-                        // Auto-remove toast after 3 seconds
-                        setTimeout(() => {
-                            toast.classList.add('hidden');
-                            setTimeout(() => {
-                                document.body.removeChild(toast);
-                            }, 300);
-                        }, 3000);
-                    }).catch(err => {
-                        console.error('Failed to copy text: ', err);
-                    });
+            dataItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.classList.add('highlight');
                 });
                 
-                // Add title attribute for accessibility
-                sample.setAttribute('title', 'Click to copy text');
-                sample.style.cursor = 'pointer';
+                item.addEventListener('mouseleave', function() {
+                    this.classList.remove('highlight');
+                });
             });
             
-            // Add subtle hover effect to the results cards
-            const fileResults = document.querySelectorAll('.file-results');
-            fileResults.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px)';
-                    this.style.boxShadow = 'var(--shadow-lg)';
-                });
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = '';
-                    this.style.boxShadow = '';
-                });
+            // Animate entrance of comparison sections
+            const comparisonSections = document.querySelectorAll('.comparison-section');
+            comparisonSections.forEach((section, index) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, 300 + (index * 150));
             });
         });
     </script>
