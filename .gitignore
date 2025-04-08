@@ -8,3 +8,4 @@ models/
 .venv
 db/
 unsructered/docs
+COC/venv

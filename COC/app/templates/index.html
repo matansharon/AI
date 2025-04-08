@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Data Extractor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Animated background shape -->
+    <div class="floating-shape"></div>
+    
+    <div class="container">
+        <header class="app-header">
+            <h1 class="app-title">PDF Data Extractor</h1>
+            <p class="app-subtitle">Upload two PDF documents for instant data extraction</p>
+        </header>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        <div class="card">
+            <div class="card-header">
+                <h2>Upload Documents</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data" class="upload-form">
+                    <div class="file-upload-section">
+                        <div class="file-input">
+                            <label for="file1">PDF Document 1</label>
+                            <div class="file-drop-area" id="dropArea1">
+                                <span class="icon-upload"></span>
+                                <p class="upload-message">Drop PDF file here</p>
+                                <p class="upload-hint">or click to browse files</p>
+                                <input type="file" id="file1" name="file1" accept=".pdf" aria-label="Upload PDF file 1">
+                                <div class="selected-file" id="selectedFile1" style="display: none;">
+                                    <span class="icon-pdf file-icon"></span>
+                                    <span class="file-name"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="file-input">
+                            <label for="file2">PDF Document 2</label>
+                            <div class="file-drop-area" id="dropArea2">
+                                <span class="icon-upload"></span>
+                                <p class="upload-message">Drop PDF file here</p>
+                                <p class="upload-hint">or click to browse files</p>
+                                <input type="file" id="file2" name="file2" accept=".pdf" aria-label="Upload PDF file 2">
+                                <div class="selected-file" id="selectedFile2" style="display: none;">
+                                    <span class="icon-pdf file-icon"></span>
+                                    <span class="file-name"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="process-btn-container">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block process-btn" id="processBtn" disabled>
+                            Extract Data
+                        </button>
+                        
+                        <div class="progress-container" id="progressContainer" style="display: none;">
+                            <div class="progress-bar indeterminate" id="progressBar"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast notification -->
+    <div class="toast toast-error hidden" id="errorToast">
+        <div class="toast-icon icon-pdf"></div>
+        <div class="toast-message" id="toastMessage">Please upload both PDF files to continue</div>
+        <div class="toast-close" id="toastClose">×</div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const file1Input = document.getElementById('file1');
+            const file2Input = document.getElementById('file2');
+            const dropArea1 = document.getElementById('dropArea1');
+            const dropArea2 = document.getElementById('dropArea2');
+            const selectedFile1 = document.getElementById('selectedFile1');
+            const selectedFile2 = document.getElementById('selectedFile2');
+            const processBtn = document.getElementById('processBtn');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressBar = document.getElementById('progressBar');
+            const errorToast = document.getElementById('errorToast');
+            const toastMessage = document.getElementById('toastMessage');
+            const toastClose = document.getElementById('toastClose');
+            
+            // Close toast notification
+            toastClose.addEventListener('click', function() {
+                errorToast.classList.add('hidden');
+            });
+            
+            // Check if both files are selected to enable the button
+            function checkFiles() {
+                if (file1Input.files.length > 0 && file2Input.files.length > 0) {
+                    processBtn.disabled = false;
+                } else {
+                    processBtn.disabled = true;
+                }
+            }
+            
+            // Handle file selection for file 1
+            file1Input.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    const fileName = this.files[0].name;
+                    const fileNameElem = selectedFile1.querySelector('.file-name');
+                    fileNameElem.textContent = fileName;
+                    selectedFile1.style.display = 'flex';
+                    dropArea1.classList.add('has-file');
+                    
+                    // Validate file type
+                    if (!fileName.toLowerCase().endsWith('.pdf')) {
+                        showToast('File 1 must be a PDF document');
+                        selectedFile1.style.display = 'none';
+                        dropArea1.classList.remove('has-file');
+                        this.value = '';
+                    }
+                } else {
+                    selectedFile1.style.display = 'none';
+                    dropArea1.classList.remove('has-file');
+                }
+                checkFiles();
+            });
+            
+            // Handle file selection for file 2
+            file2Input.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    const fileName = this.files[0].name;
+                    const fileNameElem = selectedFile2.querySelector('.file-name');
+                    fileNameElem.textContent = fileName;
+                    selectedFile2.style.display = 'flex';
+                    dropArea2.classList.add('has-file');
+                    
+                    // Validate file type
+                    if (!fileName.toLowerCase().endsWith('.pdf')) {
+                        showToast('File 2 must be a PDF document');
+                        selectedFile2.style.display = 'none';
+                        dropArea2.classList.remove('has-file');
+                        this.value = '';
+                    }
+                } else {
+                    selectedFile2.style.display = 'none';
+                    dropArea2.classList.remove('has-file');
+                }
+                checkFiles();
+            });
+            
+            // Handle form submission
+            document.querySelector('form').addEventListener('submit', function(e) {
+                if (file1Input.files.length === 0 || file2Input.files.length === 0) {
+                    e.preventDefault();
+                    showToast('Please upload both PDF files to continue');
+                    return false;
+                }
+                
+                // Show progress
+                processBtn.disabled = true;
+                progressContainer.style.display = 'block';
+                return true;
+            });
+            
+            // Drag and drop functionality
+            function setupDropArea(dropArea, fileInput) {
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    dropArea.addEventListener(eventName, preventDefaults, false);
+                });
+                
+                function preventDefaults(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    dropArea.addEventListener(eventName, highlight, false);
+                });
+                
+                ['dragleave', 'drop'].forEach(eventName => {
+                    dropArea.addEventListener(eventName, unhighlight, false);
+                });
+                
+                function highlight() {
+                    dropArea.classList.add('drag-over');
+                }
+                
+                function unhighlight() {
+                    dropArea.classList.remove('drag-over');
+                }
+                
+                dropArea.addEventListener('drop', handleDrop, false);
+                
+                function handleDrop(e) {
+                    const dt = e.dataTransfer;
+                    const files = dt.files;
+                    
+                    if (files.length > 0) {
+                        fileInput.files = files;
+                        const event = new Event('change');
+                        fileInput.dispatchEvent(event);
+                    }
+                }
+            }
+            
+            // Setup drag and drop for both areas
+            setupDropArea(dropArea1, file1Input);
+            setupDropArea(dropArea2, file2Input);
+            
+            // Toast notification function
+            function showToast(message) {
+                toastMessage.textContent = message;
+                errorToast.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    errorToast.classList.add('hidden');
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>

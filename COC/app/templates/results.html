@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Extraction Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Animated background shape -->
+    <div class="floating-shape"></div>
+    
+    <div class="container">
+        <header class="app-header">
+            <h1 class="app-title">Extracted Data Results</h1>
+            <p class="app-subtitle">View and analyze the extracted information from your PDF documents</p>
+        </header>
+        
+        <div class="results-container">
+            <div class="file-results">
+                <div class="file-results-header">
+                    <span class="icon-pdf"></span>
+                    <h2>{{ results.file1.filename }}</h2>
+                </div>
+                <div class="file-results-body">
+                    <div class="meta-data">
+                        <div class="data-item">
+                            <div class="data-label">
+                                <span class="icon-pages"></span> Pages
+                            </div>
+                            <div class="data-value">{{ results.file1.pages }}</div>
+                        </div>
+                        
+                        <!-- Add additional extracted fields here -->
+                    </div>
+                    
+                    <div class="text-sample-header">
+                        <span class="icon-text"></span> Text Preview
+                    </div>
+                    <div class="text-sample">
+                        {{ results.file1.text_sample }}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="file-results">
+                <div class="file-results-header">
+                    <span class="icon-pdf"></span>
+                    <h2>{{ results.file2.filename }}</h2>
+                </div>
+                <div class="file-results-body">
+                    <div class="meta-data">
+                        <div class="data-item">
+                            <div class="data-label">
+                                <span class="icon-pages"></span> Pages
+                            </div>
+                            <div class="data-value">{{ results.file2.pages }}</div>
+                        </div>
+                        
+                        <!-- Add additional extracted fields here -->
+                    </div>
+                    
+                    <div class="text-sample-header">
+                        <span class="icon-text"></span> Text Preview
+                    </div>
+                    <div class="text-sample">
+                        {{ results.file2.text_sample }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <a href="{{ url_for('index') }}" class="back-button">
+            <span class="icon-back back-icon"></span>
+            Upload New Files
+        </a>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add any interactive elements for the results page here
+            
+            // Example: Add click to copy functionality for extracted text
+            const textSamples = document.querySelectorAll('.text-sample');
+            
+            textSamples.forEach(sample => {
+                sample.addEventListener('click', function() {
+                    const textToCopy = this.innerText;
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        // Create a temporary toast notification
+                        const toast = document.createElement('div');
+                        toast.className = 'toast toast-success';
+                        toast.innerHTML = `
+                            <div class="toast-icon icon-text"></div>
+                            <div class="toast-message">Text copied to clipboard</div>
+                            <div class="toast-close">×</div>
+                        `;
+                        document.body.appendChild(toast);
+                        
+                        // Add close functionality
+                        toast.querySelector('.toast-close').addEventListener('click', function() {
+                            toast.classList.add('hidden');
+                            setTimeout(() => {
+                                document.body.removeChild(toast);
+                            }, 300);
+                        });
+                        
+                        // Auto-remove toast after 3 seconds
+                        setTimeout(() => {
+                            toast.classList.add('hidden');
+                            setTimeout(() => {
+                                document.body.removeChild(toast);
+                            }, 300);
+                        }, 3000);
+                    }).catch(err => {
+                        console.error('Failed to copy text: ', err);
+                    });
+                });
+                
+                // Add title attribute for accessibility
+                sample.setAttribute('title', 'Click to copy text');
+                sample.style.cursor = 'pointer';
+            });
+            
+            // Add subtle hover effect to the results cards
+            const fileResults = document.querySelectorAll('.file-results');
+            fileResults.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = 'var(--shadow-lg)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                    this.style.boxShadow = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
