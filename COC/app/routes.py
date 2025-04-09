@@ -139,15 +139,39 @@ def index():
             
             # Generate the system prompt
             system_prompt = generate_system_prompt(doc1_data, doc2_data)
-            results['system_prompt'] = system_prompt
             
             # Use OpenAI to analyze the documents with the system prompt
+            # Only keep the AI analysis result, not the system prompt
             ai_analysis = analyze_with_openai(system_prompt, doc1_data, doc2_data)
             results['ai_analysis'] = ai_analysis
             
-        # Return the results
+        # Clean up the results to remove document JSON data
         if results:
-            return jsonify(results)
+            # Create a clean response with only the necessary information
+            clean_results = {}
+            
+            # Keep only minimal file information without detailed data
+            if 'file1' in results:
+                clean_results['file1'] = {
+                    'filename': results['file1'].get('filename'),
+                    'type': results['file1'].get('result', {}).get('invoice_type', 'Unknown') 
+                           if isinstance(results['file1'].get('result'), dict) 
+                           else results['file1'].get('result')
+                }
+            
+            if 'file2' in results:
+                clean_results['file2'] = {
+                    'filename': results['file2'].get('filename'),
+                    'type': results['file2'].get('result', {}).get('invoice_type', 'Unknown') 
+                           if isinstance(results['file2'].get('result'), dict) 
+                           else results['file2'].get('result')
+                }
+            
+            # Include only the AI analysis results
+            if 'ai_analysis' in results:
+                clean_results['ai_analysis'] = results['ai_analysis']
+            
+            return jsonify(clean_results)
         else:
             return jsonify({'error': 'No files were uploaded'})
     

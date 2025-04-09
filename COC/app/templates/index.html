@@ -58,24 +58,244 @@
             line-height: 1.6;
             color: #333;
         }
-        .ai-analysis-card {
-            background: linear-gradient(to right, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95));
-            padding: 25px;
-            border-radius: 12px;
-            border-left: 4px solid #10b981;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        .analysis-header {
             margin-bottom: 20px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-align: center;
+        }
+        .analysis-title-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            gap: 12px;
+        }
+        .analysis-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0;
+            background: linear-gradient(90deg, #0f172a, #1e40af);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .analysis-badge {
+            background: linear-gradient(90deg, #10b981, #059669);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+        }
+        .analysis-subtitle {
+            font-size: 1rem;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+        .ai-analysis-card {
+            position: relative;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.97), rgba(248, 250, 252, 0.97));
+            padding: 32px 28px 28px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            overflow: hidden;
         }
         .ai-analysis-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+            transform: translateY(-3px);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
         }
-        .ai-analysis-card div {
+        .analysis-icon {
+            position: absolute;
+            top: 18px;
+            left: 20px;
+            background: rgba(16, 185, 129, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .analysis-highlight {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #10b981, #059669);
+            border-top-left-radius: 16px;
+            border-bottom-left-radius: 16px;
+        }
+        #ai-analysis-content {
+            position: relative;
+            z-index: 1;
+            padding-left: 36px;
             font-family: 'Inter', sans-serif;
             font-size: 15px;
             line-height: 1.7;
             color: #1e293b;
+        }
+        /* Analysis content element styling */
+        .analysis-main-header {
+            font-size: 22px !important;
+            font-weight: 700 !important;
+            color: #0f172a !important;
+            margin-top: 10px !important;
+            margin-bottom: 18px !important;
+            padding-bottom: 8px !important;
+            border-bottom: 2px solid rgba(16, 185, 129, 0.2) !important;
+            position: relative !important;
+        }
+        .analysis-main-header::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background-color: #10b981;
+        }
+        .analysis-section-header {
+            font-size: 18px !important;
+            font-weight: 600 !important;
+            color: #334155 !important;
+            margin-top: 24px !important;
+            margin-bottom: 12px !important;
+        }
+        .analysis-subsection-header {
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            color: #475569 !important;
+            margin-top: 18px !important;
+            margin-bottom: 10px !important;
+        }
+        .analysis-list {
+            margin: 12px 0 !important;
+            padding-left: 18px !important;
+        }
+        .analysis-list-item {
+            margin-bottom: 8px !important;
+            position: relative !important;
+            transition: all 0.2s ease !important;
+        }
+        .analysis-list-item.important {
+            background-color: rgba(239, 68, 68, 0.05) !important;
+            border-left: 3px solid #ef4444 !important;
+            padding: 8px 12px !important;
+            margin-left: -12px !important;
+            border-radius: 0 4px 4px 0 !important;
+            font-weight: 500 !important;
+        }
+        .analysis-paragraph {
+            margin-bottom: 12px !important;
+            transition: all 0.2s ease !important;
+        }
+        .analysis-paragraph.finding {
+            background-color: rgba(245, 158, 11, 0.05) !important;
+            border-left: 3px solid #f59e0b !important;
+            padding: 8px 12px !important;
+            margin-left: -12px !important;
+            border-radius: 0 4px 4px 0 !important;
+        }
+        .analysis-paragraph.problem {
+            background-color: rgba(239, 68, 68, 0.05) !important;
+            border-left: 3px solid #ef4444 !important;
+            padding: 8px 12px !important;
+            margin-left: -12px !important;
+            border-radius: 0 4px 4px 0 !important;
+            font-weight: 500 !important;
+        }
+        .analysis-paragraph.conclusion {
+            background-color: rgba(16, 185, 129, 0.05) !important;
+            border-left: 3px solid #10b981 !important;
+            padding: 12px !important;
+            margin-left: -12px !important;
+            border-radius: 0 4px 4px 0 !important;
+            font-weight: 500 !important;
+        }
+        .analysis-paragraph.recommendation {
+            background-color: rgba(37, 99, 235, 0.05) !important;
+            border-left: 3px solid #2563eb !important;
+            padding: 8px 12px !important;
+            margin-left: -12px !important;
+            border-radius: 0 4px 4px 0 !important;
+        }
+        .highlighted-term {
+            font-weight: 600 !important;
+            color: #1e40af !important;
+            position: relative !important;
+            padding: 0 2px !important;
+            display: inline-block !important;
+            background-color: rgba(96, 165, 250, 0.1) !important;
+            border-radius: 3px !important;
+        }
+        .emphasis-bold {
+            font-weight: 700 !important;
+            color: #0f172a !important;
+        }
+        .emphasis-italic {
+            font-style: italic !important;
+            color: #475569 !important;
+        }
+        .emphasis-code {
+            font-family: 'SF Mono', 'Courier New', Courier, monospace !important;
+            background-color: rgba(203, 213, 225, 0.3) !important;
+            padding: 2px 5px !important;
+            border-radius: 3px !important;
+            font-size: 0.9em !important;
+        }
+        /* Final conclusion box styling */
+        .analysis-final-conclusion {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(to right, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.1));
+            border-radius: 12px;
+            border-left: 5px solid #10b981;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .analysis-final-conclusion::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.1), transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        .conclusion-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        .conclusion-header svg {
+            margin-right: 10px;
+        }
+        .conclusion-header h4 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: #10b981;
+        }
+        .analysis-final-conclusion p {
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #0f172a;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
         }
         .ai-analysis-card h3 {
             font-size: 20px;
@@ -161,6 +381,16 @@
             display: flex;
             justify-content: flex-end;
         }
+        .doc-type-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, #2563eb, #4f46e5);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-left: 6px;
+        }
         @media (max-width: 768px) {
             .results-grid {
                 grid-template-columns: 1fr;
@@ -238,41 +468,29 @@
         </div>
         
         <div id="result-container">
-            <h2>Document Analysis Results</h2>
-            <div class="results-grid">
-                <div class="result-card">
-                    <div class="result-title">Document 1</div>
-                    <pre id="result-json-1"></pre>
-                </div>
-                <div class="result-card">
-                    <div class="result-title">Document 2</div>
-                    <pre id="result-json-2"></pre>
-                </div>
-            </div>
             
-            <div id="system-prompt-container" style="margin-top: 30px; display: none;">
-                <h3>System Prompt</h3>
-                <div class="system-prompt-card">
-                    <pre id="system-prompt-text"></pre>
+            <div id="ai-analysis-container" style="margin-top: 40px; display: none;">
+                <div class="analysis-header">
+                    <div class="analysis-title-wrapper">
+                        <h2 class="analysis-title">AI-Powered Document Analysis Results</h2>
+                        <div class="analysis-badge">Advanced Analysis</div>
+                    </div>
+                    <div class="analysis-subtitle">Comprehensive comparison of your documents by AI</div>
                 </div>
-                <div class="copy-button-container">
-                    <button id="copy-prompt-btn" class="btn btn-primary">Copy Prompt</button>
-                </div>
-            </div>
-            
-            <div style="margin-top: 20px;">
-                <h3>Complete Response</h3>
-                <pre id="result-json-full"></pre>
-            </div>
-            
-            <div id="ai-analysis-container" style="margin-top: 30px; display: none;">
-                <h3>Document Analysis Results</h3>
+                
                 <div class="ai-analysis-card">
+                    <div class="analysis-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.5 11L11 13.5L14.5 8.5M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
                     <div id="ai-analysis-content"></div>
+                    <div class="analysis-highlight"></div>
                 </div>
+                
                 <div class="analysis-footer">
                     <div class="powered-by">
-                        <span>Powered by</span>
+                        <span>Analysis powered by</span>
                         <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE1Ljk5NTYgMi4xMzMyM0MyNC4wOTM4IDIuMTMzMjMgMzAuNjY2NiA4LjcwNiAzMC42NjY2IDE2LjgwNDJDMzAuNjY2NiAyNC45MDI0IDI0LjA5MzggMzEuNDc1MiAxNS45OTU2IDMxLjQ3NTJDNy44OTc0OSAzMS40NzUyIDEuMzI0NzEgMjQuOTAyNCAxLjMyNDcxIDE2LjgwNDJDMS4zMjQ3MSA4LjcwNiA3Ljg5NzQ5IDIuMTMzMjMgMTUuOTk1NiAyLjEzMzIzWk0xNS45OTU2IDUuNzA0ODlDOS44Njg3NSA1LjcwNDg5IDQuODk2MzggMTAuNjc3MyA0Ljg5NjM4IDE2LjgwNDJDNC44OTYzOCAyMi45MzEgOS44Njg3NSAyNy45MDM0IDE1Ljk5NTYgMjcuOTAzNEMyMi4xMjI1IDI3LjkwMzQgMjcuMDk0OCAyMi45MzEgMjcuMDk0OCAxNi44MDQyQzI3LjA5NDggMTAuNjc3MyAyMi4xMjI1IDUuNzA0ODkgMTUuOTk1NiA1LjcwNDg5Wk05LjQwMzc2IDE0LjY5NzZDOS40MDM3NiAxMy40MzU3IDEwLjQyODIgMTIuNDExMyAxMS42OTAyIDEyLjQxMTNDMTIuOTUyMSAxMi40MTEzIDEzLjk3NjUgMTMuNDM1NyAxMy45NzY1IDE0LjY5NzZDMTMuOTc2NSAxNS45NTk2IDEyLjk1MjEgMTYuOTg0IDE2LjEzNDYgMTYuOTg0QzE3LjI1NzkgMTYuOTg0IDE4LjE2NzYgMTYuMDY5NyAxOC4xNjc2IDE0Ljk5NjhDMTguMTY1OCAxNC41MjQ1IDE3Ljk3OCAxMi42NTUzIDE1Ljk5NTggMTIuNjU1M0MxMS42MzkxIDEyLjY1NTMgOS40MDM4IDE1LjYxNjMgOS40MDM4IDE5LjA0NjRWMTkuMzkxNEM5LjQwMzggMjAuNDU0NiA5Ljg5MTM2IDIxLjE0MTMgMTAuNzIzNSAyMS4xNDEzQzExLjMwOTQgMjEuMTQxMyAxMS43NDA5IDIwLjc5NCAxMS45ODA4IDIwLjEzNzFDMTIuMzQ2NCAyMS4wNDc5IDEzLjIwMjcgMjEuNjU0NSAxNC4zNTQyIDIxLjY1NDVDMTYuMTU0NSAyMS42NTQ1IDE3LjY5MzYgMjAuMjU3OCAxNy44MTE2IDE4LjUyOTdIMTQuNDU0QzE0LjQ1NCAxOS4wMzM1IDE0LjA2NjYgMTkuNDIwMSAxMy41NzIxIDE5LjQyMDFDMTMuMDY5MSAxOS40MjAxIDEyLjY3NzUgMTkuMDI3MSAxMi42Nzc1IDE4LjUyNDFDMTIuNjc3NSAxNy4zNzgxIDE0LjExMTkgMTYuOTA0NiAxNS45OTc2IDE2LjkwNDZDMTkuNDM3OCAxNi45MDQ2IDIyLjU4NzUgMTguNDgxNSAyMi41ODc1IDIyLjQxQzIyLjU4NzUgMjIuNDEgMjIuNjQwOSAyMi41ODU3IDIyLjU4NzUgMjEuMTQxM0MyMi41ODc1IDE4LjU5NTQgMjAuNzQyNiAxOC41OTU0IDIwLjI3OTEgMTguNTk1NEMyMC4wODgzIDE4LjU5NTQgMTkuOTQwOCAxOC42MjU1IDE5LjgwNzMgMTguNjc5MkMxOS40MjU0IDE4LjgxMTggMTkuMDc1NiAxOS4wOTIyIDE5LjA3MTUgMTkuNTY2OEMxOS4wNjY0IDIwLjEzNTcgMTkuNTI1NCAyMC41Njc0IDIwLjE0NSAyMC41Njc0QzIxLjM5NzMgMjAuNTY3NCAyMi4wMDM5IDE5LjM2ODYgMjIuMDAzOSAxNy41ODM0VjE3LjU1NzVMMjIuMDA1MiAxNy41NDY1VjE2LjgwNDJDMjIuMDA1MiAxNC44MDc1IDE3LjUzNDQgMTQuODIwNyAxNy41MzQ0IDEyLjg3ODNDMTcuNTM0NCAxMi4yMTE1IDE4LjA3NCAxMS42NzE1IDE4Ljc0MDYgMTEuNjcxNUMxOS40NDc2IDExLjY3MTUgMjAuMTY0NCAxMi4xMTc3IDIwLjE2NDQgMTIuOTA0QzIwLjE2NDQgMTMuNDUzNCAyMC4wMTY3IDEzLjY3NSAxOS44MyAxMy45NTY5QzE5LjcxODcgMTQuMTMyNSAxOS41OSAxNC4zMzQzIDE5LjU5IDE0LjY0MThDMTkuNTkgMTUuMzk0NiAyMC4yMzIgMTUuNzQ1MiAyMS4xMjkxIDE1Ljc0NTJDMjIuMTAyMSAxNS43NDUyIDIyLjU4NzUgMTUuMDc5NSAyMi41ODc1IDE0LjUwMDVDMjIuNTg3NSAxMi40NTM3IDIwLjkwOTQgMTEuMTMwMyAxOC43NDA3IDExLjEzMDNDMTYuNTcyMSAxMS4xMzAzIDE0Ljg5MzkgMTIuNDUzNyAxNC44OTM5IDE0LjU4NzlDMTQuODkzOSAxNi40MjU3IDE2LjQwNDMgMTcuNDY2MSAxOC4xMTIgMTcuOTMxMkMxNy43MTY0IDE4LjA3MDQgMTcuMzAyIDE4LjE0MzYgMTYuODc5IDE4LjE0MzZDMTUuMTg5OSAxOC4xNDM2IDEzLjczNTEgMTcuNDA0MSAxMi44MTk1IDE2LjI4MTdDMTIuNDI2NSAxNS44MjUgMTIuMTIzMSAxNS4yOTQzIDExLjk0MSAxNC43MDIzSDExLjkzNTJDMTEuOTM1MiAxNC43MDA1IDExLjkzMzIgMTQuNjk5NCAxMS45MzMyIDE0LjY5NzZIMTEuOTM1MkgxMS45MzkzQzExLjkzOTMgMTQuMDcxOCAxMS40MzU3IDEzLjU2IDE4LjgwOTQgMTMuNTZDMTkuNDM1MiAxMy41NiAxOS45NDY4IDE0LjA3MTcgMTkuOTQ2OCAxNC42OTc2QzE5Ljk0NjggMTUuMzIzNCAxOS40MzUyIDE1LjgzNTEgMTguODA5NCAxNS44MzUxQzE4LjE4MzUgMTUuODM1MSAxNy42NzE4IDE1LjMyMzQgMTcuNjcxOCAxNC42OTc2SDE3LjY3TDkuNDAzNzYgMTQuNjk3NloiIGZpbGw9IiMxMGI5ODEiPjwvcGF0aD48L3N2Zz4=" alt="OpenAI Logo" style="height: 24px; margin-left: 8px; vertical-align: middle;">
                     </div>
                 </div>
@@ -307,9 +525,7 @@
             const toastMessage = document.getElementById('toastMessage');
             const toastClose = document.getElementById('toastClose');
             const resultContainer = document.getElementById('result-container');
-            const resultJson1 = document.getElementById('result-json-1');
-            const resultJson2 = document.getElementById('result-json-2');
-            const resultJsonFull = document.getElementById('result-json-full');
+            // No more individual JSON elements
             const uploadForm = document.getElementById('upload-form');
             
             // Close toast notification
@@ -394,88 +610,8 @@
                     progressContainer.style.display = 'none';
                     processBtn.disabled = false;
                     
-                    // Display results
-                    if (data.file1) {
-                        // Format result to include detailed_data when available
-                        let displayData1 = data.file1.error ? 
-                            { error: data.file1.error } : 
-                            data.file1.result;
-                        
-                        // If there's detailed data, include it in the display
-                        if (data.file1.detailed_data) {
-                            const documentType = typeof data.file1.result === 'string' ? 
-                                data.file1.result : 
-                                (data.file1.result.invoice_type || "Unknown");
-                                
-                            const displayObject = {
-                                document_type: documentType,
-                                detailed_data: data.file1.detailed_data
-                            };
-                            
-                            resultJson1.textContent = JSON.stringify(displayObject, null, 2);
-                        } else {
-                            resultJson1.textContent = JSON.stringify(displayData1, null, 2);
-                        }
-                    } else {
-                        resultJson1.textContent = "No file uploaded";
-                    }
-                    
-                    if (data.file2) {
-                        // Format result to include detailed_data when available
-                        let displayData2 = data.file2.error ? 
-                            { error: data.file2.error } : 
-                            data.file2.result;
-                        
-                        // If there's detailed data, include it in the display
-                        if (data.file2.detailed_data) {
-                            const documentType = typeof data.file2.result === 'string' ? 
-                                data.file2.result : 
-                                (data.file2.result.invoice_type || "Unknown");
-                                
-                            const displayObject = {
-                                document_type: documentType,
-                                detailed_data: data.file2.detailed_data
-                            };
-                            
-                            resultJson2.textContent = JSON.stringify(displayObject, null, 2);
-                        } else {
-                            resultJson2.textContent = JSON.stringify(displayData2, null, 2);
-                        }
-                    } else {
-                        resultJson2.textContent = "No file uploaded";
-                    }
-                    
-                    // Check if we have a system prompt and display it
-                    const systemPromptContainer = document.getElementById('system-prompt-container');
-                    const systemPromptText = document.getElementById('system-prompt-text');
-                    const copyPromptBtn = document.getElementById('copy-prompt-btn');
-                    
-                    if (data.system_prompt) {
-                        systemPromptText.textContent = data.system_prompt;
-                        systemPromptContainer.style.display = 'block';
-                        
-                        // Set up copy button
-                        copyPromptBtn.addEventListener('click', function() {
-                            navigator.clipboard.writeText(data.system_prompt)
-                                .then(() => {
-                                    // Show success message
-                                    showToast('System prompt copied to clipboard!', 'success');
-                                    
-                                    // Change button text temporarily
-                                    const originalText = copyPromptBtn.textContent;
-                                    copyPromptBtn.textContent = 'Copied!';
-                                    
-                                    setTimeout(() => {
-                                        copyPromptBtn.textContent = originalText;
-                                    }, 2000);
-                                })
-                                .catch(err => {
-                                    showToast('Failed to copy text: ' + err);
-                                });
-                        });
-                    } else {
-                        systemPromptContainer.style.display = 'none';
-                    }
+                    // Note: Document JSON data has been removed from the server response
+                    // We'll only show the AI analysis
                     
                     // Format as HTML with enhanced markdown conversion
                     function convertMarkdownToHTML(text) {
@@ -484,6 +620,19 @@
                         let html = '';
                         let inList = false;
                         let inCodeBlock = false;
+                        
+                        // Check for special terms to highlight
+                        const highlightTerms = [
+                            'discrepancy', 'discrepancies', 'mismatch', 'mismatches', 'inconsistency', 'inconsistencies', 
+                            'match', 'matches', 'matching', 'identical', 'difference', 'differences',
+                            'recommendation', 'recommendations', 'suggest', 'suggests', 'suggested',
+                            'error', 'errors', 'warning', 'warnings', 'critical', 'important',
+                            'Jabil', 'Elcam', 'document 1', 'document 2',
+                            'conclusion', 'summary', 'analysis'
+                        ];
+                        
+                        // Regex pattern for highlighting special terms
+                        const highlightPattern = new RegExp(`\\b(${highlightTerms.join('|')})\\b`, 'gi');
                         
                         for (let i = 0; i < lines.length; i++) {
                             let line = lines[i];
@@ -506,31 +655,47 @@
                                 continue;
                             }
                             
-                            // Handle headers
+                            // Handle headers with extra emphasis and styling
                             if (line.startsWith('# ')) {
-                                html += '<h3>' + line.substring(2) + '</h3>';
+                                const headerText = line.substring(2);
+                                html += `<h3 class="analysis-main-header">${headerText}</h3>`;
                             } else if (line.startsWith('## ')) {
-                                html += '<h4>' + line.substring(3) + '</h4>';
+                                const headerText = line.substring(3);
+                                html += `<h4 class="analysis-section-header">${headerText}</h4>`;
                             } else if (line.startsWith('### ')) {
-                                html += '<h5>' + line.substring(4) + '</h5>';
+                                const headerText = line.substring(4);
+                                html += `<h5 class="analysis-subsection-header">${headerText}</h5>`;
                             }
-                            // Handle list items
+                            // Handle list items with enhanced styling
                             else if (line.trim().startsWith('- ') || line.trim().startsWith('* ')) {
                                 if (!inList) {
-                                    html += '<ul>';
+                                    html += '<ul class="analysis-list">';
                                     inList = true;
                                 }
                                 
-                                const listItem = line.trim().substring(2);
+                                let listItem = line.trim().substring(2);
+                                
+                                // Detect if this is a finding/important item
+                                const isImportantItem = 
+                                    listItem.toLowerCase().includes('discrepancy') || 
+                                    listItem.toLowerCase().includes('mismatch') ||
+                                    listItem.toLowerCase().includes('error') ||
+                                    listItem.toLowerCase().includes('critical') ||
+                                    listItem.toLowerCase().includes('important');
+                                    
+                                // Apply special highlighting for important items
+                                const listItemClass = isImportantItem ? 'analysis-list-item important' : 'analysis-list-item';
+                                
                                 // Process inline formatting within list items
                                 const formattedItem = listItem
-                                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                                    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                                    .replace(/`(.*?)`/g, '<code>$1</code>');
+                                    .replace(/\*\*(.*?)\*\*/g, '<strong class="emphasis-bold">$1</strong>')
+                                    .replace(/\*(.*?)\*/g, '<em class="emphasis-italic">$1</em>')
+                                    .replace(/`(.*?)`/g, '<code class="emphasis-code">$1</code>')
+                                    .replace(highlightPattern, '<span class="highlighted-term">$1</span>');
                                     
-                                html += '<li>' + formattedItem + '</li>';
+                                html += `<li class="${listItemClass}">${formattedItem}</li>`;
                             }
-                            // Handle paragraphs and other elements
+                            // Handle paragraphs with advanced formatting
                             else {
                                 if (inList) {
                                     html += '</ul>';
@@ -540,13 +705,42 @@
                                 if (line.trim() === '') {
                                     html += '<br>';
                                 } else {
-                                    // Process inline formatting
-                                    const formattedLine = line
-                                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                                        .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                                        .replace(/`(.*?)`/g, '<code>$1</code>');
+                                    // Check if this paragraph contains a finding or recommendation
+                                    const isFinding = 
+                                        line.toLowerCase().includes('discrepancy') || 
+                                        line.toLowerCase().includes('mismatch');
+                                        
+                                    const isProblem = 
+                                        line.toLowerCase().includes('error') || 
+                                        line.toLowerCase().includes('warning') ||
+                                        line.toLowerCase().includes('inconsistency');
+                                        
+                                    const isConclusion = 
+                                        line.toLowerCase().includes('conclusion') || 
+                                        line.toLowerCase().includes('summary') ||
+                                        line.toLowerCase().includes('overall');
+                                        
+                                    const isRecommendation =
+                                        line.toLowerCase().includes('recommend') ||
+                                        line.toLowerCase().includes('suggest') ||
+                                        line.toLowerCase().includes('should') ||
+                                        line.toLowerCase().includes('advise');
+                                        
+                                    // Determine paragraph class based on content
+                                    let paragraphClass = 'analysis-paragraph';
+                                    if (isFinding) paragraphClass += ' finding';
+                                    if (isProblem) paragraphClass += ' problem';
+                                    if (isConclusion) paragraphClass += ' conclusion';
+                                    if (isRecommendation) paragraphClass += ' recommendation';
                                     
-                                    html += '<p>' + formattedLine + '</p>';
+                                    // Process inline formatting with enhanced highlighting
+                                    const formattedLine = line
+                                        .replace(/\*\*(.*?)\*\*/g, '<strong class="emphasis-bold">$1</strong>')
+                                        .replace(/\*(.*?)\*/g, '<em class="emphasis-italic">$1</em>')
+                                        .replace(/`(.*?)`/g, '<code class="emphasis-code">$1</code>')
+                                        .replace(highlightPattern, '<span class="highlighted-term">$1</span>');
+                                    
+                                    html += `<p class="${paragraphClass}">${formattedLine}</p>`;
                                 }
                             }
                         }
@@ -566,7 +760,86 @@
                     if (data.ai_analysis && data.ai_analysis.success) {
                         // Get and format the analysis text
                         const analysisText = data.ai_analysis.analysis;
+                        // Add the main analysis content
                         aiAnalysisContent.innerHTML = convertMarkdownToHTML(analysisText);
+                        
+                        // Extract a conclusion to show highlighted at the bottom
+                        let conclusion = '';
+                        
+                        // Extract the full conclusion section from the text
+                        if (analysisText.toLowerCase().includes('conclusion') || 
+                           analysisText.toLowerCase().includes('summary')) {
+                            
+                            // Find conclusion header
+                            const lines = analysisText.split('\n');
+                            let conclusionStartIndex = -1;
+                            let conclusionEndIndex = lines.length;
+                            
+                            // Find the beginning of the conclusion section
+                            for (let i = 0; i < lines.length; i++) {
+                                if (lines[i].toLowerCase().includes('conclusion') || 
+                                    lines[i].toLowerCase().includes('summary')) {
+                                    conclusionStartIndex = i;
+                                    break;
+                                }
+                            }
+                            
+                            // If we found a conclusion header, extract all text until next header or end
+                            if (conclusionStartIndex >= 0) {
+                                // Skip the header line
+                                conclusionStartIndex++;
+                                
+                                // Find where the conclusion ends (at next header or end of text)
+                                for (let i = conclusionStartIndex; i < lines.length; i++) {
+                                    if (i > conclusionStartIndex && 
+                                        (lines[i].startsWith('# ') || 
+                                         lines[i].startsWith('## ') || 
+                                         lines[i].startsWith('### '))) {
+                                        conclusionEndIndex = i;
+                                        break;
+                                    }
+                                }
+                                
+                                // Extract the complete conclusion
+                                const conclusionLines = lines.slice(conclusionStartIndex, conclusionEndIndex);
+                                conclusion = conclusionLines.join(' ').trim();
+                            }
+                        }
+                        
+                        // If no explicit conclusion section, try to find concluding statements
+                        if (!conclusion) {
+                            // Try to find the last paragraph if it seems conclusion-like
+                            const paragraphs = analysisText.split('\n\n');
+                            const lastParagraph = paragraphs[paragraphs.length - 1].trim();
+                            
+                            if (lastParagraph.toLowerCase().includes('overall') || 
+                                lastParagraph.toLowerCase().includes('in summary') ||
+                                lastParagraph.toLowerCase().includes('to summarize') ||
+                                lastParagraph.toLowerCase().includes('in conclusion') ||
+                                lastParagraph.toLowerCase().includes('therefore')) {
+                                conclusion = lastParagraph;
+                            }
+                        }
+                        
+                        // If we found a conclusion, add it to the card
+                        if (conclusion) {
+                            const conclusionElement = document.createElement('div');
+                            conclusionElement.className = 'analysis-final-conclusion';
+                            conclusionElement.innerHTML = `
+                                <div class="conclusion-header">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 16.2L4.8 12L3.4 13.4L9 19L21 7L19.6 5.6L9 16.2Z" fill="#10b981"/>
+                                    </svg>
+                                    <h4>Key Conclusion</h4>
+                                </div>
+                                <p>${conclusion}</p>
+                            `;
+                            
+                            // Append the conclusion after the main content
+                            aiAnalysisContent.appendChild(conclusionElement);
+                        }
+                        
+                        // Display the analysis container
                         aiAnalysisContainer.style.display = 'block';
                     } else if (data.ai_analysis && !data.ai_analysis.success) {
                         aiAnalysisContent.textContent = `Error in AI analysis: ${data.ai_analysis.error}`;
@@ -575,9 +848,36 @@
                         aiAnalysisContainer.style.display = 'none';
                     }
                     
-                    // Full response
-                    resultJsonFull.textContent = JSON.stringify(data, null, 2);
-                    
+                    // Add document type information above analysis if available
+                    if ((data.file1 && data.file1.type) || (data.file2 && data.file2.type)) {
+                        // Create a simple document type info section
+                        const docTypeInfo = document.createElement('div');
+                        docTypeInfo.className = 'document-type-info';
+                        docTypeInfo.style.marginBottom = '20px';
+                        docTypeInfo.style.padding = '10px';
+                        docTypeInfo.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+                        docTypeInfo.style.borderRadius = '8px';
+                        docTypeInfo.style.display = 'flex';
+                        docTypeInfo.style.justifyContent = 'center';
+                        docTypeInfo.style.gap = '20px';
+                        
+                        // Add file information
+                        if (data.file1 && data.file1.type) {
+                            const file1Info = document.createElement('div');
+                            file1Info.innerHTML = `<strong>Document 1:</strong> ${data.file1.filename} <span class="doc-type-badge">${data.file1.type}</span>`;
+                            docTypeInfo.appendChild(file1Info);
+                        }
+                        
+                        if (data.file2 && data.file2.type) {
+                            const file2Info = document.createElement('div');
+                            file2Info.innerHTML = `<strong>Document 2:</strong> ${data.file2.filename} <span class="doc-type-badge">${data.file2.type}</span>`;
+                            docTypeInfo.appendChild(file2Info);
+                        }
+                        
+                        // Insert before AI analysis container
+                        aiAnalysisContainer.parentNode.insertBefore(docTypeInfo, aiAnalysisContainer);
+                    }
+
                     // Show result container
                     resultContainer.style.display = 'block';
                     
