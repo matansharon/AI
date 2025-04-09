@@ -196,7 +196,7 @@ def extract_jabil_data(file_path):
         with open(file_path, "rb") as file_data:
             file = client.files.create(
                 file=file_data,
-                purpose="assistants"  # Using assistants purpose
+                purpose="user_data"  # Use user_data purpose
             )
             file_id = file.id
             
@@ -216,8 +216,10 @@ def extract_jabil_data(file_path):
                             "text": "Extract these fields from the Jabil invoice: Part_Name_Description, Jabil_Part, Jabil_Lot, Press, Mold, Date_of_Manufacture, Ship_Date, Box_Qty, Purchasing_Specification, Purchasing_Specification_Rev, Customer_PO, Qty_Released, Order_Qty_Shipped, Elcam_Drawing, Elcam_Drawing_Rev, Elcam_Part, Abbvie_Part, Expiration_Date, and Tailgate_Qty_Sent. Return data as JSON."
                         },
                         {
-                            "type": "file_path",
-                            "file_path": file_id
+                            "type": "file",
+                            "file": {
+                                "file_id": file_id
+                            }
                         }
                     ]
                 }
@@ -257,7 +259,7 @@ def extract_elcam_data(file_path):
         with open(file_path, "rb") as file_data:
             file = client.files.create(
                 file=file_data,
-                purpose="assistants"  # Using assistants purpose
+                purpose="user_data"  # Use user_data purpose
             )
             file_id = file.id
             
@@ -277,8 +279,10 @@ def extract_elcam_data(file_path):
                             "text": "Extract these fields from the Elcam invoice: Elcam_Part, AbbVie_Part, Specs_Number_Rev, Part_Name, Batch_Number, Manufacture_Date, Expiry_Date, Quantity, PO_Number, and Tailgate_Samples_Quantity. Return data as JSON."
                         },
                         {
-                            "type": "file_path",
-                            "file_path": file_id
+                            "type": "file",
+                            "file": {
+                                "file_id": file_id
+                            }
                         }
                     ]
                 }
@@ -302,7 +306,68 @@ def extract_elcam_data(file_path):
             except Exception as cleanup_error:
                 print(f"Error cleaning up file: {str(cleanup_error)}")
 
-# Comparison Function
+# AI Analysis and Comparison Functions
+def analyze_with_openai(system_prompt, doc1_data, doc2_data):
+    """
+    Send the system prompt and document data to OpenAI for advanced analysis
+    
+    Args:
+        system_prompt (str): The generated system prompt for analysis
+        doc1_data (dict): Data from the first document
+        doc2_data (dict): Data from the second document
+        
+    Returns:
+        dict: OpenAI analysis results
+    """
+    try:
+        # Prepare a concise version of the data
+        doc1_summary = {
+            "type": doc1_data.get('document_type', 'Unknown'),
+            "data": doc1_data.get('detailed_data', {})
+        }
+        
+        doc2_summary = {
+            "type": doc2_data.get('document_type', 'Unknown'),
+            "data": doc2_data.get('detailed_data', {})
+        }
+        
+        # Create the user message with document data
+        user_message = f"Please analyze these two documents based on the instructions:\n\n"
+        user_message += f"Document 1: {json.dumps(doc1_summary, indent=2)}\n\n"
+        user_message += f"Document 2: {json.dumps(doc2_summary, indent=2)}"
+        
+        # Make API call to OpenAI
+        completion = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[
+                {
+                    "role": "system",
+                    "content": system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": user_message
+                }
+            ],
+            temperature=0.7,
+            max_tokens=1500
+        )
+        
+        # Extract and return the response
+        ai_analysis = completion.choices[0].message.content
+        return {
+            "success": True,
+            "analysis": ai_analysis
+        }
+        
+    except Exception as e:
+        print(f"Error in analyze_with_openai: {str(e)}")
+        return {
+            "success": False,
+            "error": str(e)
+        }
+
+# Comparison Functions
 def compare_documents(jabil_data, elcam_data):
     """
     Compare data between Jabil and Elcam documents
@@ -375,3 +440,155 @@ def compare_documents(jabil_data, elcam_data):
     result.overall_match = len(result.mismatched_fields) == 0
     
     return result.model_dump()
+
+def generate_system_prompt(doc1_data, doc2_data):
+    """
+    Generate a system prompt based on the comparison of two document data sets
+    
+    Args:
+        doc1_data (dict): Data from the first document
+        doc2_data (dict): Data from the second document
+        
+    Returns:
+        str: A system prompt for further analysis
+    """
+    # Check if both documents have detailed data
+    if not doc1_data or not doc2_data:
+        return "I don't have enough information from both documents to generate a system prompt."
+    
+    # Get document types
+    doc1_type = doc1_data.get('document_type', 'Unknown').lower()
+    doc2_type = doc2_data.get('document_type', 'Unknown').lower()
+    
+    # Check if we have the detailed data
+    doc1_details = doc1_data.get('detailed_data', {})
+    doc2_details = doc2_data.get('detailed_data', {})
+    
+    if not doc1_details or not doc2_details:
+        return "I need detailed data from both documents to generate a meaningful comparison prompt."
+    
+    # Determine if we have Jabil and Elcam documents
+    has_jabil = 'jabil' in doc1_type or 'jabil' in doc2_type
+    has_elcam = 'elcam' in doc1_type or 'elcam' in doc2_type
+    
+    if has_jabil and has_elcam:
+        # We have both document types
+        jabil_data = doc1_details if 'jabil' in doc1_type else doc2_details
+        elcam_data = doc1_details if 'elcam' in doc1_type else doc2_details
+        
+        # Map fields between document types
+        field_mappings = {
+            "Elcam_Part": "Elcam_Part",  # Jabil field : Elcam field
+            "Abbvie_Part": "AbbVie_Part",
+            "Part_Name_Description": "Part_Name",
+            "Purchasing_Specification": "Specs_Number_Rev",
+            "Jabil_Lot": "Batch_Number",
+            "Date_of_Manufacture": "Manufacture_Date",
+            "Expiration_Date": "Expiry_Date",
+            "Box_Qty": "Quantity",
+            "Customer_PO": "PO_Number",
+            "Tailgate_Qty_Sent": "Tailgate_Samples_Quantity"
+        }
+        
+        # Find any mismatches
+        mismatches = []
+        matching = []
+        
+        for jabil_field, elcam_field in field_mappings.items():
+            jabil_value = jabil_data.get(jabil_field)
+            elcam_value = elcam_data.get(elcam_field)
+            
+            if jabil_value and elcam_value:
+                jabil_str = str(jabil_value).strip().lower()
+                elcam_str = str(elcam_value).strip().lower()
+                
+                if jabil_str != elcam_str:
+                    mismatches.append({
+                        "field": f"{jabil_field} / {elcam_field}",
+                        "jabil_value": jabil_value,
+                        "elcam_value": elcam_value
+                    })
+                else:
+                    matching.append({
+                        "field": f"{jabil_field} / {elcam_field}",
+                        "value": jabil_value
+                    })
+        
+        # Generate the prompt
+        prompt = "You are an expert document analyst specializing in supply chain documentation. "
+        prompt += "I'm comparing a Jabil invoice and an Elcam invoice for consistency. "
+        
+        if mismatches:
+            prompt += "\n\nI've identified the following discrepancies that require further analysis:\n"
+            for mismatch in mismatches:
+                prompt += f"- {mismatch['field']}: Jabil says '{mismatch['jabil_value']}' but Elcam says '{mismatch['elcam_value']}'\n"
+            
+            prompt += "\nPlease analyze these discrepancies and determine if they represent actual inconsistencies that need to be resolved, or if they are acceptable variations in documentation format. "
+            prompt += "For each discrepancy, suggest a recommended course of action. Also indicate which values should be considered authoritative if there's a conflict."
+        else:
+            prompt += "\n\nGood news! All key fields between the Jabil and Elcam documents match. "
+            prompt += "Please confirm that the following information is correct and complete:\n"
+            
+            for match in matching:
+                prompt += f"- {match['field']}: {match['value']}\n"
+        
+        return prompt
+    
+    elif (doc1_type == doc2_type) and (doc1_type in ['jabil', 'elcam']):
+        # We have two documents of the same type
+        prompt = f"You are an expert document analyst specializing in supply chain documentation. "
+        prompt += f"I'm comparing two {doc1_type.capitalize()} invoices for consistency.\n\n"
+        
+        # Compare the two documents of the same type
+        all_fields = set(doc1_details.keys()) | set(doc2_details.keys())
+        mismatches = []
+        matching = []
+        
+        for field in all_fields:
+            val1 = doc1_details.get(field)
+            val2 = doc2_details.get(field)
+            
+            if val1 and val2:
+                if str(val1).strip().lower() != str(val2).strip().lower():
+                    mismatches.append({
+                        "field": field,
+                        "doc1_value": val1,
+                        "doc2_value": val2
+                    })
+                else:
+                    matching.append({
+                        "field": field,
+                        "value": val1
+                    })
+        
+        if mismatches:
+            prompt += "I've identified the following discrepancies between the two documents:\n"
+            for mismatch in mismatches:
+                prompt += f"- {mismatch['field']}: Document 1 says '{mismatch['doc1_value']}' but Document 2 says '{mismatch['doc2_value']}'\n"
+            
+            prompt += "\nPlease analyze these discrepancies and determine if they represent actual inconsistencies that need to be resolved, or if they are acceptable variations. "
+            prompt += "For each discrepancy, suggest a recommended course of action."
+        else:
+            prompt += "Good news! All fields match between the two documents. "
+            prompt += "Please confirm that the following information is correct and complete:\n"
+            
+            for match in matching:
+                prompt += f"- {match['field']}: {match['value']}\n"
+        
+        return prompt
+    
+    else:
+        # We have documents but can't determine their types
+        prompt = "You are an expert document analyst specializing in supply chain documentation. "
+        prompt += "I have two documents but they don't appear to be a Jabil and Elcam pair, "
+        prompt += "or I cannot determine their types with confidence. "
+        prompt += "Please analyze the following document data and provide insights on the key information contained within, "
+        prompt += "highlighting any notable elements that require attention:\n\n"
+        
+        prompt += "Document 1 Type: " + doc1_type + "\n"
+        prompt += "Document 1 Data: " + json.dumps(doc1_details, indent=2) + "\n\n"
+        
+        prompt += "Document 2 Type: " + doc2_type + "\n"
+        prompt += "Document 2 Data: " + json.dumps(doc2_details, indent=2) + "\n"
+        
+        return prompt

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document Type Detector</title>
+    <title>Document Analyzer</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
         #result-container {
@@ -41,6 +41,126 @@
             border-bottom: 1px solid #eee;
             padding-bottom: 5px;
         }
+        .system-prompt-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #2563eb;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+        }
+        .system-prompt-card pre {
+            background: transparent;
+            padding: 0;
+            white-space: pre-wrap;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+        }
+        .ai-analysis-card {
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95));
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid #10b981;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .ai-analysis-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        }
+        .ai-analysis-card div {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            line-height: 1.7;
+            color: #1e293b;
+        }
+        .ai-analysis-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-top: 0;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(203, 213, 225, 0.5);
+        }
+        .ai-analysis-card h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #334155;
+            margin-top: 20px;
+            margin-bottom: 12px;
+        }
+        .ai-analysis-card h5 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #475569;
+            margin-top: 16px;
+            margin-bottom: 10px;
+        }
+        .ai-analysis-card ul {
+            padding-left: 18px;
+            margin: 12px 0;
+        }
+        .ai-analysis-card li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+        .ai-analysis-card strong {
+            color: #0f172a;
+            font-weight: 600;
+        }
+        .ai-analysis-card em {
+            font-style: italic;
+            color: #475569;
+        }
+        .ai-analysis-card br {
+            content: "";
+            display: block;
+            margin: 4px 0;
+        }
+        .ai-analysis-card p {
+            margin-bottom: 12px;
+        }
+        .ai-analysis-card code {
+            font-family: 'SF Mono', 'Courier New', Courier, monospace;
+            background-color: rgba(0, 0, 0, 0.04);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: 0.9em;
+            color: #1e293b;
+        }
+        .ai-analysis-card .code-block {
+            background-color: rgba(0, 0, 0, 0.04);
+            border-radius: 5px;
+            padding: 12px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        .ai-analysis-card .code-block code {
+            background-color: transparent;
+            padding: 0;
+            font-size: 0.9em;
+            color: #334155;
+        }
+        .analysis-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+            padding-top: 10px;
+        }
+        .powered-by {
+            font-size: 12px;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+        }
+        .copy-button-container {
+            display: flex;
+            justify-content: flex-end;
+        }
         @media (max-width: 768px) {
             .results-grid {
                 grid-template-columns: 1fr;
@@ -54,8 +174,8 @@
     
     <div class="container">
         <header class="app-header">
-            <h1 class="app-title">Document Type Detector</h1>
-            <p class="app-subtitle">Upload PDF documents to detect if they're from Jabil or Elcam</p>
+            <h1 class="app-title">Document Analyzer</h1>
+            <p class="app-subtitle">Upload PDF documents to detect type and extract data (detailed data for Jabil)</p>
         </header>
         
         {% with messages = get_flashed_messages() %}
@@ -106,7 +226,7 @@
                     
                     <div class="process-btn-container">
                         <button type="submit" class="btn btn-primary btn-lg btn-block process-btn" id="processBtn">
-                            Detect Document Types
+                            Analyze Documents
                         </button>
                         
                         <div class="progress-container" id="progressContainer" style="display: none;">
@@ -129,18 +249,48 @@
                     <pre id="result-json-2"></pre>
                 </div>
             </div>
+            
+            <div id="system-prompt-container" style="margin-top: 30px; display: none;">
+                <h3>System Prompt</h3>
+                <div class="system-prompt-card">
+                    <pre id="system-prompt-text"></pre>
+                </div>
+                <div class="copy-button-container">
+                    <button id="copy-prompt-btn" class="btn btn-primary">Copy Prompt</button>
+                </div>
+            </div>
+            
             <div style="margin-top: 20px;">
                 <h3>Complete Response</h3>
                 <pre id="result-json-full"></pre>
             </div>
+            
+            <div id="ai-analysis-container" style="margin-top: 30px; display: none;">
+                <h3>Document Analysis Results</h3>
+                <div class="ai-analysis-card">
+                    <div id="ai-analysis-content"></div>
+                </div>
+                <div class="analysis-footer">
+                    <div class="powered-by">
+                        <span>Powered by</span>
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE1Ljk5NTYgMi4xMzMyM0MyNC4wOTM4IDIuMTMzMjMgMzAuNjY2NiA4LjcwNiAzMC42NjY2IDE2LjgwNDJDMzAuNjY2NiAyNC45MDI0IDI0LjA5MzggMzEuNDc1MiAxNS45OTU2IDMxLjQ3NTJDNy44OTc0OSAzMS40NzUyIDEuMzI0NzEgMjQuOTAyNCAxLjMyNDcxIDE2LjgwNDJDMS4zMjQ3MSA4LjcwNiA3Ljg5NzQ5IDIuMTMzMjMgMTUuOTk1NiAyLjEzMzIzWk0xNS45OTU2IDUuNzA0ODlDOS44Njg3NSA1LjcwNDg5IDQuODk2MzggMTAuNjc3MyA0Ljg5NjM4IDE2LjgwNDJDNC44OTYzOCAyMi45MzEgOS44Njg3NSAyNy45MDM0IDE1Ljk5NTYgMjcuOTAzNEMyMi4xMjI1IDI3LjkwMzQgMjcuMDk0OCAyMi45MzEgMjcuMDk0OCAxNi44MDQyQzI3LjA5NDggMTAuNjc3MyAyMi4xMjI1IDUuNzA0ODkgMTUuOTk1NiA1LjcwNDg5Wk05LjQwMzc2IDE0LjY5NzZDOS40MDM3NiAxMy40MzU3IDEwLjQyODIgMTIuNDExMyAxMS42OTAyIDEyLjQxMTNDMTIuOTUyMSAxMi40MTEzIDEzLjk3NjUgMTMuNDM1NyAxMy45NzY1IDE0LjY5NzZDMTMuOTc2NSAxNS45NTk2IDEyLjk1MjEgMTYuOTg0IDE2LjEzNDYgMTYuOTg0QzE3LjI1NzkgMTYuOTg0IDE4LjE2NzYgMTYuMDY5NyAxOC4xNjc2IDE0Ljk5NjhDMTguMTY1OCAxNC41MjQ1IDE3Ljk3OCAxMi42NTUzIDE1Ljk5NTggMTIuNjU1M0MxMS42MzkxIDEyLjY1NTMgOS40MDM4IDE1LjYxNjMgOS40MDM4IDE5LjA0NjRWMTkuMzkxNEM5LjQwMzggMjAuNDU0NiA5Ljg5MTM2IDIxLjE0MTMgMTAuNzIzNSAyMS4xNDEzQzExLjMwOTQgMjEuMTQxMyAxMS43NDA5IDIwLjc5NCAxMS45ODA4IDIwLjEzNzFDMTIuMzQ2NCAyMS4wNDc5IDEzLjIwMjcgMjEuNjU0NSAxNC4zNTQyIDIxLjY1NDVDMTYuMTU0NSAyMS42NTQ1IDE3LjY5MzYgMjAuMjU3OCAxNy44MTE2IDE4LjUyOTdIMTQuNDU0QzE0LjQ1NCAxOS4wMzM1IDE0LjA2NjYgMTkuNDIwMSAxMy41NzIxIDE5LjQyMDFDMTMuMDY5MSAxOS40MjAxIDEyLjY3NzUgMTkuMDI3MSAxMi42Nzc1IDE4LjUyNDFDMTIuNjc3NSAxNy4zNzgxIDE0LjExMTkgMTYuOTA0NiAxNS45OTc2IDE2LjkwNDZDMTkuNDM3OCAxNi45MDQ2IDIyLjU4NzUgMTguNDgxNSAyMi41ODc1IDIyLjQxQzIyLjU4NzUgMjIuNDEgMjIuNjQwOSAyMi41ODU3IDIyLjU4NzUgMjEuMTQxM0MyMi41ODc1IDE4LjU5NTQgMjAuNzQyNiAxOC41OTU0IDIwLjI3OTEgMTguNTk1NEMyMC4wODgzIDE4LjU5NTQgMTkuOTQwOCAxOC42MjU1IDE5LjgwNzMgMTguNjc5MkMxOS40MjU0IDE4LjgxMTggMTkuMDc1NiAxOS4wOTIyIDE5LjA3MTUgMTkuNTY2OEMxOS4wNjY0IDIwLjEzNTcgMTkuNTI1NCAyMC41Njc0IDIwLjE0NSAyMC41Njc0QzIxLjM5NzMgMjAuNTY3NCAyMi4wMDM5IDE5LjM2ODYgMjIuMDAzOSAxNy41ODM0VjE3LjU1NzVMMjIuMDA1MiAxNy41NDY1VjE2LjgwNDJDMjIuMDA1MiAxNC44MDc1IDE3LjUzNDQgMTQuODIwNyAxNy41MzQ0IDEyLjg3ODNDMTcuNTM0NCAxMi4yMTE1IDE4LjA3NCAxMS42NzE1IDE4Ljc0MDYgMTEuNjcxNUMxOS40NDc2IDExLjY3MTUgMjAuMTY0NCAxMi4xMTc3IDIwLjE2NDQgMTIuOTA0QzIwLjE2NDQgMTMuNDUzNCAyMC4wMTY3IDEzLjY3NSAxOS44MyAxMy45NTY5QzE5LjcxODcgMTQuMTMyNSAxOS41OSAxNC4zMzQzIDE5LjU5IDE0LjY0MThDMTkuNTkgMTUuMzk0NiAyMC4yMzIgMTUuNzQ1MiAyMS4xMjkxIDE1Ljc0NTJDMjIuMTAyMSAxNS43NDUyIDIyLjU4NzUgMTUuMDc5NSAyMi41ODc1IDE0LjUwMDVDMjIuNTg3NSAxMi40NTM3IDIwLjkwOTQgMTEuMTMwMyAxOC43NDA3IDExLjEzMDNDMTYuNTcyMSAxMS4xMzAzIDE0Ljg5MzkgMTIuNDUzNyAxNC44OTM5IDE0LjU4NzlDMTQuODkzOSAxNi40MjU3IDE2LjQwNDMgMTcuNDY2MSAxOC4xMTIgMTcuOTMxMkMxNy43MTY0IDE4LjA3MDQgMTcuMzAyIDE4LjE0MzYgMTYuODc5IDE4LjE0MzZDMTUuMTg5OSAxOC4xNDM2IDEzLjczNTEgMTcuNDA0MSAxMi44MTk1IDE2LjI4MTdDMTIuNDI2NSAxNS44MjUgMTIuMTIzMSAxNS4yOTQzIDExLjk0MSAxNC43MDIzSDExLjkzNTJDMTEuOTM1MiAxNC43MDA1IDExLjkzMzIgMTQuNjk5NCAxMS45MzMyIDE0LjY5NzZIMTEuOTM1MkgxMS45MzkzQzExLjkzOTMgMTQuMDcxOCAxMS40MzU3IDEzLjU2IDE4LjgwOTQgMTMuNTZDMTkuNDM1MiAxMy41NiAxOS45NDY4IDE0LjA3MTcgMTkuOTQ2OCAxNC42OTc2QzE5Ljk0NjggMTUuMzIzNCAxOS40MzUyIDE1LjgzNTEgMTguODA5NCAxNS44MzUxQzE4LjE4MzUgMTUuODM1MSAxNy42NzE4IDE1LjMyMzQgMTcuNjcxOCAxNC42OTc2SDE3LjY3TDkuNDAzNzYgMTQuNjk3NloiIGZpbGw9IiMxMGI5ODEiPjwvcGF0aD48L3N2Zz4=" alt="OpenAI Logo" style="height: 24px; margin-left: 8px; vertical-align: middle;">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
-    <!-- Toast notification -->
-    <div class="toast toast-error hidden" id="errorToast">
+    <!-- Toast notifications -->
+    <div class="toast toast-error hidden" id="errorToast" style="border-left: 4px solid #ef4444;">
         <div class="toast-icon icon-pdf"></div>
         <div class="toast-message" id="toastMessage">Please upload at least one PDF file to continue</div>
         <div class="toast-close" id="toastClose">×</div>
+    </div>
+    
+    <div class="toast toast-success hidden" id="successToast" style="border-left: 4px solid #10b981;">
+        <div class="toast-icon icon-check"></div>
+        <div class="toast-message" id="successToastMessage"></div>
+        <div class="toast-close" id="successToastClose">×</div>
     </div>
     
     <script>
@@ -246,15 +396,183 @@
                     
                     // Display results
                     if (data.file1) {
-                        resultJson1.textContent = JSON.stringify(data.file1.result || data.file1.error, null, 2);
+                        // Format result to include detailed_data when available
+                        let displayData1 = data.file1.error ? 
+                            { error: data.file1.error } : 
+                            data.file1.result;
+                        
+                        // If there's detailed data, include it in the display
+                        if (data.file1.detailed_data) {
+                            const documentType = typeof data.file1.result === 'string' ? 
+                                data.file1.result : 
+                                (data.file1.result.invoice_type || "Unknown");
+                                
+                            const displayObject = {
+                                document_type: documentType,
+                                detailed_data: data.file1.detailed_data
+                            };
+                            
+                            resultJson1.textContent = JSON.stringify(displayObject, null, 2);
+                        } else {
+                            resultJson1.textContent = JSON.stringify(displayData1, null, 2);
+                        }
                     } else {
                         resultJson1.textContent = "No file uploaded";
                     }
                     
                     if (data.file2) {
-                        resultJson2.textContent = JSON.stringify(data.file2.result || data.file2.error, null, 2);
+                        // Format result to include detailed_data when available
+                        let displayData2 = data.file2.error ? 
+                            { error: data.file2.error } : 
+                            data.file2.result;
+                        
+                        // If there's detailed data, include it in the display
+                        if (data.file2.detailed_data) {
+                            const documentType = typeof data.file2.result === 'string' ? 
+                                data.file2.result : 
+                                (data.file2.result.invoice_type || "Unknown");
+                                
+                            const displayObject = {
+                                document_type: documentType,
+                                detailed_data: data.file2.detailed_data
+                            };
+                            
+                            resultJson2.textContent = JSON.stringify(displayObject, null, 2);
+                        } else {
+                            resultJson2.textContent = JSON.stringify(displayData2, null, 2);
+                        }
                     } else {
                         resultJson2.textContent = "No file uploaded";
+                    }
+                    
+                    // Check if we have a system prompt and display it
+                    const systemPromptContainer = document.getElementById('system-prompt-container');
+                    const systemPromptText = document.getElementById('system-prompt-text');
+                    const copyPromptBtn = document.getElementById('copy-prompt-btn');
+                    
+                    if (data.system_prompt) {
+                        systemPromptText.textContent = data.system_prompt;
+                        systemPromptContainer.style.display = 'block';
+                        
+                        // Set up copy button
+                        copyPromptBtn.addEventListener('click', function() {
+                            navigator.clipboard.writeText(data.system_prompt)
+                                .then(() => {
+                                    // Show success message
+                                    showToast('System prompt copied to clipboard!', 'success');
+                                    
+                                    // Change button text temporarily
+                                    const originalText = copyPromptBtn.textContent;
+                                    copyPromptBtn.textContent = 'Copied!';
+                                    
+                                    setTimeout(() => {
+                                        copyPromptBtn.textContent = originalText;
+                                    }, 2000);
+                                })
+                                .catch(err => {
+                                    showToast('Failed to copy text: ' + err);
+                                });
+                        });
+                    } else {
+                        systemPromptContainer.style.display = 'none';
+                    }
+                    
+                    // Format as HTML with enhanced markdown conversion
+                    function convertMarkdownToHTML(text) {
+                        // Split text into sections for better processing
+                        const lines = text.split('\n');
+                        let html = '';
+                        let inList = false;
+                        let inCodeBlock = false;
+                        
+                        for (let i = 0; i < lines.length; i++) {
+                            let line = lines[i];
+                            
+                            // Code blocks
+                            if (line.trim().startsWith('```')) {
+                                if (!inCodeBlock) {
+                                    html += '<pre class="code-block"><code>';
+                                    inCodeBlock = true;
+                                } else {
+                                    html += '</code></pre>';
+                                    inCodeBlock = false;
+                                }
+                                continue;
+                            }
+                            
+                            if (inCodeBlock) {
+                                // Just add code lines as is
+                                html += line.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '\n';
+                                continue;
+                            }
+                            
+                            // Handle headers
+                            if (line.startsWith('# ')) {
+                                html += '<h3>' + line.substring(2) + '</h3>';
+                            } else if (line.startsWith('## ')) {
+                                html += '<h4>' + line.substring(3) + '</h4>';
+                            } else if (line.startsWith('### ')) {
+                                html += '<h5>' + line.substring(4) + '</h5>';
+                            }
+                            // Handle list items
+                            else if (line.trim().startsWith('- ') || line.trim().startsWith('* ')) {
+                                if (!inList) {
+                                    html += '<ul>';
+                                    inList = true;
+                                }
+                                
+                                const listItem = line.trim().substring(2);
+                                // Process inline formatting within list items
+                                const formattedItem = listItem
+                                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                                    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                                    .replace(/`(.*?)`/g, '<code>$1</code>');
+                                    
+                                html += '<li>' + formattedItem + '</li>';
+                            }
+                            // Handle paragraphs and other elements
+                            else {
+                                if (inList) {
+                                    html += '</ul>';
+                                    inList = false;
+                                }
+                                
+                                if (line.trim() === '') {
+                                    html += '<br>';
+                                } else {
+                                    // Process inline formatting
+                                    const formattedLine = line
+                                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                                        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                                        .replace(/`(.*?)`/g, '<code>$1</code>');
+                                    
+                                    html += '<p>' + formattedLine + '</p>';
+                                }
+                            }
+                        }
+                        
+                        // Close any open lists
+                        if (inList) {
+                            html += '</ul>';
+                        }
+                        
+                        return html;
+                    }
+                    
+                    // Check if we have AI analysis and display it
+                    const aiAnalysisContainer = document.getElementById('ai-analysis-container');
+                    const aiAnalysisContent = document.getElementById('ai-analysis-content');
+                    
+                    if (data.ai_analysis && data.ai_analysis.success) {
+                        // Get and format the analysis text
+                        const analysisText = data.ai_analysis.analysis;
+                        aiAnalysisContent.innerHTML = convertMarkdownToHTML(analysisText);
+                        aiAnalysisContainer.style.display = 'block';
+                    } else if (data.ai_analysis && !data.ai_analysis.success) {
+                        aiAnalysisContent.textContent = `Error in AI analysis: ${data.ai_analysis.error}`;
+                        aiAnalysisContainer.style.display = 'block';
+                    } else {
+                        aiAnalysisContainer.style.display = 'none';
                     }
                     
                     // Full response
@@ -322,13 +640,30 @@
             setupDropArea(dropArea2, file2Input);
             
             // Toast notification function
-            function showToast(message) {
-                toastMessage.textContent = message;
-                errorToast.classList.remove('hidden');
-                
-                setTimeout(() => {
-                    errorToast.classList.add('hidden');
-                }, 5000);
+            function showToast(message, type = 'error') {
+                if (type === 'error') {
+                    toastMessage.textContent = message;
+                    errorToast.classList.remove('hidden');
+                    
+                    setTimeout(() => {
+                        errorToast.classList.add('hidden');
+                    }, 5000);
+                } else if (type === 'success') {
+                    const successToast = document.getElementById('successToast');
+                    const successToastMessage = document.getElementById('successToastMessage');
+                    const successToastClose = document.getElementById('successToastClose');
+                    
+                    successToastMessage.textContent = message;
+                    successToast.classList.remove('hidden');
+                    
+                    successToastClose.addEventListener('click', function() {
+                        successToast.classList.add('hidden');
+                    });
+                    
+                    setTimeout(() => {
+                        successToast.classList.add('hidden');
+                    }, 5000);
+                }
             }
         });
     </script>

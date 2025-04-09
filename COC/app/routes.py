@@ -3,7 +3,11 @@ from werkzeug.utils import secure_filename
 from app import app
 from app.processor import (
     validate_pdf,
-    jabil_or_elcam_invoice
+    jabil_or_elcam_invoice,
+    extract_jabil_data,
+    extract_elcam_data,
+    generate_system_prompt,
+    analyze_with_openai
 )
 import os
 import json
@@ -33,11 +37,31 @@ def index():
                 file1.save(file1_path)
                 
                 try:
-                    # Process file 1
+                    # Process file 1 - first determine type
+                    doc_type_result = jabil_or_elcam_invoice(file1_path)
+                    
                     results['file1'] = {
                         'filename': filename1,
-                        'result': jabil_or_elcam_invoice(file1_path)
+                        'result': doc_type_result
                     }
+                    
+                    # Handle both string and dictionary results
+                    invoice_type = ''
+                    if isinstance(doc_type_result, dict):
+                        invoice_type = doc_type_result.get('invoice_type', '').lower()
+                    elif isinstance(doc_type_result, str):
+                        if 'jabil' in doc_type_result.lower():
+                            invoice_type = 'jabil'
+                        elif 'elcam' in doc_type_result.lower():
+                            invoice_type = 'elcam'
+                        
+                    # Extract detailed data based on invoice type
+                    if invoice_type == 'jabil':
+                        jabil_data = extract_jabil_data(file1_path)
+                        results['file1']['detailed_data'] = jabil_data
+                    elif invoice_type == 'elcam':
+                        elcam_data = extract_elcam_data(file1_path)
+                        results['file1']['detailed_data'] = elcam_data
                 except Exception as e:
                     results['file1'] = {
                         'filename': filename1,
@@ -58,11 +82,31 @@ def index():
                 file2.save(file2_path)
                 
                 try:
-                    # Process file 2
+                    # Process file 2 - first determine type
+                    doc_type_result = jabil_or_elcam_invoice(file2_path)
+                    
                     results['file2'] = {
                         'filename': filename2,
-                        'result': jabil_or_elcam_invoice(file2_path)
+                        'result': doc_type_result
                     }
+                    
+                    # Handle both string and dictionary results
+                    invoice_type = ''
+                    if isinstance(doc_type_result, dict):
+                        invoice_type = doc_type_result.get('invoice_type', '').lower()
+                    elif isinstance(doc_type_result, str):
+                        if 'jabil' in doc_type_result.lower():
+                            invoice_type = 'jabil'
+                        elif 'elcam' in doc_type_result.lower():
+                            invoice_type = 'elcam'
+                        
+                    # Extract detailed data based on invoice type
+                    if invoice_type == 'jabil':
+                        jabil_data = extract_jabil_data(file2_path)
+                        results['file2']['detailed_data'] = jabil_data
+                    elif invoice_type == 'elcam':
+                        elcam_data = extract_elcam_data(file2_path)
+                        results['file2']['detailed_data'] = elcam_data
                 except Exception as e:
                     results['file2'] = {
                         'filename': filename2,
@@ -74,6 +118,33 @@ def index():
                     'error': 'Not a valid PDF file'
                 }
         
+        # Generate system prompt if both files have data
+        if ('file1' in results and 'detailed_data' in results.get('file1', {}) and
+            'file2' in results and 'detailed_data' in results.get('file2', {})):
+            
+            # Format document data for comparison
+            doc1_data = {
+                'document_type': (results['file1'].get('result', {}).get('invoice_type') 
+                                  if isinstance(results['file1'].get('result'), dict) 
+                                  else results['file1'].get('result')),
+                'detailed_data': results['file1'].get('detailed_data')
+            }
+            
+            doc2_data = {
+                'document_type': (results['file2'].get('result', {}).get('invoice_type') 
+                                  if isinstance(results['file2'].get('result'), dict) 
+                                  else results['file2'].get('result')),
+                'detailed_data': results['file2'].get('detailed_data')
+            }
+            
+            # Generate the system prompt
+            system_prompt = generate_system_prompt(doc1_data, doc2_data)
+            results['system_prompt'] = system_prompt
+            
+            # Use OpenAI to analyze the documents with the system prompt
+            ai_analysis = analyze_with_openai(system_prompt, doc1_data, doc2_data)
+            results['ai_analysis'] = ai_analysis
+            
         # Return the results
         if results:
             return jsonify(results)
