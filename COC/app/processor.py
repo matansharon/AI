@@ -50,6 +50,9 @@ class ElcamInvoice(BaseModel):
     PO_Number: Optional[str] = Field(None, description="PO #")
     Tailgate_Samples_Quantity: Optional[int] = Field(None, description="Tailgate samples Quantity")
 
+class TypeInvoice(BaseModel):
+    invoice_type: str = Field(..., description="Type of the invoice (Jabil or Elcam)")
+    
 class ComparisonResult(BaseModel):
     """Model for storing comparison results between documents"""
     matching_fields: List[Dict[str, Any]] = Field(default_factory=list, description="Fields that match between documents")
@@ -96,46 +99,85 @@ def extract_text_from_pdf(file_path):
         return ""
 
 # Document Type Detection
-def detect_document_type(file_path):
+def jabil_or_elcam_invoice(file_path: str):
     """
-    Detect if a document is Jabil or Elcam based on filename or content
-    
+    Determines if the invoice is from Jabil or Elcam based on the file content.
+
     Args:
-        file_path (str): Path to the document file
-        
+        file_path (str): Path to the invoice file.
+
     Returns:
-        str: "Jabil", "Elcam", or "Unknown"
+        dict: JSON result with invoice_type field
     """
-    filename = os.path.basename(file_path).lower()
-    
-    # First try to detect from filename
-    if 'jabil' in filename:
-        return "Jabil"
-    elif 'elcam' in filename:
-        return "Elcam"
-    
-    # If filename doesn't provide a clear indicator, try to analyze content
     try:
-        # Extract text from PDF
-        text = extract_text_from_pdf(file_path)
-        text_lower = text.lower()
+        print(f"Processing file: {file_path}")
         
-        # Look for keywords that indicate document type
-        jabil_keywords = ['jabil', 'certificate of conformance', 'certificate of compliance']
-        elcam_keywords = ['elcam', 'elcam medical', 'certificate of analysis']
+        # Upload file to OpenAI
+        with open(file_path, "rb") as file_data:
+            file = client.files.create(
+                file=file_data,
+                purpose="user_data"
+            )
+        print(f"File uploaded with ID: {file.id}")
+
+        # Make the API call
+        completion = client.beta.chat.completions.parse(
+            model="gpt-4o",
+            messages=[
+                {
+                    "role": "system",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": "You are a helpful assistant. your job is to determine if the invoice is from Jabil or Elcam based on the file content."
+                        }
+                    ]
+                },
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "file",
+                            "file": {
+                                "file_id": file.id,
+                            }
+                        }
+                    ]
+                }
+            ],
+            response_format=TypeInvoice,
+        )
         
-        jabil_score = sum(1 for keyword in jabil_keywords if keyword in text_lower)
-        elcam_score = sum(1 for keyword in elcam_keywords if keyword in text_lower)
+        # Clean up the file
+        try:
+            client.files.delete(file.id)
+            print(f"File {file.id} deleted.")
+        except Exception as delete_error:
+            print(f"Error deleting file: {str(delete_error)}")
         
-        if jabil_score > elcam_score:
-            return "Jabil"
-        elif elcam_score > jabil_score:
-            return "Elcam"
-    except Exception as e:
-        print(f"Error detecting document type: {str(e)}")
+        # Get and return the result
+        result = completion.choices[0].message.content
+        print(f"Result: {result}")
+        
+        if hasattr(result, 'model_dump'):
+            # Convert pydantic model to dict if needed
+            return result.model_dump()
+        return result
     
-    # Default to Unknown if we can't determine the type
-    return "Unknown"
+    except Exception as e:
+        print(f"Error in jabil_or_elcam_invoice: {str(e)}")
+        return {"error": str(e)}
+
+# Legacy function for backward compatibility
+def detect_document_type(file_path):
+    """Legacy function that calls jabil_or_elcam_invoice"""
+    try:
+        result = jabil_or_elcam_invoice(file_path)
+        if isinstance(result, dict) and 'invoice_type' in result:
+            return result['invoice_type']
+        return "Unknown"
+    except Exception:
+        return "Unknown"
 
 # Data Extraction Functions
 def extract_jabil_data(file_path):

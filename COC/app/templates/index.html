@@ -3,8 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Data Extractor</title>
+    <title>Document Type Detector</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        #result-container {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .result-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .result-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        @media (max-width: 768px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Animated background shape -->
@@ -12,8 +54,8 @@
     
     <div class="container">
         <header class="app-header">
-            <h1 class="app-title">PDF Data Extractor</h1>
-            <p class="app-subtitle">Upload two PDF documents for instant data extraction</p>
+            <h1 class="app-title">Document Type Detector</h1>
+            <p class="app-subtitle">Upload PDF documents to detect if they're from Jabil or Elcam</p>
         </header>
         
         {% with messages = get_flashed_messages() %}
@@ -31,7 +73,7 @@
                 <h2>Upload Documents</h2>
             </div>
             <div class="card-body">
-                <form method="POST" enctype="multipart/form-data" class="upload-form">
+                <form id="upload-form" method="POST" enctype="multipart/form-data" class="upload-form">
                     <div class="file-upload-section">
                         <div class="file-input">
                             <label for="file1">PDF Document 1</label>
@@ -63,8 +105,8 @@
                     </div>
                     
                     <div class="process-btn-container">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block process-btn" id="processBtn" disabled>
-                            Extract Data
+                        <button type="submit" class="btn btn-primary btn-lg btn-block process-btn" id="processBtn">
+                            Detect Document Types
                         </button>
                         
                         <div class="progress-container" id="progressContainer" style="display: none;">
@@ -74,12 +116,30 @@
                 </form>
             </div>
         </div>
+        
+        <div id="result-container">
+            <h2>Document Analysis Results</h2>
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-title">Document 1</div>
+                    <pre id="result-json-1"></pre>
+                </div>
+                <div class="result-card">
+                    <div class="result-title">Document 2</div>
+                    <pre id="result-json-2"></pre>
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <h3>Complete Response</h3>
+                <pre id="result-json-full"></pre>
+            </div>
+        </div>
     </div>
     
     <!-- Toast notification -->
     <div class="toast toast-error hidden" id="errorToast">
         <div class="toast-icon icon-pdf"></div>
-        <div class="toast-message" id="toastMessage">Please upload both PDF files to continue</div>
+        <div class="toast-message" id="toastMessage">Please upload at least one PDF file to continue</div>
         <div class="toast-close" id="toastClose">×</div>
     </div>
     
@@ -93,24 +153,19 @@
             const selectedFile2 = document.getElementById('selectedFile2');
             const processBtn = document.getElementById('processBtn');
             const progressContainer = document.getElementById('progressContainer');
-            const progressBar = document.getElementById('progressBar');
             const errorToast = document.getElementById('errorToast');
             const toastMessage = document.getElementById('toastMessage');
             const toastClose = document.getElementById('toastClose');
+            const resultContainer = document.getElementById('result-container');
+            const resultJson1 = document.getElementById('result-json-1');
+            const resultJson2 = document.getElementById('result-json-2');
+            const resultJsonFull = document.getElementById('result-json-full');
+            const uploadForm = document.getElementById('upload-form');
             
             // Close toast notification
             toastClose.addEventListener('click', function() {
                 errorToast.classList.add('hidden');
             });
-            
-            // Check if both files are selected to enable the button
-            function checkFiles() {
-                if (file1Input.files.length > 0 && file2Input.files.length > 0) {
-                    processBtn.disabled = false;
-                } else {
-                    processBtn.disabled = true;
-                }
-            }
             
             // Handle file selection for file 1
             file1Input.addEventListener('change', function() {
@@ -132,7 +187,6 @@
                     selectedFile1.style.display = 'none';
                     dropArea1.classList.remove('has-file');
                 }
-                checkFiles();
             });
             
             // Handle file selection for file 2
@@ -155,21 +209,71 @@
                     selectedFile2.style.display = 'none';
                     dropArea2.classList.remove('has-file');
                 }
-                checkFiles();
             });
             
-            // Handle form submission
-            document.querySelector('form').addEventListener('submit', function(e) {
-                if (file1Input.files.length === 0 || file2Input.files.length === 0) {
-                    e.preventDefault();
-                    showToast('Please upload both PDF files to continue');
+            // Handle form submission with AJAX
+            uploadForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (file1Input.files.length === 0 && file2Input.files.length === 0) {
+                    showToast('Please upload at least one PDF file to continue');
                     return false;
                 }
                 
                 // Show progress
                 processBtn.disabled = true;
                 progressContainer.style.display = 'block';
-                return true;
+                
+                // Create FormData
+                const formData = new FormData();
+                if (file1Input.files.length > 0) {
+                    formData.append('file1', file1Input.files[0]);
+                }
+                if (file2Input.files.length > 0) {
+                    formData.append('file2', file2Input.files[0]);
+                }
+                
+                // Send AJAX request
+                fetch('/', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Hide progress
+                    progressContainer.style.display = 'none';
+                    processBtn.disabled = false;
+                    
+                    // Display results
+                    if (data.file1) {
+                        resultJson1.textContent = JSON.stringify(data.file1.result || data.file1.error, null, 2);
+                    } else {
+                        resultJson1.textContent = "No file uploaded";
+                    }
+                    
+                    if (data.file2) {
+                        resultJson2.textContent = JSON.stringify(data.file2.result || data.file2.error, null, 2);
+                    } else {
+                        resultJson2.textContent = "No file uploaded";
+                    }
+                    
+                    // Full response
+                    resultJsonFull.textContent = JSON.stringify(data, null, 2);
+                    
+                    // Show result container
+                    resultContainer.style.display = 'block';
+                    
+                    // Scroll to result
+                    resultContainer.scrollIntoView({ behavior: 'smooth' });
+                })
+                .catch(error => {
+                    // Hide progress
+                    progressContainer.style.display = 'none';
+                    processBtn.disabled = false;
+                    
+                    // Show error
+                    showToast('Error processing documents: ' + error.message);
+                });
             });
             
             // Drag and drop functionality
