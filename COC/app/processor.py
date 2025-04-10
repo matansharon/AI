@@ -331,6 +331,16 @@ def analyze_with_openai(system_prompt, doc1_data, doc2_data):
             "data": doc2_data.get('detailed_data', {})
         }
         
+        # Enhance the system prompt to provide a better structure
+        enhanced_prompt = system_prompt + "\n\n"
+        enhanced_prompt += "Please format your analysis in a clear, structured way with these sections:\n"
+        enhanced_prompt += "1. SUMMARY: A brief overview of your analysis and key findings\n"
+        enhanced_prompt += "2. MATCHING FIELDS: List fields that match correctly between documents\n"
+        enhanced_prompt += "3. DISCREPANCIES: For each discrepancy, explain the nature of the issue and its potential impact\n"
+        enhanced_prompt += "4. RECOMMENDATIONS: Provide clear, actionable steps to resolve any issues\n"
+        enhanced_prompt += "5. CONCLUSION: Your final assessment of the documents' consistency\n\n"
+        enhanced_prompt += "Use clear section headers (like '## SUMMARY') to organize your response."
+        
         # Create the user message with document data
         user_message = f"Please analyze these two documents based on the instructions:\n\n"
         user_message += f"Document 1: {json.dumps(doc1_summary, indent=2)}\n\n"
@@ -342,15 +352,15 @@ def analyze_with_openai(system_prompt, doc1_data, doc2_data):
             messages=[
                 {
                     "role": "system",
-                    "content": system_prompt
+                    "content": enhanced_prompt
                 },
                 {
                     "role": "user",
                     "content": user_message
                 }
             ],
-            temperature=0.7,
-            max_tokens=1500
+            temperature=0.5,  # Lower temperature for more consistent results
+            max_tokens=2000   # More tokens for detailed analysis
         )
         
         # Extract and return the response

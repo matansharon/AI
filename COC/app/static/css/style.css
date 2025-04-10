@@ -921,3 +921,40 @@ body::after {
   color: var(--error);
   font-weight: 500;
 }
+
+/* AI Analysis styling */
+.ai-analysis-content {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  padding: var(--space-md);
+}
+
+.ai-analysis-content h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin: 1.5rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(203, 213, 225, 0.5);
+}
+
+.ai-analysis-content h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--secondary);
+  margin: 1.2rem 0 0.8rem;
+}
+
+.ai-analysis-content p {
+  margin-bottom: 1rem;
+}
+
+.ai-analysis-content ul, 
+.ai-analysis-content ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.ai-analysis-content li {
+  margin-bottom: 0.5rem;
+}

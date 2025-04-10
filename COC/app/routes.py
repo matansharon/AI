@@ -141,9 +141,29 @@ def index():
             system_prompt = generate_system_prompt(doc1_data, doc2_data)
             
             # Use OpenAI to analyze the documents with the system prompt
-            # Only keep the AI analysis result, not the system prompt
             ai_analysis = analyze_with_openai(system_prompt, doc1_data, doc2_data)
             results['ai_analysis'] = ai_analysis
+            
+            # Add document comparison results if available
+            from app.processor import compare_documents
+            jabil_data = None
+            elcam_data = None
+            
+            # Determine which document is which type
+            if doc1_data['document_type'].lower() == 'jabil':
+                jabil_data = doc1_data['detailed_data']
+            elif doc1_data['document_type'].lower() == 'elcam':
+                elcam_data = doc1_data['detailed_data']
+                
+            if doc2_data['document_type'].lower() == 'jabil':
+                jabil_data = doc2_data['detailed_data']
+            elif doc2_data['document_type'].lower() == 'elcam':
+                elcam_data = doc2_data['detailed_data']
+            
+            # If we have both Jabil and Elcam data, run the comparison
+            if jabil_data and elcam_data:
+                comparison_result = compare_documents(jabil_data, elcam_data)
+                results['comparison'] = comparison_result
             
         # Clean up the results to remove document JSON data
         if results:
@@ -167,9 +187,13 @@ def index():
                            else results['file2'].get('result')
                 }
             
-            # Include only the AI analysis results
+            # Include the AI analysis results
             if 'ai_analysis' in results:
                 clean_results['ai_analysis'] = results['ai_analysis']
+                
+            # Include comparison results if available
+            if 'comparison' in results:
+                clean_results['comparison'] = results['comparison']
             
             return jsonify(clean_results)
         else:

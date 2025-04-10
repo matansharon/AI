@@ -131,11 +131,11 @@
                 <h2>Document Comparison Results</h2>
             </div>
             <div class="card-body">
-                {% if results.comparison is not none %}
-                    {% if not results.comparison.get('error') %}
+                {% if results.get('comparison') is not none %}
+                    {% if not results.get('comparison', {}).get('error') %}
                         <div class="comparison-status">
-                            <h3 class="{% if results.comparison.overall_match %}success-text{% else %}error-text{% endif %}">
-                                {% if results.comparison.overall_match %}
+                            <h3 class="{% if results.get('comparison', {}).get('overall_match') %}success-text{% else %}error-text{% endif %}">
+                                {% if results.get('comparison', {}).get('overall_match') %}
                                     <span class="icon-check"></span> All fields match
                                 {% else %}
                                     <span class="icon-alert"></span> Discrepancies detected
@@ -143,7 +143,7 @@
                             </h3>
                         </div>
                     
-                    {% if results.comparison.mismatched_fields %}
+                    {% if results.get('comparison', {}).get('mismatched_fields') %}
                         <div class="comparison-section">
                             <h4 class="section-title error-text">Mismatched Fields</h4>
                             <div class="comparison-table">
@@ -152,7 +152,7 @@
                                     <div class="table-cell">Jabil Value</div>
                                     <div class="table-cell">Elcam Value</div>
                                 </div>
-                                {% for field in results.comparison.mismatched_fields %}
+                                {% for field in results.get('comparison', {}).get('mismatched_fields', []) %}
                                     <div class="table-row">
                                         <div class="table-cell">{{ field.jabil_field|replace('_', ' ') }} / {{ field.elcam_field|replace('_', ' ') }}</div>
                                         <div class="table-cell">{{ field.jabil_value }}</div>
@@ -163,7 +163,7 @@
                         </div>
                     {% endif %}
                     
-                    {% if results.comparison.matching_fields %}
+                    {% if results.get('comparison', {}).get('matching_fields') %}
                         <div class="comparison-section">
                             <h4 class="section-title success-text">Matching Fields</h4>
                             <div class="comparison-table">
@@ -171,7 +171,7 @@
                                     <div class="table-cell">Field</div>
                                     <div class="table-cell">Value</div>
                                 </div>
-                                {% for field in results.comparison.matching_fields %}
+                                {% for field in results.get('comparison', {}).get('matching_fields', []) %}
                                     <div class="table-row">
                                         <div class="table-cell">{{ field.jabil_field|replace('_', ' ') }} / {{ field.elcam_field|replace('_', ' ') }}</div>
                                         <div class="table-cell">{{ field.value }}</div>
@@ -181,7 +181,7 @@
                         </div>
                     {% endif %}
                     
-                    {% if results.comparison.unique_fields %}
+                    {% if results.get('comparison', {}).get('unique_fields') %}
                         <div class="comparison-section">
                             <h4 class="section-title warning-text">Fields Missing in One Document</h4>
                             <div class="comparison-table">
@@ -190,7 +190,7 @@
                                     <div class="table-cell">Field</div>
                                     <div class="table-cell">Value</div>
                                 </div>
-                                {% for field in results.comparison.unique_fields %}
+                                {% for field in results.get('comparison', {}).get('unique_fields', []) %}
                                     <div class="table-row">
                                         <div class="table-cell">{{ field.document }}</div>
                                         <div class="table-cell">{{ field.field|replace('_', ' ') }}</div>
@@ -202,7 +202,7 @@
                     {% endif %}
                     {% else %}
                         <div class="error-message">
-                            {{ results.comparison.error }}
+                            {{ results.get('comparison', {}).get('error', 'Unknown error during comparison') }}
                         </div>
                     {% endif %}
                 {% else %}
@@ -212,6 +212,30 @@
                 {% endif %}
             </div>
         </div>
+        
+        <!-- AI Analysis Section -->
+        {% if results.get('ai_analysis') and results.get('ai_analysis').get('success') %}
+        <div class="card" style="margin-top: 30px;">
+            <div class="card-header">
+                <h2>AI Document Analysis</h2>
+            </div>
+            <div class="card-body">
+                {% if results.get('ai_analysis').get('analysis') %}
+                    <div class="ai-analysis-content">
+                        {% set analysis_text = results.get('ai_analysis').get('analysis')|replace('## SUMMARY', '<h3>SUMMARY')|replace('## MATCHING FIELDS', '<h3>MATCHING FIELDS')|replace('## DISCREPANCIES', '<h3>DISCREPANCIES')|replace('## RECOMMENDATIONS', '<h3>RECOMMENDATIONS')|replace('## CONCLUSION', '<h3>CONCLUSION')|replace('# ', '<h2>') %}
+                        {% set analysis_text = analysis_text|replace('\n\n', '</p><p>')|replace('\n- ', '</p><p>• ')|replace('\n', '<br>') %}
+                        {% set analysis_text = analysis_text|replace('<h3>', '</p><h3>') %}
+                        {% set analysis_text = analysis_text|replace('</h3><br>', '</h3><p>') %}
+                        <p>{{ analysis_text|safe }}</p>
+                    </div>
+                {% else %}
+                    <div class="error-message">
+                        No AI analysis results available.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
         
         <a href="{{ url_for('index') }}" class="back-button">
             <span class="icon-back back-icon"></span>
