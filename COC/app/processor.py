@@ -399,13 +399,13 @@ def compare_documents(jabil_data, elcam_data):
         "Elcam_Part": "Elcam_Part",  # Jabil field : Elcam field
         "Abbvie_Part": "AbbVie_Part",
         "Part_Name_Description": "Part_Name",
-        "Purchasing_Specification": "Specs_Number_Rev",
         "Jabil_Lot": "Batch_Number",
         "Date_of_Manufacture": "Manufacture_Date",
         "Expiration_Date": "Expiry_Date",
-        "Box_Qty": "Quantity",
+        "Order_Qty_Shipped": "Quantity",  # Fixed mapping
         "Customer_PO": "PO_Number",
-        "Tailgate_Qty_Sent": "Tailgate_Samples_Quantity"
+        "Tailgate_Qty_Sent": "Tailgate_Samples_Quantity",
+        "Batch_Number": "Jabil_Lot"
     }
     
     # Check each mapping
@@ -445,6 +445,57 @@ def compare_documents(jabil_data, elcam_data):
                 "field": elcam_field,
                 "value": elcam_value
             })
+    
+    # Special case for Specs_Number_Rev (combines Purchasing_Specification and Purchasing_Specification_Rev)
+    specs_number_rev = elcam_data.get("Specs_Number_Rev")
+    purchasing_spec = jabil_data.get("Purchasing_Specification")
+    purchasing_spec_rev = jabil_data.get("Purchasing_Specification_Rev")
+    
+    if specs_number_rev and purchasing_spec and purchasing_spec_rev:
+        # Try to combine the Jabil fields to match the Elcam field format
+        combined_jabil_value = f"{purchasing_spec} Rev {purchasing_spec_rev}"
+        combined_jabil_str = combined_jabil_value.lower().strip()
+        elcam_str = str(specs_number_rev).lower().strip()
+        
+        if combined_jabil_str == elcam_str:
+            result.matching_fields.append({
+                "jabil_fields": ["Purchasing_Specification", "Purchasing_Specification_Rev"],
+                "jabil_combined_value": combined_jabil_value,
+                "elcam_field": "Specs_Number_Rev",
+                "elcam_value": specs_number_rev
+            })
+        else:
+            result.mismatched_fields.append({
+                "jabil_fields": ["Purchasing_Specification", "Purchasing_Specification_Rev"],
+                "jabil_combined_value": combined_jabil_value,
+                "elcam_field": "Specs_Number_Rev", 
+                "elcam_value": specs_number_rev
+            })
+    elif specs_number_rev:
+        # Only Elcam has Specs_Number_Rev
+        result.unique_fields.append({
+            "document": "Elcam",
+            "field": "Specs_Number_Rev",
+            "value": specs_number_rev
+        })
+    elif purchasing_spec or purchasing_spec_rev:
+        # Only Jabil has one of the fields
+        present_fields = []
+        present_values = []
+        
+        if purchasing_spec:
+            present_fields.append("Purchasing_Specification")
+            present_values.append(purchasing_spec)
+        
+        if purchasing_spec_rev:
+            present_fields.append("Purchasing_Specification_Rev")
+            present_values.append(purchasing_spec_rev)
+            
+        result.unique_fields.append({
+            "document": "Jabil",
+            "field": present_fields,
+            "value": present_values
+        })
     
     # Check if all expected matching fields actually match
     result.overall_match = len(result.mismatched_fields) == 0
@@ -491,19 +542,20 @@ def generate_system_prompt(doc1_data, doc2_data):
             "Elcam_Part": "Elcam_Part",  # Jabil field : Elcam field
             "Abbvie_Part": "AbbVie_Part",
             "Part_Name_Description": "Part_Name",
-            "Purchasing_Specification": "Specs_Number_Rev",
             "Jabil_Lot": "Batch_Number",
             "Date_of_Manufacture": "Manufacture_Date",
             "Expiration_Date": "Expiry_Date",
-            "Box_Qty": "Quantity",
+            "Order_Qty_Shipped": "Quantity",  # Fixed mapping
             "Customer_PO": "PO_Number",
-            "Tailgate_Qty_Sent": "Tailgate_Samples_Quantity"
+            "Tailgate_Qty_Sent": "Tailgate_Samples_Quantity",
+            "Batch_Number": "Jabil_Lot"
         }
         
         # Find any mismatches
         mismatches = []
         matching = []
         
+        # Check regular field mappings
         for jabil_field, elcam_field in field_mappings.items():
             jabil_value = jabil_data.get(jabil_field)
             elcam_value = elcam_data.get(elcam_field)
@@ -523,6 +575,29 @@ def generate_system_prompt(doc1_data, doc2_data):
                         "field": f"{jabil_field} / {elcam_field}",
                         "value": jabil_value
                     })
+        
+        # Special case for Specs_Number_Rev (combines Purchasing_Specification and Purchasing_Specification_Rev)
+        specs_number_rev = elcam_data.get("Specs_Number_Rev")
+        purchasing_spec = jabil_data.get("Purchasing_Specification")
+        purchasing_spec_rev = jabil_data.get("Purchasing_Specification_Rev")
+        
+        if specs_number_rev and purchasing_spec and purchasing_spec_rev:
+            # Try to combine the Jabil fields to match the Elcam field format
+            combined_jabil_value = f"{purchasing_spec} Rev {purchasing_spec_rev}"
+            combined_jabil_str = combined_jabil_value.lower().strip()
+            elcam_str = str(specs_number_rev).lower().strip()
+            
+            if combined_jabil_str != elcam_str:
+                mismatches.append({
+                    "field": f"Purchasing_Specification+Purchasing_Specification_Rev / Specs_Number_Rev",
+                    "jabil_value": combined_jabil_value,
+                    "elcam_value": specs_number_rev
+                })
+            else:
+                matching.append({
+                    "field": f"Purchasing_Specification+Purchasing_Specification_Rev / Specs_Number_Rev",
+                    "value": combined_jabil_value
+                })
         
         # Generate the prompt
         prompt = "You are an expert document analyst specializing in supply chain documentation. "
