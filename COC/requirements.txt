@@ -4,3 +4,4 @@ PyPDF2==3.0.1
 pydantic==2.5.2
 openai==1.71.0
 python-dotenv==1.0.0
+waitress==2.1.2
