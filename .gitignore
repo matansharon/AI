@@ -7,6 +7,6 @@ ggml-gpt4all-j-v1.3-groovy.bin
 models/
 .venv
 db/
-unsructered/docs
+unsructered/docs/
 COC/venv
 Shipments_analysis/shipments_venv/
