@@ -1,0 +1,1629 @@
+[
+  {
+    "type": "Header",
+    "element_id": "8128c53297d5533b5514402debfca182",
+    "text": "Elcam Medical BarAm 13860 Israel",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "PageNumber",
+    "element_id": "7d46169f57d7905a7e790b6cf5234ffd",
+    "text": "Page 1 0",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "f87b3c527fc5c405e0f50af53f32264a",
+    "text": "Title:",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Title",
+    "element_id": "427bbb0b6609d3c8cbb424fb8f54398c",
+    "text": "General DPT & DIPT RMF",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "1e97df68df57409c8525812770d38795",
+    "text": "Project:",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "parent_id": "427bbb0b6609d3c8cbb424fb8f54398c",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "e931e22593b49398b837178b86e1df3a",
+    "text": "General DPT & DIPT RMF",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "parent_id": "427bbb0b6609d3c8cbb424fb8f54398c",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "01a17b7dd14aea2c98b45f174f65026f",
+    "text": "Project Number:",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "parent_id": "427bbb0b6609d3c8cbb424fb8f54398c",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "39f2ca2736cc917a1cae61578424955f",
+    "text": "N/A",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "parent_id": "427bbb0b6609d3c8cbb424fb8f54398c",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "38861e2a335da04e894a95ad7ad1bbc0",
+    "text": "DOC ID:",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "parent_id": "427bbb0b6609d3c8cbb424fb8f54398c",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "b5334e69be9664da4ad935a46623b0e1",
+    "text": "N/A",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "parent_id": "427bbb0b6609d3c8cbb424fb8f54398c",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "ee775b20b83b7d882978aa368b15e4da",
+    "text": "Project phase:",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "parent_id": "427bbb0b6609d3c8cbb424fb8f54398c",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "b5488f514a2ef7f96de3d33c2f830aec",
+    "text": "Production and Post Production",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "parent_id": "427bbb0b6609d3c8cbb424fb8f54398c",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "df68ef02453dc1f219a95384371fae92",
+    "text": "Written by:",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "parent_id": "427bbb0b6609d3c8cbb424fb8f54398c",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "6970a7e57f79e6cfd8a54a195e690d94",
+    "text": "Hadas Bibi Eizenberg",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "parent_id": "427bbb0b6609d3c8cbb424fb8f54398c",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "0efbbf94b7d7ede3f50a6a398b5fa6aa",
+    "text": "Date:",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "parent_id": "427bbb0b6609d3c8cbb424fb8f54398c",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "ce3aeb79f5d503eadcdbf5cb0faa206e",
+    "text": "Dec 18th 2014",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "parent_id": "427bbb0b6609d3c8cbb424fb8f54398c",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Title",
+    "element_id": "465def957a4248e89d0412501405a38f",
+    "text": "Scope & Purpose:",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "e83434fec892fd5a3dfb38b3d968261b",
+    "text": "Elcam Medical Disposable Pressure Transducer is indicated for pressure sensing during clinically invasive procedures without interfering with the patient\u2019s blood flow and/or blood pressure. It has two main types - Straight and Integrated.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "parent_id": "465def957a4248e89d0412501405a38f",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "feb8541d9ccc2029abc23a99b1ff888e",
+    "text": "Elcam Medical's Disposable Pressure Transducer (DPT) is indicated for patients requiring intravascular, intracranial, abdominal and intrauterine pressure monitoring. It comprises a sensor \u05de1\u200e fluid communication with different body fluids. By hydraulic connection the pressure is transferred to the sensing unit, which translates it \u05e1?\u200e an electrical signal. It 15 connected by a cable, that can have various connectors, to the monitor.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "parent_id": "465def957a4248e89d0412501405a38f",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "f00e8a6cea08e856fe48369ce7b20844",
+    "text": "Elcam Medical's Disposable Integrated Pressure Transducer (DIPT) is intended for direct measurement and monitoring ?\u05e1\u200e blood pressure. It comprises a blood pressure sensor, a flush device, and a stopcock all molded as a single piece. The sensor is in hydraulic connection with the blood stream 50 that \u05e1\u05d7\u05d6\u200e patient\u2019s pulse can be translated to an electrical signal. The flush device allows continuous low flow when at rest and \u05d4\u200e high flow required for flushing blood from the monitoring line when operated. The stopcock is used for zeroing the pressure monitor before operation. It also assists \u05de1\u200e blood sampling procedures. It 15 connected by a cable, that can have various connectors, to the monitor.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "parent_id": "465def957a4248e89d0412501405a38f",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "be71f4d619a94094f74f42e42ab2c618",
+    "text": "30/12/2014",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "3b8ec888364985b212e439008e930bbd",
+    "text": "RMF-DPT & \u05d3\u05e1\u05d5\u05e1\u200e Rev 6",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 1,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Header",
+    "element_id": "86019da62beacfa8c08b7bcadd4e73cd",
+    "text": "Elcam Medical BarAm 13860 Israel",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "5dcf97ddf5ff57b901b606fa9d29793e",
+    "text": "This document contains a post-factum information on Risk analysis, Evaluation and Control for the DPT & DIPT. In order to identify the risks, Production and post production Information was gathered: from customers complaints, inner manufacturing problems, Engineering opinion and manufacturing personnals opinion.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "parent_id": "86019da62beacfa8c08b7bcadd4e73cd",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "06db5a2c8b47911c27cd4658d6246dbf",
+    "text": "This document contains a post-factum information on Risk analysis, Evaluation and Control for the DPT & DIPT.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "parent_id": "86019da62beacfa8c08b7bcadd4e73cd",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "d7ee94ddce2eb8044797a5213dddfaa8",
+    "text": "This document contains the Risk Analysis, Risk Evaluation and Risk Control of the DPT &DIPT. The purpose of this document is to identify and minimize risks involved in the design, Use and manufacturing using FMEA (Failure mode & Effect Analysis) method by calculating RPN value (Risk Priority Number), evaluated by the severity, probability and detectability (the rank is described in the \"Scale\" worksheet).",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "parent_id": "86019da62beacfa8c08b7bcadd4e73cd",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "a44c11330d58ace1bfdd48751b3af07e",
+    "text": "The DIPT and DPT's development projects have ended and the product is in its production and post production lifecycle phase.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "parent_id": "86019da62beacfa8c08b7bcadd4e73cd",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Title",
+    "element_id": "e81b77dd620f32992a0ea87b9b9d15ea",
+    "text": "Definitions: 2.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "parent_id": "86019da62beacfa8c08b7bcadd4e73cd",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "1e33525f014a41cc37127d8e655f6523",
+    "text": "DPT - Disposable Pressure Transducer",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "parent_id": "e81b77dd620f32992a0ea87b9b9d15ea",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "UncategorizedText",
+    "element_id": "853c89fc8498fca84e0fe314462e8262",
+    "text": "DIPT - Integrated Disposable Pressure Transducer",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "parent_id": "e81b77dd620f32992a0ea87b9b9d15ea",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "8d8970a1bcd6fa3fde849220af1de5e2",
+    "text": "Hazardous Situation - Circumstances in which people, property or environment are exposed to one or more potential source(s) of harm. Cause(s) of Failure - the engineering reason(s) to cause hazardous situation.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "parent_id": "e81b77dd620f32992a0ea87b9b9d15ea",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "517fb7f2dbc696359b7869a6b1d7f925",
+    "text": "Failure Type - classification of the failure Mode whether it 18 random \u05e2\u05e1\u200e systematic Failure.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "parent_id": "e81b77dd620f32992a0ea87b9b9d15ea",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "ba105c21b463911099a614070a97111f",
+    "text": "Effect of the failure - potential harm to the user, patient or environment or effect on image \u05e2\u05e1\u200e manufacturing.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "parent_id": "e81b77dd620f32992a0ea87b9b9d15ea",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "288078edeaae6c466b8ba2433ab434b7",
+    "text": "Potential Effect of the failure - potential harm to the user, patient or environment or effect on image \u05e2\u05e1\u200e manufacturing. RPN - Risk Priority number. RPN=Severity*Probability*Detectability.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "parent_id": "e81b77dd620f32992a0ea87b9b9d15ea",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "027b91014a54bd2618737df3ed8411c4",
+    "text": "Mitigation Activity - an activity to reduce the RPN number to the minimum possible.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "parent_id": "e81b77dd620f32992a0ea87b9b9d15ea",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "9b8efb26fb7eaa2c4559ec8a1107f6c7",
+    "text": "ALARP/AFAP - As Low As Reasonably Possible/As Far as Possible. risk rated as ALARP/AFAP must be mitigated.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "parent_id": "e81b77dd620f32992a0ea87b9b9d15ea",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Title",
+    "element_id": "c5382fc065f24475807b8da254e557d7",
+    "text": "Method:",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "parent_id": "86019da62beacfa8c08b7bcadd4e73cd",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "dc999b8a003f150870c7d4fcb3e8386f",
+    "text": "The Risk Management Process is performed according to ISO 14971:2007 and BS EN ISO 14971:2012 using the FMEA method. The FMEA method is described in the Risk Management Plan Nov 19, 2008. The scales and the acceptance criteria appears in that document as well.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "parent_id": "c5382fc065f24475807b8da254e557d7",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "57def3b7ab52a62b8ed151430af608ab",
+    "text": "The scales for probability, Detectability and severity ratings appears 8180 in the \"scale\" worksheet.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "parent_id": "c5382fc065f24475807b8da254e557d7",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "a1dc9d65b13f0da62ea6665be7edb42c",
+    "text": "The Acceptability Criteria:",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "parent_id": "c5382fc065f24475807b8da254e557d7",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Table",
+    "element_id": "a0046d48ed837ecc019b5f33fb4c7e69",
+    "text": "| RPNvae [ colour [ ALARPregion | | w32 |",
+    "metadata": {
+      "text_as_html": "<table><thead><tr><th>\u05d0\u05d0\u05d8\u05d0\u05e2\u05ea \u05da</th><th>colour [\u200f [</th></tr></thead><tbody><tr><td>| 9032 |</td><td>1 | 5</td></tr></tbody></table>",
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "parent_id": "c5382fc065f24475807b8da254e557d7",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Title",
+    "element_id": "fc4570849d5906f4d526e1bdd7d12d8a",
+    "text": "3.1. FMEA table:",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "parent_id": "86019da62beacfa8c08b7bcadd4e73cd",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "PageNumber",
+    "element_id": "7341f4f50d516390ac021d21d0c5d2ae",
+    "text": "Page 2 of 10",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "2e20123265211950db5d87c76ffbab0f",
+    "text": "30/12/2014",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "991b9fe9a46fb6992de95f5fa1bcbffa",
+    "text": "RMF- \u05d3\u05e1\u05dd\u200e & DIPT Rev 6",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 2,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Header",
+    "element_id": "83d8032ed0dba6eee881af52c20fe02e",
+    "text": "Elcam Medical BarAm 13860 Israel",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 3,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Table",
+    "element_id": "1badf0ced968bbceb0e7593c8ef7adfa",
+    "text": "S,P,D following Risk Mitigation Potential Effect of Failure Failure Cause of Failure ID | Hazardous Situation Mitigation Activity Type Activity Design FMEA | [* Allrisks related to design can be found \u05ea\u05d5\u200e the specific RMF of each product. Use FMEA -\u05e9 - Risks related \u05e1\u05d6\u200e Product performanc Raw materials & Product isn't biocompatible g = []\u05d5]]\u200e purchased items. - 100% 8 Transducer Product needs to be Snap closer isn't closed Two parts of the base 8 Array |after final assembly. 8 Random 100% closer test after replaced. properly. opens, Manager. |assembl \u05e4\u05d5 North Dept. Manager. sensor does not seal the Transducer 100% flow rate tests Leakage, wet area, Systematic Not enough adhesive short circuet fluid path Array Manager Squeeze and \"pigtail\" Raw material clastomer creat a double Inconveniance in use Systematic properties/ poor Squeeze is too hard to R&D Dept. activate safe mechanism. injection molding, Raw material \"pigtail\" Squeeze and\u200f Accidental activation, Squeeze is too easy to o R&D Dept. elastomer creat a double Inconveniance in use. Systematic properties/ poor activate injection molding safe mechanism. Risks related to_Usage by End-use 0% electric test Intermittance in Corrosion in the cable QA &RA uring productio Systematic Electric disconnection reading tendons helf life declara \u05e1\u05dd \u2018Wrong readings, \u05e1\u05ea\u200e Random Stopcock handle isn't in Product misused \u05d4 \u05d0 [ ] ] readings. the right position",
+    "metadata": {
+      "text_as_html": "<table><tbody><tr><td>ID</td><td>| Hazardous Situation</td><td>Cause of Failure</td><td>Failure Type</td><td>Potential Effect of Failure</td><td></td><td>=</td><td></td><td>Risk Mitigation Activity</td><td></td><td>S,P,D following Mitigation Activity</td><td></td></tr><tr><td colspan=\"12\">Design FMEA</td></tr><tr><td colspan=\"12\">* All risks related to design can be found in the specific RMF of each product.</td></tr><tr><td colspan=\"12\">Use FMEA</td></tr><tr><td colspan=\"12\">Risks related \u05e1\u05d6\u200e Product performanc [ RN</td></tr><tr><td></td><td>Product isn't biocompatible</td><td>Raw materials &amp; purchased items.</td><td>g</td><td></td><td>+</td><td>\u05d9[\u200e</td><td></td><td>[</td><td>\u05d4</td><td></td><td>\u05d4\u05e7</td></tr><tr><td></td><td>Two parts of the base opens,</td><td>Snap closer isn't closed properly.</td><td>Random</td><td>Product needs to be replaced.</td><td></td><td></td><td>| 8</td><td>Leakage tests 100% |after final assembly. 100% closer test after |assembl</td><td>Transducer Array Manager.</td><td></td><td>8</td></tr><tr><td></td><td>sensor does not seal the fluid path</td><td>Not enough adhesive</td><td>Systematic</td><td>Leakage, wet area, short circuet</td><td></td><td></td><td>Q S</td><td>100% flow rate tests</td><td>North Dept. Manager. Transducer Array Manager</td><td></td><td>4 4</td></tr><tr><td></td><td>Squeeze is too hard to activate</td><td>Raw material properties/ poor injection molding,</td><td>Systematic</td><td>Inconveniance in use</td><td></td><td></td><td></td><td>Squeeze and \"pigtail\" clastomer creat a double safe mechanism.</td><td>R&amp;D Dept.</td><td></td><td></td></tr><tr><td></td><td>Squeeze is too easy to activate</td><td>Raw material properties/ poor injection molding</td><td>Systematic</td><td>Accidental activation, Inconveniance in use.</td><td></td><td></td><td>2</td><td>\"pigtail\" Squeeze and\u200f elastomer creat a double safe mechanism.</td><td>R&amp;D Dept.</td><td></td><td>o [</td></tr><tr><td colspan=\"12\">Risks related to_Usage by End-use</td></tr><tr><td></td><td>Electric disconnection</td><td>Corrosion in the cable tendons</td><td>Systematic</td><td>Intermittance in reading</td><td></td><td></td><td></td><td>100% electric test during production. Shelf life declaration</td><td>QA &amp;RA</td><td></td><td></td></tr><tr><td></td><td>Product misused</td><td>Stopcock handle isn't in the right position</td><td>Random</td><td>\u2018Wrong readings, \u05e1\u05ea\u200e readings.</td><td></td><td></td><td>0</td><td>IFU.\u200f \u05d6\u05d0\u05d0\u05e1\u05df</td><td></td><td></td><td></td></tr></tbody></table>",
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 3,
+      "parent_id": "83d8032ed0dba6eee881af52c20fe02e",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "PageNumber",
+    "element_id": "834eb13e9937b916e10ceed8b767164f",
+    "text": "Page 3 of 10",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 3,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "cea7e0083b6c9efa0495ff60bacc767a",
+    "text": "30/12/2014",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 3,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "ee4d95746e9acfd56961e6284b3ed76b",
+    "text": "RMF-DPT & \u05d3\u05e1\u05d5\u05e1\u200e Rev 6",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 3,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Header",
+    "element_id": "6b05ba44ea6adce35a24ac423fc243c9",
+    "text": "Elcam Medical BarAm 13860 Israel",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 4,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Table",
+    "element_id": "d9ed591325ab0f5a134edcc15808b3e5",
+    "text": "Manufacturin Engineering Visual checks during molding. 100% flow Dept. QC in Injection rate and sealing tests. Product isn't Functionality tests after Low flow rate out of Flush Device elastomer Molding multiple activations as Random doesn't return \u05e1!\u200e it's functioning after Dept. North tolerance place after use. flushing Dept. part of the V&V tests for the Flush Device Manager. (Nov. 5 th 2000, Transducer sections 6.5, 7). Array . 0 Incoming inspections of Product doesn't the cables, QC shaking Quality problems of the Cable's connector 4 QA \u05e1\u05e1\u05dd\u200e function, needs to 6 Random cable test for the fully replaced. disconnects during use - product asembled \u05dd -- Incoming inspections of Product doesn't 4 | the cables, QC shaking 4 function, needs to be Random Quality problems of the Cable connector breaks QA Dep. test for the fully cable product asembled replaced. - \u05d5\u05dd QCin Injection Molding Dept. Reapproving the 4 Inconvenience in use Random Molding parameters of Elastomer tears during 1 Injection molding process 1 | 16 | the Elastomer use | Molding Dept. 20 Mana; SS Y Process",
+    "metadata": {
+      "text_as_html": "<table><thead><tr><th></th><th>Product isn't functioning after flushing</th><th>Flush Device elastomer doesn't return \u05e1!\u200e it's place after use.</th><th>Random</th><th>Low flow rate out of tolerance</th><th>16 /</th><th>Visual checks during molding. 100% flow rate and sealing tests. Functionality tests after multiple activations as part of the V&amp;V tests for the Flush Device (Nov. 5 th 2000, sections 6.5, 7).</th><th>Manufacturin g Engineering Dept. QC in Injection Molding Dept. North Dept. Manager. Transducer Array nag</th><th></th></tr></thead><tbody><tr><td></td><td>Cable's connector disconnects during use</td><td>Quality problems of the cable</td><td>Random</td><td>Product doesn't function, needs to 6 replaced.</td><td>4 \u05de\u05e1\u05dd</td><td>Incoming inspections of the cables, QC shaking test for the fully asembled product</td><td>QA Dep</td><td>4</td></tr><tr><td></td><td>Cable connector breaks</td><td>Quality problems of the cable</td><td>Random</td><td>Product doesn't function, needs to be replaced. \u05d5\u05dd</td><td>4</td><td>Incoming inspections of the cables, QC shaking test for the fully asembled product</td><td>QA Dep.</td><td></td></tr><tr><td>1</td><td>Elastomer tears during use</td><td>Molding parameters of the Elastomer</td><td>Random</td><td>Inconvenience in 6 Il</td><td>0</td><td>Reapproving 6 |molding process</td><td>QCin Injection Molding Dept. Injection Molding Dept. 20 Mana;</td><td></td></tr></tbody></table>",
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 4,
+      "parent_id": "6b05ba44ea6adce35a24ac423fc243c9",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Table",
+    "element_id": "76820696eac680908db1476de6f64ae6",
+    "text": "Transducer Body & Base QCin Injection Visual checks during Molding molding. 100% Leakage Short shut in the sealing Body isn't sealing Dept. tests after final Leakage, wet area. Systematic properly. Transducer area of the body. assembly. Array Manager. i Injection molding defects on molded QCin body/ base ) Flash, Injection Visual checks during components can't be Injection molding 8 chip, distortions, 13 Molding molding used in production parameters cracks, protruding Dept. injection point, embedded particles etc.) 1",
+    "metadata": {
+      "text_as_html": "<table><thead><tr><th colspan=\"8\">X TOCCSS 4 \u05d5\u05d5 % Transducer Body &amp; Base</th></tr><tr><th>Body isn't sealing properly.</th><th>Short shut in the sealing area of the body.</th><th>Systematic</th><th>Leakage, wet area.</th><th>0</th><th>2</th><th>Visual checks during molding. 100% Leakage tests after final assembly.</th><th>QCin Injection Molding Dept. Transducer Array Manager.</th></tr></thead><tbody><tr><td>Injection molding defects on molded body/ base ) Flash, chip, distortions, cracks, protruding injection point, embedded particles etc.)</td><td>Injection molding parameters</td><td></td><td>components can't be used in production</td><td>I</td><td>-</td><td>Visual checks during molding</td><td>QCin Injection Molding Dept.</td></tr></tbody></table>",
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 4,
+      "parent_id": "6b05ba44ea6adce35a24ac423fc243c9",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "dadd9267178bf07f0bb6dda2a344f525",
+    "text": "30/12/2014",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 4,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "a030aee608d6a1a203979ecf54b1a4fc",
+    "text": "RMF- \u05d3\u05e1\u05d5\u05e1 & \u05d3\u05d7\u05e1\u200e Rev 6",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 4,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "PageNumber",
+    "element_id": "0b93adb1a68ae620e67212f13b1cb406",
+    "text": "Page 4 of 10",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 4,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Image",
+    "element_id": "3b8391ce4fae291cb71a39d8f07b7852",
+    "text": "",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 4,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Header",
+    "element_id": "2c9ec4b0dd428a277a95ebd13b6352c8",
+    "text": "Elcam Medical BarAm 13860 Israel",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 5,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Table",
+    "element_id": "260ecaa9a6a3df5342c74db421ee2580",
+    "text": "Luer test during | olding and visual Bodies can't be used Random Luer doesn't comply 14 in production Short shot at luer tip with ISO 4 hecks \u05de\u05e1\u200e every 7 |production Transducer 100% testing for low Low flow rate out of Systematic Body lower sealing ring Shot siot Array flow rate 8 | tolerance, at FD does not seal. .- Man \u05e1\u05de\u05dd North Dept. Laser drilling hole The thickness of the Checking drilling every | Manager. isn't in the right 16 Transducer production start. 100% Systematic Tolerances in mold. wall of laser drilling is . Array Flow tests. dimensions, flow rate inconsistent is out of 6 Manager \u05d4\u05d9\u05d5 Injection A robot was added to Molding the molding machine Laser drilling hole Mixture ?\u05e1\u200e the different Dept. which separates the can't be done due to Random 4 cavities mold cavities of the body 17 Manage different cavities. 08 the varying tolerance. during production North Dept. 100% testing for flow Manag rate \u05d5 Visual checks during Bodies can't be used Random Printing properties Imperfect printing on 1 printing and on every in production the body stage of production - Stopcoc - * All risks related to the Stopcock can \u05e1\u05e1\u200e found \u05de\u05d5\u200e \"RMF- Stopcock & Monoblocks- Manifolds Rev D.\" - Flush Device Injection molding parameters, Fall of the Injection molding Visual checks during Squeeze doesn't meet molding and \u05de\u05e1\u200e every Systematic | spec, can't \u05e1\u05dd\u200e used in squeeze from mold defects on the Squeeze stage of production production machine to the (hit marks, flash, etc.) containers. \u05e1\u05dd | : QCin Difficulty in mixing the Nonhomogeneous color Injection Start production tests in color into the raw Molding mold dept. material of the squeeze Dept -| Manufacturin g V&V of the product Engineering (Nov. 2nd 2003 Short shot at elastomer Dept. \u05e1\u05e1\u200e in sections 6.3.1, 6.3.2, Leakage, wet area. Raw material properties. | Systematic edge. Injection 6.3.7). Visual checks Molding during molding. pt. D i",
+    "metadata": {
+      "text_as_html": "<table><thead><tr><th>14</th><th>Luer doesn't comply with ISO 4</th><th>Short shot at luer tip</th><th>Random</th><th>Bodies can't be used in production</th><th>\u05d5\u05d5\u05dd</th><th></th><th>Luer test during | molding and visual checks on every stage of |production</th><th></th><th></th><th></th></tr></thead><tbody><tr><td></td><td>Body lower sealing ring at FD does not seal.</td><td>Shot siot</td><td>Systematic</td><td>Low flow rate out of tolerance.</td><td>\u05e1\u05de\u05dd</td><td>8</td><td>100% testing for low flow rate |</td><td>Transducer Array Manager</td><td>.-</td><td></td></tr><tr><td>16</td><td>The thickness of the wall of laser drilling is inconsistent</td><td>Tolerances in mold.</td><td>Systematic</td><td>Laser drilling hole isn't in the right dimensions, flow rate is out of tolerance.</td><td>\u05d4\u05d9\u05d5</td><td>[</td><td>Checking drilling every production start. 100% Flow tests.</td><td>North Dept. | Manager. Transducer Array Manager</td><td></td><td>.</td></tr><tr><td>17</td><td>Mixture ?\u05e1\u200e the different cavities of the body during production</td><td>4 cavities mold</td><td>Random</td><td>Laser drilling hole can't be done due to the varying tolerance.</td><td>\u05d5</td><td>08</td><td>A robot was added to the molding machine which separates the different cavities. 100% testing for flow rate</td><td>Inj ection Molding Dept. Manager, North Dept. Manag</td><td></td><td></td></tr><tr><td rowspan=\"4\">18 - -</td><td>Imperfect printing on the body</td><td>Printing properties</td><td>Random</td><td>Bodies can't be used in production</td><td>\u05d5\u05dd</td><td></td><td>Visual checks during printing and on every stage of production</td><td>ER</td><td></td><td></td></tr><tr><td>Stopcock</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>* All risks related 10 the</td><td>Stopcock can be found \u05de\u05d5\u200e</td><td>\"RMF- Stopcock</td><td>&amp; Monoblocks-</td><td>Manifolds</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td colspan=\"10\">Rev D.\" Flush Device</td></tr><tr><td></td><td>Injection molding defects on the Squeeze (hit marks, flash, etc.)</td><td>Injection molding parameters, Fall of the squeeze from mold machine to the containers.</td><td>Systematic</td><td>Squeeze doesn't meet | spec, can't be used in production</td><td></td><td></td><td>Visual checks during molding and \u05de\u05e1\u200e every stage of production |</td><td>0\u05e1</td><td></td><td></td></tr><tr><td></td><td>Nonhomogeneous color of the squeeze</td><td>Difficulty in mixing the color into the raw material</td><td></td><td></td><td>\u05d5\u05d5\u05dd</td><td></td><td>Start production tests in mold dept.</td><td>QCin Injection Molding Dept.</td><td>-|</td><td></td></tr><tr><td></td><td>Short shot at elastomer edge.</td><td>Raw material properties.</td><td>| Systematic</td><td>Leakage, wet arca.</td><td>L]</td><td>12</td><td>V&amp;V of the product (Nov. 2nd 2003, sections 6.3.1, 6.3.2, 6.3.7). Visual checks during molding.</td><td>Manufacturin g Engineering Dept. \u05e1\u05e1\u200e in Injection Molding pt. D</td><td></td><td></td></tr></tbody></table>",
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 5,
+      "parent_id": "2c9ec4b0dd428a277a95ebd13b6352c8",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "PageNumber",
+    "element_id": "a503d9cbba8b8309a8bea07df529178b",
+    "text": "Page 5 of 10",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 5,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "8e4687507fa78a0d10060cf2bb6b916c",
+    "text": "30/12/2014",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 5,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "023b095820317c4a0bd6cf9c7fe39c97",
+    "text": "RMF- \u05d3\u05e4\u05e1\u200e & DIPT Rev C",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 5,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Header",
+    "element_id": "7e8ec48cbffadf1f6ea144c845341e76",
+    "text": "Elcam Medical BarAm 13860 Israel",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 6,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Table",
+    "element_id": "2febfc2de3a1ec1d1134deb2a9bf7338",
+    "text": "Manufacturin g | V&YV of the product Cup doesn't seal Cup height in the Engineering |(Nov. 2nd 2003 Difficult raw material to elastomer is Dept. \u05e1\u05e1\u200e in sections 6.2.1, 6.3.1, properly, low flow Systematic mold Injection 16.3.2, 6.3.7). Visual rate out of tolerance. inconsistent. Molding checks during molding. pt. 0 [ Manufacturin g V&V of the product Engineering [(Nov. 2nd 3 Elastomer doesn't Difficult raw material to Protruding Injection \u05d4\u05d5 \u05e1\u05e1 Dept.\u200f |sections 6.3.1, 72 Systematic | meet spec, \u05d6\u05d8\u05e1\u200e doesn't 23 point/ flash \u05de\u05e1\u200e elastomer |mold Injection 16.3.7). Visual checks cause harm. Molding during molding. Dept. North Dept Product doesn't Manager. Transducer 100% flow rate test. function, leakage/ Random Elastomer isn't centered |Properties of raw product blocked, high material. during assembly. Array costs Manager L]",
+    "metadata": {
+      "text_as_html": "<table><thead><tr><th></th><th>Cup height in the elastomer is inconsistent.</th><th>Difficult raw material to mold</th><th>Systematic</th><th>Cup doesn't seal properly, low flow rate out of tolerance.</th><th></th><th>V&amp;V \u05d5\u05e1\u200e the product |(Nov. 2nd 2003 sections 6.2.1, 1 16.3.2, 6.3.7). Visual checks during molding.</th><th>Manufacturin g Engineering Dept. \u05e1\u05e1\u200e in Injection Molding pt. D</th><th></th></tr></thead><tbody><tr><td>23</td><td>Protruding Injection point/ flash \u05de\u05e1\u200e elastomer</td><td>Difficult raw material to |mold</td><td>Systematic |</td><td>Elastomer doesn't meet spec, but doesn't cause harm.</td><td>-</td><td>V&amp;V of the product [(Nov. 2nd 3 |sections 6.3.1, 72 |6.3.7(. Visual checks during molding.</td><td>Manufacturin g Engineering \u05d4\u05d5 \u05e1\u05e1 Dept.\u200f Injection Molding Dept.</td><td>[</td></tr><tr><td></td><td>Elastomer isn't centered during assembly.</td><td>|Properties of raw material.</td><td>Random</td><td>Product doesn't function, leakage/ product blocked, high costs</td><td>\u05d5</td><td>100% flow rate test.</td><td>North Dept Manager. Transducer Array Manager</td><td></td></tr></tbody></table>",
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 6,
+      "parent_id": "7e8ec48cbffadf1f6ea144c845341e76",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "UncategorizedText",
+    "element_id": "378340e92341b91ec772cb5e928cca79",
+    "text": "-",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 6,
+      "parent_id": "7e8ec48cbffadf1f6ea144c845341e76",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "fcbd020e22dd23c1d1982af1ff18ae36",
+    "text": "Sensor",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 6,
+      "parent_id": "7e8ec48cbffadf1f6ea144c845341e76",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Table",
+    "element_id": "3acf1f266ee1828222823b1fd2fd6c78",
+    "text": "-- Transducer Drift over time, Offset between sensor 100% electric test Sensors close to the Array accuracy out 7 suplier testing and offset tolerance .- Manager = \u2014 tolerance elcam testing Transducer 100% electric test Product cannot be Zero changes its Array |during production. Systematic Material changes by Manager, calibrated in monitor time (stability) properties pt. R&D \u05dd\u200e [Shelf life declaration \u05e0\u05dd Transducer Sensor isn't placed Array Manager de bod properly Transducer Product doesn't meet Quality problems of the Array spec., product doesn't \u05d5\u05dd Manager l function - \u05e1\u05de\u05dd 6\u05e1 -",
+    "metadata": {
+      "text_as_html": "<table><thead><tr><th>25</th><th>Sensors close to the offset tolerance</th><th>Offset between sensor suplier testing and elcam testing</th><th>Systematic</th><th>Drift over time, accuracy out 1 \u05e1\u05de\u05dd tolerance</th><th>100% electric test |during production</th><th>Transducer Array Manager</th><th>.-</th></tr></thead><tbody><tr><td></td><td>Zero changes its properties</td><td>Material changes by time (stability)</td><td>Systematic</td><td>Product cannot be calibrated in monitor \u05e0\u05de\u05dd</td><td>100% electric test [during production. | Shelf life declaration.</td><td>Transducer Array Manager, pt. R&amp;D \u05dd\u200e</td><td></td></tr><tr><td>27</td><td>Leakage.</td><td>Sensor isn't placed properly inside body.</td><td></td><td>\u05e1\u05de\u05dd</td><td>100% electric test during production.</td><td>Transducer Array Manager</td><td></td></tr><tr><td rowspan=\"2\">28 -</td><td>Quality problems of the \u05d5\u05dd</td><td>Purchased item</td><td>Random</td><td>Product doesn't meet spec., product doesn't =\u05de\u05dd function.</td><td>|100% electric test during production.</td><td>Transducer Array Manager</td><td></td></tr><tr><td>6\u05e1</td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table>",
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 6,
+      "parent_id": "7e8ec48cbffadf1f6ea144c845341e76",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Table",
+    "element_id": "9fcfad3c3dd10afd40553af5d32d8634",
+    "text": "Inconvenience in use, gration of PVC reduction of cable Systematic ers to the cable 45 \u05dd clastici 26 - R&D Dept. Inconvenience in use, Migration of PVC 6 reduction of 4 plasticisers to the hood Turbidity of the 4 QA \u05e1\u05de\u05dd elasticit surface \u05d1",
+    "metadata": {
+      "text_as_html": "<table><thead><tr><th>Surface quality decrease and shade change</th><th>Migration of PVC plasticisers to the cable surface</th><th>Inconvenience in use, reduction of cable clastici</th><th>6</th><th>Tl</th><th></th></tr></thead><tbody><tr><td>Turbidity of the 4</td><td>Migration of PVC plasticisers to the hood surface</td><td>Inconvenience in use, reduction of 4 elasticit</td><td>- \u05de\u05dd</td><td>Defining shelf life for\u200f the product</td><td>e</td></tr></tbody></table>",
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 6,
+      "parent_id": "7e8ec48cbffadf1f6ea144c845341e76",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Image",
+    "element_id": "6ef3855132400151141da619777e5cf4",
+    "text": "",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 6,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Image",
+    "element_id": "13584b0c7d56aafe053697e07670bab6",
+    "text": "6",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 6,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Image",
+    "element_id": "322233e2191fb14657958f0d139551fb",
+    "text": "",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 6,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Image",
+    "element_id": "d2bded8061fff26f352c8826f2ded5f7",
+    "text": "",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 6,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Image",
+    "element_id": "d918eef3060b17ce201ee29afa7435e0",
+    "text": "",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 6,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "PageNumber",
+    "element_id": "474b8cfb1c704172422ac51b10256d3b",
+    "text": "Page 6 of 10",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 6,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "7b2acca6bec5bb60d8112588ec2c24e6",
+    "text": "30/12/2014",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 6,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "da98f08208c5cf1781879f92ce818fe6",
+    "text": "RMF- \u05d3\u05e1\u05e1\u200e & DIPT Rev 6",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 6,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Header",
+    "element_id": "daa036ac8084315562860362a8ab67fa",
+    "text": "Elcam Medical BarAm 13860 Israel",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 7,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Table",
+    "element_id": "6e4d5c6c050668fac8af1719f641f479",
+    "text": "leaning all surfaces QC Manager, tuching the 080168 with Higher Bioburden Cables aren't Transducer levels to the whole Cables has a relativly |Antigon Wipes manufactured in a clean | Systematic 31 Array Keeeping GMP class 8 product. Harm to enviroment high Bioburden level Manager. conditions on patient. anufacturing rooms. -- Cable Soldering \u2018Work instructions, Transducer Reversed soldering of Array refreshments guidings. \u2018Wrong readings Random Human error 32 100% electric test 116 6 Manager during production \u20aa 4 Transducer |100% electric test Product doesn't Array during production function- worng Systematic Not enough braze Cable disconnect 33 Manager, Cable shaking tests. reading, no reading, R&D Dept. Shelf 116 declaration needs \u05e1!\u200e be replaced. Transducer 100% electric 1 Product doesn't 4 Array during production function- no reading, Systematic Too much braze Short circuit 34 Manager, Cable shaking 8 pt. R&D D Shelf life declaration. needs to be replaced. Product doesn't Transducer |100% electric test function- worng Solder not in the right Array reading, no reading, Random Human error 35 Manager, during production\u200f short circuit, needs to place. R&D Dept. |Shelf life declaration. be replaced. - Product Binding - Transducer Changing the binding Cable is loose, Human error, bind Array working instruction, Random Binding is not strong discomfort in use looses over time enough -- Manager Istronger bindin i",
+    "metadata": {
+      "text_as_html": "<table><thead></thead><tbody><tr><td rowspan=\"2\">31</td><td>Cables has a relativly high Bioburden level</td><td>Cables aren't manufactured in a clean enviroment</td><td>| Systematic</td><td>Higher Bioburden levels to the whole product. Harm to patient.</td><td>0</td><td>:</td><td>Cleaning 411 8585 tuching the cables with [Antigon Wipes Keeeping GMP class 8 onditions on rooms. manufacturin</td><td>QC Manager, Transducer Array Manager.</td><td></td><td></td></tr><tr><td>Cable Soldering</td><td colspan=\"9\"></td></tr><tr><td>32</td><td>Reversed soldering of the cable.</td><td>Human error</td><td>Random</td><td>--</td><td></td><td></td><td>\u2018Work instructions, refreshments guidings. 100% electric test during production</td><td>Transducer Array Manager</td><td></td><td></td></tr><tr><td>33</td><td>Cable disconnect</td><td>Not enough braze</td><td>Systematic</td><td>Product doesn't function- worng reading, \u05e1\u05ea\u200e reading, needs to be replaced.</td><td></td><td>|</td><td>|100% electric 1 during production. Cable shaking tests. | Shelf life declaration.</td><td>Transducer Array Manager, R&amp;D Dept.</td><td></td><td>-</td></tr><tr><td>34</td><td>Short circuit</td><td>Too much braze</td><td>Systematic</td><td>Product doesn't function- no reading, needs to be replaced.</td><td></td><td>S</td><td>100% electric 1 during production. Cable shaking tests. Shelf life declaration.</td><td>Transducer Array Manager, pt. R&amp;D D</td><td></td><td>A</td></tr><tr><td rowspan=\"2\">35</td><td>Solder not in the right place.</td><td>Human error</td><td>Random</td><td>Product doesn't function- worng reading, no reading, short circuit, needs to be replaced.</td><td></td><td>3</td><td>|100% electric test during production. |Shelf life declaration.</td><td>Transducer Array Manager, R&amp;D Dept.</td><td></td><td></td></tr><tr><td colspan=\"10\">Product Binding</td></tr><tr><td></td><td>Binding is not strong enough</td><td>- Human error, bind looses over time</td><td>Random</td><td>Cable is loose, discomfort in 6</td><td>\u05e1\u05de\u05dd</td><td></td><td>|</td><td>Transducer Array Manager</td><td>-\u05e9</td><td>4</td></tr></tbody></table>",
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 7,
+      "parent_id": "daa036ac8084315562860362a8ab67fa",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Table",
+    "element_id": "16058a875821671427882c70bb1a582c",
+    "text": "- Product Binding - Transducer Changing the binding Cable is loose, Human error, bind Array working instruction, Random Binding is not strong discomfort in use looses over time enough -- Manager Istronger bindin i Additional Female Luer Bonding Excess glue on female Manual process Luer e | l \u05d9\u05e9\u200e QC inspections during QC Manager, process. Product doesn't Bonding not strong Manufacturin A new mold 15 being Random | function, needs to be Female Luer disconnects 38 validated with the Luer enough g Eng. Dept. replaced, Leakage as part of the body 5",
+    "metadata": {
+      "text_as_html": "<table><thead><tr><th rowspan=\"2\">-\u05e9 36</th><th>Product Binding</th><th></th><th></th><th>10 C 1%</th><th></th><th rowspan=\"2\">Changing the binding working instruction, stronger binding</th><th></th><th></th></tr><tr><th>Binding is not strong enough</th><th>= Human error, bind looses over time</th><th>Random</th><th>Cable is loose, discomfort in use</th><th>2</th><th>Transducer Array Mana;</th><th>4</th></tr></thead><tbody><tr><td></td><td colspan=\"7\">Additional Female Luer Bondin:</td><td></td></tr><tr><td>37</td><td>Excess glue on female Luer</td><td>Manual process</td><td></td><td>\u05de\u05e6-\u05e4\u05dd</td><td></td><td>Visual inspection after bonding.</td><td>0\u05e1</td><td></td></tr><tr><td>38</td><td>Female Luer disconnects</td><td>Bonding not strong enough</td><td>Random</td><td>Product doesn't | function, needs to be replaced, Leakage</td><td>\u05d5</td><td>QC inspections during process. A new mold 15 being validated with the Luer as part of the body</td><td>QC Manager, Manufacturin g Eng. Dept.</td><td></td></tr></tbody></table>",
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 7,
+      "parent_id": "daa036ac8084315562860362a8ab67fa",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "PageNumber",
+    "element_id": "8fae4a938bdb26bee700e0ed3519bf88",
+    "text": "Page 7 of 10",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 7,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "52ff34b2b629229b03e40a04967cd529",
+    "text": "30/12/2014",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 7,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "eb930cd0df2548283a3047dfebd45a60",
+    "text": "RMF-DPT & \u05d3\u05e7\u05d5\u05e1\u200e Rev 6",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 7,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Header",
+    "element_id": "b7fef4f39636e7a80ba92fa8ec538f30",
+    "text": "Elcam Medical BarAm 13860 Israel",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 8,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "UncategorizedText",
+    "element_id": "c5b6aa242955abef834507159bbd0631",
+    "text": "Blister Packaging",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 8,
+      "parent_id": "b7fef4f39636e7a80ba92fa8ec538f30",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Table",
+    "element_id": "144f40c8ab332292966acb68ca0b02a9",
+    "text": "- Outer part of product Vibration tests, visual not sterile, \u05d6\u05d8\u05e1\u200e inner Stopcock handle checks, packaging 4 part stays sterile Systematic Medical paper tears 39 thanks to Luers protrudes. procedure. = 5 COVETS. Outer part of product Vibration tests, visual not sterile, but inner Corner of Transducer checks, packaging part stays sterile Systematic Medical paper tears 40 thanks to Luers protrudes procedure. \u05e9\u05dd covers. Outer part of product | Vibration tests, visual not sterile, but inner Transducer is too big Blister doesn't seal checks, packaging \u05e9 part stays sterile Systematic for blister. properly. thanks to Luers =) procedure. \u05d5\u05d5 .5 Transducer doesn't sit Product damaged Transducer is too small 18 | Systematic for blister. properly inside blister. [procedure. during shipping. ] = * All other risks related \u05e1\u05d6\u200e the blister pack can \u05e1\u05dd\u200e found \u05d7\u05d5\u200e \"RMF- Stopcock & Monoblocks- Manifolds Rev D.\" Sterilization by EtO - | Sterilization validation rational as described in | \"Rationale for Elcam's Disposable Pressure Product isn't sterile after |Not enough gas used in 8 Transducer (candidate Harm to patient Systematic the sterilization process sterilization product) adoption into | Elcam's ETO Sterilized Family of Products' i (jan 29, 2012), 0 | Sterilization validation rational as described in \"Rationale for Elcam's Disposable Pressure Too much gas used in Transducer (candidate Harm to patient Systematic ETO Residuals the sterilization process product) adoption into Elcam's ETO Sterilized Family ?\u05e1\u200e Products\" (jan 29, 2012). 0 4",
+    "metadata": {
+      "text_as_html": "<table><thead><tr><th>39</th><th>Medical paper tears</th><th>Stopcock handle protrudes.</th><th>Systematic</th><th>Outer part of product not sterile, \u05d6\u05d8\u05e1\u200e inner part stays sterile thanks to Luers COVErs.</th><th>5</th><th>-</th><th>Vibration tests, visual checks, packaging procedure.</th><th>R&amp;D Dept., QA</th><th></th></tr></thead><tbody><tr><td>40</td><td>Medical paper tears</td><td>Corner of Transducer protrudes.</td><td>Systematic</td><td>Outer part of 6 not sterile, but inner part stays sterile thanks to Luers covers.</td><td>\u05e0\u05d5</td><td></td><td>Vibration tests, visual checks, packaging procedure.</td><td>R&amp;D Dept., QA</td><td></td></tr><tr><td></td><td>Blister doesn't seal properly.</td><td>Transducer is too big for blister.</td><td>Systematic</td><td>Outer part of 646 not sterile, \u05d6\u05d8\u05e1\u200e inner part stays sterile thanks to Luers covers.</td><td>\u05d5\u05d5</td><td></td><td>| Vibration tests, visual checks, packaging procedure.</td><td>R&amp;D Dept., QA</td><td>\u20aa</td></tr><tr><td rowspan=\"3\"></td><td>Transducer doesn't sit properly inside blister.</td><td>Transducer is too small for blister.</td><td>Systematic</td><td>Product damaged during shipping.</td><td></td><td>8</td><td>ibration tests, visual checks, packaging [procedure.</td><td>R&amp;D Dept., 04</td><td>Q 6 \u05d9</td></tr><tr><td>* All other risks related</td><td>\u05e1\u05d6\u200e the blister pack can \u05e1\u05dd\u200e</td><td>found \u05d7\u05d5\u200e \"RMF-</td><td>Stopcock &amp; Monoblocks-</td><td>Manifolds Rev</td><td>D.\"</td><td></td><td></td><td></td></tr><tr><td>Sterilization by \u05e1\u05d5\u05dd\u200e</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td>Product isn't sterile after sterilization</td><td>|Not enough gas used in the sterilization process</td><td>Systematic</td><td>Harm to patient</td><td>i</td><td>- 6</td><td>| Sterilization validation rational as described in \"Rationale for Elcam's Disposable Pressure Transducer (candidate product) adoption into Elcam's ETO Sterilized Family of Products\" (jan 29, 2012).</td><td>RA Dept.</td><td></td></tr><tr><td></td><td>ETO Residuals</td><td>Too much gas used in the sterilization process</td><td>Systematic</td><td>Harm to patient</td><td></td><td>6</td><td>| Sterilization validation rational as described in \"Rationale for Elcam's Disposable Pressure Transducer (candidate product) adoption into Elcam's ETO Sterilized Family ?\u05e1\u200e Products\" (jan 29, 2012).</td><td>RA Dept.</td><td></td></tr></tbody></table>",
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 8,
+      "parent_id": "b7fef4f39636e7a80ba92fa8ec538f30",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "PageNumber",
+    "element_id": "26eb09cd08448cb2329a4ea4319ab68c",
+    "text": "Page 8 of 10",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 8,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "a2fc3a85135ebcecec3e86b09a5a329c",
+    "text": "30/12/2014",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 8,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "4e0a11585203f40b65880b03fe3cef22",
+    "text": "RMF- \u05d3\u05e1\u05d5\u05e1 & \u05d3\u05e4\u05e1\u200e Rev C",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 8,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Header",
+    "element_id": "e90fc5404b080e78ae4033df5b073978",
+    "text": "Elcam Medical BarAm 13860 Israel",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 9,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "PageNumber",
+    "element_id": "00a8c82d7cf7e4922dbe094ce6ba6f52",
+    "text": "Page 9 of 10",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 9,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Title",
+    "element_id": "3f436c7f60be853678152a678bcbe099",
+    "text": "4. Summery & Conclusions:",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 9,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "fa2ea58ee74e97e4133327ba4900b34b",
+    "text": "In revision A of this document 36 risks were identified using the risk analysis described. 25 of which were rated to have RPN in the Acceptable region and 11 in the ALARP region.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 9,
+      "parent_id": "3f436c7f60be853678152a678bcbe099",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "2cf465e47e682598b16f28f6980b0b52",
+    "text": "Mitigation activities to reduce these risks were implemented in the past and can be find in Elcam SOPs.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 9,
+      "parent_id": "3f436c7f60be853678152a678bcbe099",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "80052978ca0aee2d9edca920326c8ee5",
+    "text": "revision B 8 additional risks were added (no. 11,13,14,17,18,36,37,38). All the risks were rated according to the scales and RPN value was\u200f \u05de1 calculated.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 9,
+      "parent_id": "3f436c7f60be853678152a678bcbe099",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "d853371de7b0e13ab72c2aa1610349b2",
+    "text": "11 risks have RPN in the ALARP region and 33 are acceptable risks according to their RPN value.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 9,
+      "parent_id": "3f436c7f60be853678152a678bcbe099",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "06ddca663cc0b7dc909ad2c80fbe4db5",
+    "text": "Mitigation activities were signed for all of the risks together with the responsibility.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 9,
+      "parent_id": "3f436c7f60be853678152a678bcbe099",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "6825cb7bacee53be6a53650008fe1d4f",
+    "text": "In revision C there is no change in RPN levels and mitigations.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 9,
+      "parent_id": "3f436c7f60be853678152a678bcbe099",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "f3e04adaa8584cf010d3dd9fbf91b923",
+    "text": "Risk to benefit analysis: The design is verifiyed & the product is successfully validated. QC inspections are set \u05e11\u200e asure good functioning products in the market.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 9,
+      "parent_id": "3f436c7f60be853678152a678bcbe099",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "b4b0f8000a822f995771a98104aac47e",
+    "text": "The benefit of the DPT and DIPT outweighs the risks.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 9,
+      "parent_id": "3f436c7f60be853678152a678bcbe099",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "6fa053b0c82a0cf95022dc8072871908",
+    "text": "Next stage of Risk Management review: Rutine review of this document.",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 9,
+      "parent_id": "3f436c7f60be853678152a678bcbe099",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Title",
+    "element_id": "1d0493dc00fb487ab8e1cfee9495e2b6",
+    "text": "Document Revision Control:",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 9,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Table",
+    "element_id": "180d8a63a684672118adf1ed80a45c8c",
+    "text": "Date: 5.1. Revision History Tracking: Revision 0- first release Revision A- New format, Reveiwed and Updated Revision B- New format, adding risks no. 11,13,14,17,18,36-38, Review and reevaluation Dec 18\" 2014 Revision C- General format updates, Review and reevaluation",
+    "metadata": {
+      "text_as_html": "<table><thead><tr><th>5.1. Revision History Tracking:</th><th>Date:</th></tr></thead><tbody><tr><td>Revision B- New format, adding risks no. 11,13,14,17,18,36-38, Review and reevaluation</td><td></td></tr><tr><td>Revision C- General format updates, Review and reevaluation</td><td>Dec 18\" 2014</td></tr></tbody></table>",
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 9,
+      "parent_id": "1d0493dc00fb487ab8e1cfee9495e2b6",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "236bd9c53a9a3398c29e8a057b42e954",
+    "text": "30/12/2014",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 9,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "b7c2c762fd14ada50da3bb174d9a4b99",
+    "text": "RMF- \u05d3\u05e1\u05d5\u05e1 & \u05d3\u05d7\u05e1\u200e Rev 6",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 9,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Header",
+    "element_id": "1ac1fcba68ff9b6ab71dbf27660baf4b",
+    "text": "Elcam Medical BarAm 13860 Israel",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 10,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Title",
+    "element_id": "c8531f8f9fba235e4a2945ee674ed060",
+    "text": "6. Participants Review & Approval",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 10,
+      "parent_id": "1ac1fcba68ff9b6ab71dbf27660baf4b",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Table",
+    "element_id": "b4a290baba48dbb69972ce2c1b63091d",
+    "text": "6.1. Attendies to FMEA Sessions: Date: Tomer G.- Marketing Director Amit S.- Manufacturing Eng. Dept. Manager Lea R.- Trancducer Arrey Manager Lotfy A.- Technical Support Guri B.- Injection Molding Dept. Manager Feb 2\" 2012 Avi Y .- Injection Molding Dept. Roman P.- R&D Eng. Ilan S.- R&D Manager (by e-mail) Hadas B.E.- QA Eng. Tomer G.- Marketing Director Amit S.- Manufacturing Eng. Dept. Manager Lea R.- Trancducer Arrey Manager Inbal B.- Northen Dept. manager Lotfy A.- Technical Support Guri B.- Injection Molding Dept. Manager Nov 17\"2013 Avi Y .- Injection Molding Dept. Ilan S.- R&D Manager Marta L. - QA Customer Service & Customer complaints Moshe Lo. - Quality Control Manager Maya R.- QA dept. Hadas B.E.- QA Eng. Date: Signature: 6.2. Written By: \u05d6 adas B.E. - QA Engineer e 30 7 \u2014_\u2014 Date: Signature: 6.3. Reviewed & Approved by: / n 8.- R&D Manager 2 2o/ 1/ A -A&",
+    "metadata": {
+      "text_as_html": "<table><thead><tr><th>8 FMEA Session 6.1. Attendie</th><th></th><th>Date:</th></tr></thead><tbody><tr><td>Tomer G.- Marketing Director Amit S.- Manufacturing Eng. Dept. Manager Lea R.- Trancducer Arrey Manager Lotfy A.- Technical Support Guri B.- Injection Molding Dept. Manager Avi Y .- Injection Molding Dept. Roman P.- R&amp;D Eng. Ilan S.- R&amp;D Manager (by e-mail) Hadas B.E.- QA Eng.</td><td></td><td>Feb 2\" 2012</td></tr><tr><td>Tomer G.- Marketing Director Amit S.- Manufacturing Eng. Dept. Manager Lea R.- Trancducer Arrey Manager Inbal B.- Northen Dept. manager Lotfy A.- Technical Support Guri B.- Injection Molding Dept. Manager Avi Y .- Injection Molding Dept. Ilan S.- R&amp;D Manager Marta L. - QA Customer Service &amp; Customer complaints</td><td></td><td>Nov 17\"2013</td></tr><tr><td>Moshe Lo. - Quality Control Manager Maya R.- QA dept. Hadas B.E.- QA Eng.</td><td></td><td></td></tr><tr><td>6.2. Written By:</td><td>Signature:</td><td>Date:</td></tr><tr><td>adas B.E. - QA Engineer \u05d6</td><td>\u2014_\u2014</td><td></td></tr><tr><td>_ 6.3. Reviewed &amp; Approved by:</td><td>Signature:</td><td>14 Date:</td></tr><tr><td>n 8.- R&amp;D Manager</td><td>/</td><td>24</td></tr><tr><td>-</td><td>2 A</td><td>2o/ /1y</td></tr></tbody></table>",
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 10,
+      "parent_id": "c8531f8f9fba235e4a2945ee674ed060",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "NarrativeText",
+    "element_id": "0a6a411c77afdd5b754fb888cdaa08ee",
+    "text": "* End of Document *",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 10,
+      "parent_id": "c8531f8f9fba235e4a2945ee674ed060",
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "PageNumber",
+    "element_id": "7fdafcb666db2efecded9c25327698da",
+    "text": "Page 10 of 10",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 10,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "98f1a203949ccfb69c082d54c327f237",
+    "text": "30/12/2014",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 10,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  },
+  {
+    "type": "Footer",
+    "element_id": "711adb6aed9ed509ff16ffb7c62073dc",
+    "text": "RMF-DPT & \u05d3\u05e1\u05d5\u05e1\u200e Rev C",
+    "metadata": {
+      "filetype": "application/pdf",
+      "languages": [
+        "heb",
+        "eng"
+      ],
+      "page_number": 10,
+      "filename": "RMF- DPT & DIPT Rev  C.pdf"
+    }
+  }
+]
