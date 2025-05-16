@@ -1,4 +1,4 @@
-from waitress import serve
+from waitress import serve #type: ignore
 from run import app
 
 if __name__ == "__main__":

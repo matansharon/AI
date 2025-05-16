@@ -1,6 +1,6 @@
 import os
 
-import chainlit as cl
+import chainlit as cl # type: ignore
 from langchain.chains import RetrievalQA
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.llms import CTransformers
