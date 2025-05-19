@@ -56,15 +56,15 @@ def get_audio_response(question):
 
 def main():
     #create a header that will as for a question. and a button to submit the question
-    st.title("add some text to convert to audio")
-    question = st.text_area("What is your question?")
+    st.title("Add some text to convert to audio")
+    question = st.chat_input("What is your question?")
     
 
     #when the button is clicked, the question will be sent to the model and the answer will be returned
     if question:
         
         q=get_response(question)
-        # st.write(q)
+        st.write(q)
         audio=base64.b64decode(get_audio_response(q))
         st.audio(audio)
         
