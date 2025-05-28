@@ -1,28 +1,25 @@
 #!/usr/bin/env python3
 """
-Simple Gemini Document Chat Script
-A command-line tool to chat with documents using Google's Gemini AI.
+Simple OpenAI Document Chat Script
+A command-line tool to chat with documents using OpenAI's GPT-4.
 """
 
 import os
-from google import genai
-import base64
+from openai import OpenAI
 from docx import Document
-import io
 from dotenv import load_dotenv
-import pathlib
 
 # Load environment variables
 load_dotenv()
 
-class GeminiDocumentChat:
+class OpenAIDocumentChat:
     def __init__(self, api_key=None):
-        """Initialize the Gemini client."""
-        self.api_key = api_key or os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+        """Initialize the OpenAI client."""
+        self.api_key = api_key or os.getenv("OPENAI_API_KEY")
         if not self.api_key:
-            raise ValueError("No API key provided. Set GEMINI_API_KEY or GOOGLE_API_KEY environment variable or pass api_key parameter.")
+            raise ValueError("No API key provided. Set OPENAI_API_KEY environment variable or pass api_key parameter.")
         
-        self.client = genai.Client(api_key=self.api_key)
+        self.client = OpenAI(api_key=self.api_key)
         self.documents = []
         self.chat_history = []
         self.uploaded_files = []
@@ -50,7 +47,7 @@ class GeminiDocumentChat:
             raise Exception(f"Error extracting text from DOCX: {e}")
     
     def load_document(self, file_path):
-        """Load a document and prepare it for Gemini."""
+        """Load a document and prepare it for OpenAI."""
         if not os.path.exists(file_path):
             raise FileNotFoundError(f"File not found: {file_path}")
         
@@ -58,9 +55,13 @@ class GeminiDocumentChat:
         file_extension = file_name.split('.')[-1].lower()
         
         if file_extension == 'pdf':
-            # Upload PDF file to Gemini
+            # Upload PDF file to OpenAI
             try:
-                uploaded_file = self.client.files.upload(file=file_path)
+                with open(file_path, 'rb') as f:
+                    uploaded_file = self.client.files.create(
+                        file=f,
+                        purpose="user_data"
+                    )
                 self.uploaded_files.append(uploaded_file)
                 
                 document = {
@@ -98,53 +99,78 @@ class GeminiDocumentChat:
         print(f"✅ Loaded document: {file_name}")
         return document
     
-    def create_gemini_content(self, user_message):
-        """Create content array for Gemini API with documents and text."""
+    def create_openai_content(self, user_message):
+        """Create content array for OpenAI API with documents and text."""
         content_parts = []
         
-        # Add user message first
-        content_parts.append(user_message)
-        
-        # Add uploaded files (PDFs)
+        # Add uploaded files (PDFs) first
         for doc in self.documents:
             if doc['type'] == 'file':
-                content_parts.append(doc['content'])
+                content_parts.append({
+                    "type": "file",
+                    "file": {
+                        "file_id": doc['content'].id
+                    }
+                })
         
-        # Add text content (from DOCX, TXT, MD files)
+        # Combine user message with text content (from DOCX, TXT, MD files)
+        text_parts = [user_message]
         for doc in self.documents:
             if doc['type'] == 'text':
-                content_parts.append(doc['content'])
+                text_parts.append(doc['content'])
+        
+        # Add combined text content
+        content_parts.append({
+            "type": "text",
+            "text": "\n\n".join(text_parts)
+        })
         
         return content_parts
     
     def chat(self, message):
-        """Send a message to Gemini and get a response."""
+        """Send a message to OpenAI and get a response."""
         try:
             # Create content for current message (documents + question)
-            content_parts = self.create_gemini_content(message)
+            content_parts = self.create_openai_content(message)
             
-            # Get response from Gemini
-            response = self.client.models.generate_content(
-                model="gemini-2.0-flash",
-                contents=content_parts
+            # Build messages array including history
+            messages = []
+            
+            # Add conversation history
+            for msg in self.chat_history:
+                messages.append({
+                    "role": msg["role"],
+                    "content": msg["content"]
+                })
+            
+            # Add current user message with documents
+            messages.append({
+                "role": "user",
+                "content": content_parts
+            })
+            
+            # Get response from OpenAI
+            completion = self.client.chat.completions.create(
+                model="gpt-4o",
+                messages=messages
             )
             
-            assistant_response = response.text
+            assistant_response = completion.choices[0].message.content
             
-            # Add to chat history (simplified for Gemini)
+            # Add to chat history (simplified for display)
             self.chat_history.append({
                 "role": "user",
                 "content": message
             })
             self.chat_history.append({
-                "role": "assistant", 
+                "role": "assistant",
                 "content": assistant_response
             })
             
             return assistant_response
             
         except Exception as e:
-            raise Exception(f"Error chatting with Gemini: {e}")
+            raise Exception(f"Error chatting with OpenAI: {e}")
     
     def list_documents(self):
         """List all loaded documents."""
@@ -209,13 +235,13 @@ class GeminiDocumentChat:
 
 def main():
     """Main function with command-line interface."""
-    print("🤖 Gemini Document Chat")
+    print("🤖 OpenAI Document Chat")
     print("=" * 40)
     
     try:
         # Initialize chat client
-        chat = GeminiDocumentChat()
-        print("✅ Gemini client initialized successfully!")
+        chat = OpenAIDocumentChat()
+        print("✅ OpenAI client initialized successfully!")
         
         # Auto-load documents from docs folder
         chat.load_docs_folder()
@@ -260,12 +286,12 @@ def main():
                 chat.clear_history()
             
             else:
-                # Chat with Gemini
+                # Chat with OpenAI
                 if not chat.documents:
                     print("⚠️  No documents loaded. Use 'load <file_path>' to load documents first.")
                     continue
                 
-                print("🤖 Gemini: ", end="", flush=True)
+                print("🤖 OpenAI: ", end="", flush=True)
                 try:
                     response = chat.chat(user_input)
                     print(response)

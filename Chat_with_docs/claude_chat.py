@@ -195,6 +195,44 @@ class ClaudeDocumentChat:
         """Clear chat history."""
         self.chat_history = []
         print("Chat history cleared.")
+    
+    def scan_docs_folder(self, docs_path="docs"):
+        """Scan docs folder for supported document types."""
+        supported_extensions = ['pdf', 'docx', 'txt', 'md']
+        found_files = []
+        
+        if not os.path.exists(docs_path):
+            return found_files
+        
+        try:
+            for filename in os.listdir(docs_path):
+                file_path = os.path.join(docs_path, filename)
+                if os.path.isfile(file_path):
+                    file_extension = filename.split('.')[-1].lower()
+                    if file_extension in supported_extensions:
+                        found_files.append(file_path)
+            
+            return sorted(found_files)
+        except Exception as e:
+            print(f"⚠️  Error scanning docs folder: {e}")
+            return found_files
+    
+    def load_docs_folder(self, docs_path="docs"):
+        """Load all supported documents from docs folder."""
+        files = self.scan_docs_folder(docs_path)
+        loaded_count = 0
+        
+        for file_path in files:
+            try:
+                self.load_document(file_path)
+                loaded_count += 1
+            except Exception as e:
+                print(f"⚠️  Could not load {file_path}: {e}")
+        
+        if loaded_count > 0:
+            print(f"📁 Auto-loaded {loaded_count} document(s) from {docs_path} folder")
+        
+        return loaded_count
 
 
 def main():
@@ -206,6 +244,9 @@ def main():
         # Initialize chat client
         chat = ClaudeDocumentChat()
         print("✅ Claude client initialized successfully!")
+        
+        # Auto-load documents from docs folder
+        chat.load_docs_folder()
     except Exception as e:
         print(f"❌ Error initializing client: {e}")
         return

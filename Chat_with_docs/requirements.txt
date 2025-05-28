@@ -1,4 +1,6 @@
-streamlit>=1.28.0
-anthropic>=0.34.0
-python-dotenv>=1.0.0
-python-docx>=0.8.11
+anthropic
+python-dotenv
+python-docx
+openai
+anthropic
+google-genai
