@@ -1,24 +1,25 @@
 import streamlit as st
 import os
-from google import genai
+import anthropic
 import tempfile
 from dotenv import load_dotenv
 from docx import Document
 import io
+import base64
 
 # Load environment variables
 load_dotenv()
 
 st.set_page_config(
-    page_title="Chat with Documents - Gemini AI",
+    page_title="Chat with Documents - Claude AI",
     page_icon="📄",
     layout="wide"
 )
 
 def initialize_client(api_key):
-    """Initialize the Gemini client with provided API key."""
+    """Initialize the Claude client with provided API key."""
     try:
-        return genai.Client(api_key=api_key)
+        return anthropic.Anthropic(api_key=api_key)
     except Exception as e:
         st.error(f"Failed to initialize client: {e}")
         return None
@@ -46,10 +47,77 @@ def extract_text_from_docx(file_bytes):
     except Exception as e:
         raise Exception(f"Error extracting text from DOCX: {e}")
 
+def prepare_document_for_claude(file, file_name, file_extension):
+    """Prepare a document for Claude based on its type."""
+    file_content = file.getvalue()
+    
+    if file_extension.lower() == 'pdf':
+        # PDFs are sent as documents with base64 encoding
+        pdf_data = base64.standard_b64encode(file_content).decode("utf-8")
+        return {
+            'type': 'document',
+            'name': file_name,
+            'content': {
+                "type": "document",
+                "source": {
+                    "type": "base64",
+                    "media_type": "application/pdf",
+                    "data": pdf_data
+                }
+            }
+        }
+    elif file_extension.lower() == 'docx':
+        # DOCX files need text extraction
+        extracted_text = extract_text_from_docx(file_content)
+        return {
+            'type': 'text',
+            'name': file_name,
+            'content': f"--- Content from {file_name} ---\n{extracted_text}"
+        }
+    elif file_extension.lower() in ['txt', 'md']:
+        # Text files are sent as text content
+        text_content = file_content.decode('utf-8')
+        return {
+            'type': 'text',
+            'name': file_name,
+            'content': f"--- Content from {file_name} ---\n{text_content}"
+        }
+    else:
+        raise Exception(f"Unsupported file type: {file_extension}")
+
+def create_claude_content(documents, text_message):
+    """Create content array for Claude API with documents and text."""
+    content = []
+    
+    # Add documents first (PDFs)
+    for doc in documents:
+        if doc['type'] == 'document':
+            content.append(doc['content'])
+    
+    # Add text content (from DOCX, TXT, MD files)
+    text_parts = [text_message]
+    for doc in documents:
+        if doc['type'] == 'text':
+            text_parts.append(doc['content'])
+    
+    # Combine all text content into one text block
+    if len(text_parts) > 1:
+        content.append({
+            "type": "text",
+            "text": "\n\n".join(text_parts)
+        })
+    else:
+        content.append({
+            "type": "text", 
+            "text": text_message
+        })
+    
+    return content
+
 def main():
     """Main function for chat with documents."""
-    st.title("📄 Chat with Documents - Gemini AI")
-    st.markdown("Upload documents and have a conversation with AI about their content")
+    st.title("📄 Chat with Documents - Claude AI")
+    st.markdown("Upload documents and have a conversation with Claude about their content")
     st.markdown("---")
     
     # Sidebar for API key and document upload
@@ -57,13 +125,13 @@ def main():
         st.header("🔑 Configuration")
         
         # Try to get API key from environment first
-        env_api_key = os.getenv("GOOGLE_API_KEY")
+        env_api_key = os.getenv("ANTHROPIC_API_KEY")
         
         api_key = st.text_input(
-            "Enter your Gemini API Key:", 
+            "Enter your Anthropic API Key:", 
             value=env_api_key if env_api_key else "",
             type="password",
-            help="Get your API key from Google AI Studio (auto-loaded from .env if available)"
+            help="Get your API key from Anthropic Console (auto-loaded from .env if available)"
         )
         
         if not api_key:
@@ -84,7 +152,7 @@ def main():
             "Choose documents to chat about:",
             type=['pdf', 'txt', 'docx', 'md'],
             accept_multiple_files=True,
-            help="Upload documents you want to discuss with AI. DOCX files will have their text extracted, while PDF/TXT/MD files are uploaded directly."
+            help="Upload documents you want to discuss with Claude. PDFs are processed natively (including images/charts), while DOCX files have text extracted. TXT/MD files are sent as text content."
         )
         
         # Document management
@@ -101,72 +169,44 @@ def main():
                 with st.spinner("Processing documents..."):
                     try:
                         # Initialize session state for document chat
-                        st.session_state.document_files = []
-                        st.session_state.document_texts = []
-                        st.session_state.temp_files = []
-                        
-                        # Process all documents
-                        for file in uploaded_files:
-                            file_extension = file.name.split('.')[-1].lower()
-                            
-                            if file_extension == 'docx':
-                                # Extract text from DOCX file
-                                text_content = extract_text_from_docx(file.getvalue())
-                                st.session_state.document_texts.append({
-                                    'name': file.name,
-                                    'content': text_content,
-                                    'type': 'text'
-                                })
-                            else:
-                                # Handle other file types (PDF, TXT, MD) - upload to Gemini
-                                with tempfile.NamedTemporaryFile(delete=False, suffix=f".{file_extension}") as tmp_file:
-                                    tmp_file.write(file.getvalue())
-                                    st.session_state.temp_files.append(tmp_file.name)
-                                
-                                # Upload to Gemini
-                                uploaded_gemini_file = client.files.upload(file=tmp_file.name)
-                                st.session_state.document_files.append({
-                                    'name': file.name,
-                                    'file': uploaded_gemini_file,
-                                    'type': 'file'
-                                })
-                        
-                        # Initialize document context for streaming
+                        st.session_state.documents = []
                         st.session_state.chat_history = []
                         st.session_state.documents_loaded = True
                         
-                        # Create comprehensive context message
-                        context_parts = [f"I have uploaded {len(uploaded_files)} documents: {', '.join([f.name for f in uploaded_files])}. Please analyze these documents and let me know you're ready to answer questions about them."]
+                        # Process all documents for Claude
+                        for file in uploaded_files:
+                            file_extension = file.name.split('.')[-1].lower()
+                            doc = prepare_document_for_claude(file, file.name, file_extension)
+                            st.session_state.documents.append(doc)
                         
-                        # Add text content from DOCX files
-                        for doc_text in st.session_state.document_texts:
-                            context_parts.append(f"\n\n--- Content from {doc_text['name']} ---\n{doc_text['content']}")
+                        # Create initial context message
+                        initial_message = f"I have uploaded {len(uploaded_files)} documents: {', '.join([f.name for f in uploaded_files])}. Please analyze these documents and let me know you're ready to answer questions about them."
                         
-                        # Add file uploads for other formats
-                        file_objects = [doc['file'] for doc in st.session_state.document_files]
-                        
-                        # Send initial context message with streaming
-                        contents = context_parts + file_objects
+                        # Create content for Claude API
+                        content = create_claude_content(st.session_state.documents, initial_message)
                         
                         # Create container for streaming response
                         response_container = st.empty()
-                        full_response = ""
                         
                         # Start with processing indicator
-                        response_container.markdown("**🤖 AI:** 📄 _Analyzing documents..._")
+                        response_container.markdown("**🤖 Claude:** 📄 _Analyzing documents..._")
                         
-                        response_stream = client.models.generate_content_stream(
-                            model="gemini-2.5-pro-preview-05-06",
-                            contents=contents
-                        )
-                        
-                        for chunk in response_stream:
-                            if hasattr(chunk, 'text') and chunk.text:
-                                full_response += chunk.text
-                                response_container.markdown(f"**🤖 AI:** {full_response}▋")
+                        # Send initial message with streaming
+                        with client.messages.stream(
+                            model="claude-3-5-sonnet-20241022",
+                            max_tokens=1024,
+                            messages=[{
+                                "role": "user",
+                                "content": content
+                            }]
+                        ) as stream:
+                            full_response = ""
+                            for chunk in stream.text_stream:
+                                full_response += chunk
+                                response_container.markdown(f"**🤖 Claude:** {full_response}▋")
                         
                         # Remove cursor when done
-                        response_container.markdown(f"**🤖 AI:** {full_response}")
+                        response_container.markdown(f"**🤖 Claude:** {full_response}")
                         
                         # Add to chat history
                         st.session_state.chat_history.append({
@@ -186,18 +226,21 @@ def main():
         
         # Display document context
         with st.expander("📋 Loaded Documents", expanded=False):
-            # Show uploaded files
-            for doc in st.session_state.document_files:
-                st.markdown(f"• **{doc['name']}** (File Upload)")
-            # Show text content from DOCX files
-            for doc in st.session_state.document_texts:
-                st.markdown(f"• **{doc['name']}** (Text Extracted)")
+            for doc in st.session_state.documents:
+                if doc['type'] == 'document':
+                    st.markdown(f"• **{doc['name']}** (PDF - Native Processing)")
+                else:
+                    st.markdown(f"• **{doc['name']}** (Text Extracted)")
         
         # Document previews (separate from the main expander)
-        if st.session_state.document_texts:
-            for doc in st.session_state.document_texts:
+        text_docs = [doc for doc in st.session_state.documents if doc['type'] == 'text']
+        if text_docs:
+            for doc in text_docs:
                 with st.expander(f"📄 Preview: {doc['name']}", expanded=False):
-                    preview = doc['content'][:500] + "..." if len(doc['content']) > 500 else doc['content']
+                    # Extract just the content part after the header
+                    content_parts = doc['content'].split('---\n', 1)
+                    preview_content = content_parts[1] if len(content_parts) > 1 else doc['content']
+                    preview = preview_content[:500] + "..." if len(preview_content) > 500 else preview_content
                     st.text(preview)
         
         # Chat controls
@@ -219,70 +262,57 @@ def main():
         
         if st.button("📤 Send Question", type="primary") and user_question.strip():
             try:
-                # Add user message to history first
-                st.session_state.chat_history.append({
-                    "role": "user",
-                    "content": user_question
-                })
-                
-                # Build conversation context for streaming
-                conversation_context = []
-                
-                # Add document context
-                doc_context = f"Document Context - I have access to these documents: {', '.join([doc['name'] for doc in st.session_state.document_files] + [doc['name'] for doc in st.session_state.document_texts])}"
-                conversation_context.append(doc_context)
-                
-                # Add text content from DOCX files
-                for doc_text in st.session_state.document_texts:
-                    conversation_context.append(f"\n--- Content from {doc_text['name']} ---\n{doc_text['content']}")
-                
-                # Add conversation history
-                for msg in st.session_state.chat_history[:-1]:  # Exclude the just-added user message
-                    if msg["role"] == "user":
-                        conversation_context.append(f"User: {msg['content']}")
-                    else:
-                        conversation_context.append(f"Assistant: {msg['content']}")
-                
-                # Add current user question
-                conversation_context.append(f"User: {user_question}")
-                conversation_context.append("Assistant:")
-                
-                # Add file objects for non-DOCX files
-                file_objects = [doc['file'] for doc in st.session_state.document_files]
-                
-                # Prepare contents for streaming
-                contents = ["\n\n".join(conversation_context)] + file_objects
-                
                 # Show user message immediately
                 st.markdown(f"**👤 You:** {user_question}")
                 
                 # Create placeholder for streaming response
                 response_placeholder = st.empty()
-                full_response = ""
+                response_placeholder.markdown("**🤖 Claude:** ✨ _Thinking..._")
                 
-                # Start with typing indicator
-                response_placeholder.markdown("**🤖 AI:** ✨ _Thinking..._")
+                # Build messages for Claude API
+                messages = []
                 
+                # Add conversation history to messages
+                for msg in st.session_state.chat_history:
+                    messages.append({
+                        "role": msg["role"],
+                        "content": msg["content"]
+                    })
+                
+                # Create content for current message (documents + question)
+                content = create_claude_content(st.session_state.documents, user_question)
+                
+                # Add current user message
+                messages.append({
+                    "role": "user", 
+                    "content": content
+                })
+                
+                # Stream response from Claude
                 try:
-                    response_stream = client.models.generate_content_stream(
-                        model="gemini-2.5-pro-preview-05-06",
-                        contents=contents
-                    )
-                    
-                    for chunk in response_stream:
-                        if hasattr(chunk, 'text') and chunk.text:
-                            full_response += chunk.text
+                    with client.messages.stream(
+                        model="claude-3-5-sonnet-20241022",
+                        max_tokens=1024,
+                        messages=messages
+                    ) as stream:
+                        full_response = ""
+                        for chunk in stream.text_stream:
+                            full_response += chunk
                             # Show streaming response with cursor
-                            response_placeholder.markdown(f"**🤖 AI:** {full_response}▋")
+                            response_placeholder.markdown(f"**🤖 Claude:** {full_response}▋")
                     
                     # Remove cursor when done
-                    response_placeholder.markdown(f"**🤖 AI:** {full_response}")
+                    response_placeholder.markdown(f"**🤖 Claude:** {full_response}")
                     
                 except Exception as stream_error:
-                    response_placeholder.markdown(f"**🤖 AI:** ❌ Error: {stream_error}")
+                    response_placeholder.markdown(f"**🤖 Claude:** ❌ Error: {stream_error}")
                     full_response = f"Error: {stream_error}"
                 
-                # Add assistant response to history
+                # Add both user question and assistant response to history
+                st.session_state.chat_history.append({
+                    "role": "user",
+                    "content": user_question
+                })
                 st.session_state.chat_history.append({
                     "role": "assistant", 
                     "content": full_response
@@ -302,7 +332,7 @@ def main():
                 if message["role"] == "user":
                     st.markdown(f"**👤 You:** {message['content']}")
                 else:
-                    st.markdown(f"**🤖 AI:** {message['content']}")
+                    st.markdown(f"**🤖 Claude:** {message['content']}")
                 st.markdown("---")
     
     else:
@@ -312,8 +342,13 @@ def main():
         
         To get started:
         1. **Upload documents** in the sidebar (PDF, TXT, DOCX, MD)
-        2. **Click "Start Chat"** to process your documents
+        2. **Click "Start Chat"** to process your documents with Claude
         3. **Ask questions** about your documents in the chat interface
+        
+        ### What Claude can do:
+        - **PDFs**: Native processing including images, charts, and tables
+        - **Text files**: Direct analysis of content
+        - **DOCX files**: Text extraction and analysis
         
         ### Example Questions:
         - "What are the main topics discussed in these documents?"
@@ -325,7 +360,7 @@ def main():
     # Footer
     st.markdown("---")
     st.markdown(
-        "Made with ❤️ using [Streamlit](https://streamlit.io) and [Google Gemini API](https://ai.google.dev/)"
+        "Made with ❤️ using [Streamlit](https://streamlit.io) and [Anthropic Claude API](https://anthropic.com)"
     )
 
 if __name__ == "__main__":
