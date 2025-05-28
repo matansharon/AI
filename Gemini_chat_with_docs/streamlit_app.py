@@ -125,18 +125,11 @@ def main():
         st.header("🔑 Configuration")
         
         # Try to get API key from environment first
-        env_api_key = os.getenv("ANTHROPIC_API_KEY")
+        api_key = os.getenv("ANTHROPIC_API_KEY")
         
-        api_key = st.text_input(
-            "Enter your Anthropic API Key:", 
-            value=env_api_key if env_api_key else "",
-            type="password",
-            help="Get your API key from Anthropic Console (auto-loaded from .env if available)"
-        )
         
-        if not api_key:
-            st.warning("Please enter your API key to continue")
-            return
+        
+        
             
         client = initialize_client(api_key)
         if not client:
@@ -193,7 +186,7 @@ def main():
                         
                         # Send initial message with streaming
                         with client.messages.stream(
-                            model="claude-3-5-sonnet-20241022",
+                            model="claude-sonnet-4-20250514",
                             max_tokens=1024,
                             messages=[{
                                 "role": "user",
@@ -291,7 +284,7 @@ def main():
                 # Stream response from Claude
                 try:
                     with client.messages.stream(
-                        model="claude-3-5-sonnet-20241022",
+                        model="claude-sonnet-4-20250514",
                         max_tokens=1024,
                         messages=messages
                     ) as stream:
