@@ -3,6 +3,8 @@ import os
 from google import genai
 import tempfile
 from dotenv import load_dotenv
+from docx import Document
+import io
 
 # Load environment variables
 load_dotenv()
@@ -21,11 +23,36 @@ def initialize_client(api_key):
         st.error(f"Failed to initialize client: {e}")
         return None
 
+def extract_text_from_docx(file_bytes):
+    """Extract text content from DOCX file bytes."""
+    try:
+        # Create a Document object from file bytes
+        doc = Document(io.BytesIO(file_bytes))
+        
+        # Extract text from all paragraphs
+        full_text = []
+        for paragraph in doc.paragraphs:
+            if paragraph.text.strip():  # Only add non-empty paragraphs
+                full_text.append(paragraph.text)
+        
+        # Extract text from tables
+        for table in doc.tables:
+            for row in table.rows:
+                for cell in row.cells:
+                    if cell.text.strip():
+                        full_text.append(cell.text)
+        
+        return '\n\n'.join(full_text)
+    except Exception as e:
+        raise Exception(f"Error extracting text from DOCX: {e}")
+
 def main():
-    st.title("🤖 Google Gemini API Tester")
+    """Main function for chat with documents."""
+    st.title("📄 Chat with Documents - Gemini AI")
+    st.markdown("Upload documents and have a conversation with AI about their content")
     st.markdown("---")
     
-    # Sidebar for API key
+    # Sidebar for API key and document upload
     with st.sidebar:
         st.header("🔑 Configuration")
         
@@ -39,237 +66,262 @@ def main():
             help="Get your API key from Google AI Studio (auto-loaded from .env if available)"
         )
         
-        if api_key:
-            client = initialize_client(api_key)
-            if client:
-                st.success("✅ Client initialized successfully!")
-            else:
-                st.error("❌ Failed to initialize client")
-                return
-        else:
+        if not api_key:
             st.warning("Please enter your API key to continue")
             return
-    
-    # Main content tabs
-    tab1, tab2, tab3 = st.tabs(["💬 Content Generation", "🗨️ Chat Conversation", "📁 File Analysis"])
-    
-    # Tab 1: Streaming Content Generation
-    with tab1:
-        st.header("📝 Streaming Content Generation")
-        st.markdown("Generate content with real-time streaming responses")
+            
+        client = initialize_client(api_key)
+        if not client:
+            st.error("❌ Failed to initialize client")
+            return
         
-        prompt = st.text_area(
-            "Enter your prompt:",
-            value="Explain how AI works",
-            height=100,
-            placeholder="Type your question or prompt here..."
+        st.success("✅ Client initialized successfully!")
+        st.markdown("---")
+        
+        # Document Upload Section
+        st.header("📁 Upload Documents")
+        uploaded_files = st.file_uploader(
+            "Choose documents to chat about:",
+            type=['pdf', 'txt', 'docx', 'md'],
+            accept_multiple_files=True,
+            help="Upload documents you want to discuss with AI. DOCX files will have their text extracted, while PDF/TXT/MD files are uploaded directly."
         )
         
-        if st.button("🚀 Generate Content", type="primary"):
-            if prompt.strip():
-                with st.spinner("Generating response..."):
+        # Document management
+        if uploaded_files:
+            st.markdown("### 📂 Uploaded Documents:")
+            for i, file in enumerate(uploaded_files, 1):
+                file_extension = file.name.split('.')[-1].lower()
+                if file_extension == 'docx':
+                    st.markdown(f"**{i}.** {file.name} 📝 (Text will be extracted)")
+                else:
+                    st.markdown(f"**{i}.** {file.name} 📄")
+            
+            if st.button("🚀 Start Chat with Documents", type="primary"):
+                with st.spinner("Processing documents..."):
                     try:
+                        # Initialize session state for document chat
+                        st.session_state.document_files = []
+                        st.session_state.document_texts = []
+                        st.session_state.temp_files = []
+                        
+                        # Process all documents
+                        for file in uploaded_files:
+                            file_extension = file.name.split('.')[-1].lower()
+                            
+                            if file_extension == 'docx':
+                                # Extract text from DOCX file
+                                text_content = extract_text_from_docx(file.getvalue())
+                                st.session_state.document_texts.append({
+                                    'name': file.name,
+                                    'content': text_content,
+                                    'type': 'text'
+                                })
+                            else:
+                                # Handle other file types (PDF, TXT, MD) - upload to Gemini
+                                with tempfile.NamedTemporaryFile(delete=False, suffix=f".{file_extension}") as tmp_file:
+                                    tmp_file.write(file.getvalue())
+                                    st.session_state.temp_files.append(tmp_file.name)
+                                
+                                # Upload to Gemini
+                                uploaded_gemini_file = client.files.upload(file=tmp_file.name)
+                                st.session_state.document_files.append({
+                                    'name': file.name,
+                                    'file': uploaded_gemini_file,
+                                    'type': 'file'
+                                })
+                        
+                        # Initialize document context for streaming
+                        st.session_state.chat_history = []
+                        st.session_state.documents_loaded = True
+                        
+                        # Create comprehensive context message
+                        context_parts = [f"I have uploaded {len(uploaded_files)} documents: {', '.join([f.name for f in uploaded_files])}. Please analyze these documents and let me know you're ready to answer questions about them."]
+                        
+                        # Add text content from DOCX files
+                        for doc_text in st.session_state.document_texts:
+                            context_parts.append(f"\n\n--- Content from {doc_text['name']} ---\n{doc_text['content']}")
+                        
+                        # Add file uploads for other formats
+                        file_objects = [doc['file'] for doc in st.session_state.document_files]
+                        
+                        # Send initial context message with streaming
+                        contents = context_parts + file_objects
+                        
+                        # Create container for streaming response
                         response_container = st.empty()
                         full_response = ""
                         
-                        response = client.models.generate_content_stream(
-                            model="gemini-2.0-flash",
-                            contents=[prompt]
-                        )
+                        # Start with processing indicator
+                        response_container.markdown("**🤖 AI:** 📄 _Analyzing documents..._")
                         
-                        for chunk in response:
-                            full_response += chunk.text
-                            response_container.markdown(full_response)
-                        
-                        st.success("✅ Content generated successfully!")
-                        
-                    except Exception as e:
-                        st.error(f"Error generating content: {e}")
-            else:
-                st.warning("Please enter a prompt")
-    
-    # Tab 2: Chat Conversation
-    with tab2:
-        st.header("💬 Chat Conversation")
-        st.markdown("Have a multi-turn conversation with Gemini")
-        
-        # Initialize chat session in session state
-        if 'chat_session' not in st.session_state:
-            st.session_state.chat_session = None
-        if 'chat_history' not in st.session_state:
-            st.session_state.chat_history = []
-        
-        col1, col2 = st.columns([3, 1])
-        
-        with col1:
-            if st.button("🆕 Start New Chat"):
-                try:
-                    st.session_state.chat_session = client.chats.create(model="gemini-2.0-flash")
-                    st.session_state.chat_history = []
-                    st.success("New chat session started!")
-                except Exception as e:
-                    st.error(f"Error starting chat: {e}")
-        
-        with col2:
-            if st.button("🗑️ Clear History"):
-                st.session_state.chat_history = []
-                st.success("History cleared!")
-        
-        # Chat interface
-        if st.session_state.chat_session:
-            user_message = st.text_input(
-                "Your message:",
-                placeholder="Type your message here...",
-                key="chat_input"
-            )
-            
-            if st.button("📤 Send Message") and user_message.strip():
-                try:
-                    with st.spinner("Sending message..."):
-                        response = st.session_state.chat_session.send_message(user_message)
-                        
-                        # Add to history
-                        st.session_state.chat_history.append({
-                            "role": "user",
-                            "content": user_message
-                        })
-                        st.session_state.chat_history.append({
-                            "role": "assistant", 
-                            "content": response.text
-                        })
-                        
-                        # Clear input
-                        st.rerun()
-                        
-                except Exception as e:
-                    st.error(f"Error sending message: {e}")
-        
-        # Display chat history
-        if st.session_state.chat_history:
-            st.markdown("### 📜 Chat History")
-            for i, message in enumerate(st.session_state.chat_history):
-                if message["role"] == "user":
-                    st.markdown(f"**👤 You:** {message['content']}")
-                else:
-                    st.markdown(f"**🤖 Gemini:** {message['content']}")
-                st.markdown("---")
-        else:
-            st.info("Start a new chat to begin conversation")
-    
-    # Tab 3: File Analysis
-    with tab3:
-        st.header("📁 File Upload & Analysis")
-        st.markdown("Upload multiple files for AI analysis")
-        
-        uploaded_files = st.file_uploader(
-            "Choose files to analyze",
-            type=['mp3', 'wav', 'ogg', 'm4a','pdf', 'txt', 'docx', 'jpg', 'jpeg', 'png'],
-            accept_multiple_files=True,
-            help="Upload audio, document, or image files for analysis"
-        )
-        
-        analysis_prompt = st.text_area(
-            "Analysis prompt:",
-            value="Analyze and describe these files",
-            height=80,
-            placeholder="What would you like to know about these files?"
-        )
-        
-        # Show uploaded files
-        if uploaded_files:
-            st.markdown("### 📂 Uploaded Files:")
-            for i, file in enumerate(uploaded_files, 1):
-                st.markdown(f"**{i}.** {file.name} ({file.size:,} bytes)")
-        
-        if uploaded_files and analysis_prompt:
-            col1, col2 = st.columns([1, 1])
-            
-            with col1:
-                analyze_together = st.button("🔍 Analyze All Together", type="primary")
-            with col2:
-                analyze_separately = st.button("📝 Analyze Each File Separately")
-            
-            if analyze_together:
-                try:
-                    with st.spinner(f"Uploading and analyzing {len(uploaded_files)} files together..."):
-                        gemini_files = []
-                        temp_files = []
-                        
-                        # Upload all files to Gemini
-                        for file in uploaded_files:
-                            # Save uploaded file temporarily
-                            with tempfile.NamedTemporaryFile(delete=False, suffix=f".{file.name.split('.')[-1]}") as tmp_file:
-                                tmp_file.write(file.getvalue())
-                                temp_files.append(tmp_file.name)
-                            
-                            # Upload to Gemini
-                            uploaded_gemini_file = client.files.upload(file=tmp_file.name)
-                            gemini_files.append(uploaded_gemini_file)
-                        
-                        # Generate analysis for all files together
-                        contents = [analysis_prompt] + gemini_files
-                        response = client.models.generate_content(
-                            model="gemini-2.0-flash",
+                        response_stream = client.models.generate_content_stream(
+                            model="gemini-2.5-pro-preview-05-06",
                             contents=contents
                         )
                         
-                        st.success(f"✅ {len(uploaded_files)} files analyzed together successfully!")
-                        st.markdown("### 📊 Combined Analysis Result:")
-                        st.markdown(response.text)
+                        for chunk in response_stream:
+                            if hasattr(chunk, 'text') and chunk.text:
+                                full_response += chunk.text
+                                response_container.markdown(f"**🤖 AI:** {full_response}▋")
                         
-                        # Clean up temp files
-                        for temp_file in temp_files:
-                            os.unlink(temp_file)
+                        # Remove cursor when done
+                        response_container.markdown(f"**🤖 AI:** {full_response}")
                         
-                except Exception as e:
-                    st.error(f"Error analyzing files: {e}")
-                    # Clean up temp files on error
-                    for temp_file in temp_files:
-                        try:
-                            os.unlink(temp_file)
-                        except:
-                            pass
-            
-            elif analyze_separately:
-                try:
-                    with st.spinner(f"Analyzing {len(uploaded_files)} files separately..."):
-                        for i, file in enumerate(uploaded_files, 1):
-                            st.markdown(f"### 📄 Analysis of File {i}: {file.name}")
-                            
-                            # Save uploaded file temporarily
-                            with tempfile.NamedTemporaryFile(delete=False, suffix=f".{file.name.split('.')[-1]}") as tmp_file:
-                                tmp_file.write(file.getvalue())
-                                tmp_file_path = tmp_file.name
-                            
-                            # Upload to Gemini
-                            uploaded_gemini_file = client.files.upload(file=tmp_file_path)
-                            
-                            # Generate analysis
-                            response = client.models.generate_content(
-                                model="gemini-2.0-flash",
-                                contents=[f"{analysis_prompt} (File: {file.name})", uploaded_gemini_file]
-                            )
-                            
-                            st.markdown(response.text)
-                            st.markdown("---")
-                            
-                            # Clean up temp file
-                            os.unlink(tmp_file_path)
+                        # Add to chat history
+                        st.session_state.chat_history.append({
+                            "role": "assistant",
+                            "content": full_response
+                        })
                         
-                        st.success(f"✅ All {len(uploaded_files)} files analyzed separately!")
+                        st.success(f"✅ {len(uploaded_files)} documents processed successfully!")
+                        st.rerun()
                         
-                except Exception as e:
-                    st.error(f"Error analyzing files: {e}")
-                    try:
-                        os.unlink(tmp_file_path)
-                    except:
-                        pass
+                    except Exception as e:
+                        st.error(f"Error processing documents: {e}")
+    
+    # Main Chat Interface
+    if 'documents_loaded' in st.session_state and st.session_state.documents_loaded:
+        st.header("💬 Chat with Your Documents")
         
-        elif uploaded_files:
-            st.info("Enter an analysis prompt to proceed")
-        else:
-            st.info("Upload files to begin analysis")
-
+        # Display document context
+        with st.expander("📋 Loaded Documents", expanded=False):
+            # Show uploaded files
+            for doc in st.session_state.document_files:
+                st.markdown(f"• **{doc['name']}** (File Upload)")
+            # Show text content from DOCX files
+            for doc in st.session_state.document_texts:
+                st.markdown(f"• **{doc['name']}** (Text Extracted)")
+        
+        # Document previews (separate from the main expander)
+        if st.session_state.document_texts:
+            for doc in st.session_state.document_texts:
+                with st.expander(f"📄 Preview: {doc['name']}", expanded=False):
+                    preview = doc['content'][:500] + "..." if len(doc['content']) > 500 else doc['content']
+                    st.text(preview)
+        
+        # Chat controls
+        col1, col2 = st.columns([3, 1])
+        with col2:
+            if st.button("🗑️ Clear Chat"):
+                st.session_state.chat_history = []
+                st.rerun()
+        
+        # Chat input
+        user_question = st.text_input(
+            "Ask a question about your documents:",
+            placeholder="What is the main topic of these documents?",
+            key="doc_chat_input"
+        )
+        
+        # Add hint
+        st.caption("💡 Tip: Type your question and press Enter or click Send")
+        
+        if st.button("📤 Send Question", type="primary") and user_question.strip():
+            try:
+                # Add user message to history first
+                st.session_state.chat_history.append({
+                    "role": "user",
+                    "content": user_question
+                })
+                
+                # Build conversation context for streaming
+                conversation_context = []
+                
+                # Add document context
+                doc_context = f"Document Context - I have access to these documents: {', '.join([doc['name'] for doc in st.session_state.document_files] + [doc['name'] for doc in st.session_state.document_texts])}"
+                conversation_context.append(doc_context)
+                
+                # Add text content from DOCX files
+                for doc_text in st.session_state.document_texts:
+                    conversation_context.append(f"\n--- Content from {doc_text['name']} ---\n{doc_text['content']}")
+                
+                # Add conversation history
+                for msg in st.session_state.chat_history[:-1]:  # Exclude the just-added user message
+                    if msg["role"] == "user":
+                        conversation_context.append(f"User: {msg['content']}")
+                    else:
+                        conversation_context.append(f"Assistant: {msg['content']}")
+                
+                # Add current user question
+                conversation_context.append(f"User: {user_question}")
+                conversation_context.append("Assistant:")
+                
+                # Add file objects for non-DOCX files
+                file_objects = [doc['file'] for doc in st.session_state.document_files]
+                
+                # Prepare contents for streaming
+                contents = ["\n\n".join(conversation_context)] + file_objects
+                
+                # Show user message immediately
+                st.markdown(f"**👤 You:** {user_question}")
+                
+                # Create placeholder for streaming response
+                response_placeholder = st.empty()
+                full_response = ""
+                
+                # Start with typing indicator
+                response_placeholder.markdown("**🤖 AI:** ✨ _Thinking..._")
+                
+                try:
+                    response_stream = client.models.generate_content_stream(
+                        model="gemini-2.5-pro-preview-05-06",
+                        contents=contents
+                    )
+                    
+                    for chunk in response_stream:
+                        if hasattr(chunk, 'text') and chunk.text:
+                            full_response += chunk.text
+                            # Show streaming response with cursor
+                            response_placeholder.markdown(f"**🤖 AI:** {full_response}▋")
+                    
+                    # Remove cursor when done
+                    response_placeholder.markdown(f"**🤖 AI:** {full_response}")
+                    
+                except Exception as stream_error:
+                    response_placeholder.markdown(f"**🤖 AI:** ❌ Error: {stream_error}")
+                    full_response = f"Error: {stream_error}"
+                
+                # Add assistant response to history
+                st.session_state.chat_history.append({
+                    "role": "assistant", 
+                    "content": full_response
+                })
+                
+                # Clear the placeholder and rerun to show full chat history
+                response_placeholder.empty()
+                st.rerun()
+                    
+            except Exception as e:
+                st.error(f"Error sending message: {e}")
+        
+        # Display chat history
+        if st.session_state.chat_history:
+            st.markdown("### 💬 Conversation")
+            for message in st.session_state.chat_history:
+                if message["role"] == "user":
+                    st.markdown(f"**👤 You:** {message['content']}")
+                else:
+                    st.markdown(f"**🤖 AI:** {message['content']}")
+                st.markdown("---")
+    
+    else:
+        # Welcome message when no documents are loaded
+        st.markdown("""
+        ## Welcome! 👋
+        
+        To get started:
+        1. **Upload documents** in the sidebar (PDF, TXT, DOCX, MD)
+        2. **Click "Start Chat"** to process your documents
+        3. **Ask questions** about your documents in the chat interface
+        
+        ### Example Questions:
+        - "What are the main topics discussed in these documents?"
+        - "Can you summarize the key points?"
+        - "What conclusions can you draw from this content?"
+        - "Are there any important dates or numbers mentioned?"
+        """)
+    
     # Footer
     st.markdown("---")
     st.markdown(
