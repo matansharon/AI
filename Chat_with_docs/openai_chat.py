@@ -128,7 +128,7 @@ class OpenAIDocumentChat:
         return content_parts
     
     def chat(self, message):
-        """Send a message to OpenAI and get a response."""
+        """Send a message to OpenAI and get a streaming response."""
         try:
             # Create content for current message (documents + question)
             content_parts = self.create_openai_content(message)
@@ -149,25 +149,32 @@ class OpenAIDocumentChat:
                 "content": content_parts
             })
             
-            # Get response from OpenAI
-            completion = self.client.chat.completions.create(
+            # Get streaming response from OpenAI
+            stream = self.client.chat.completions.create(
                 model="gpt-4o",
-                messages=messages
+                messages=messages,
+                stream=True
             )
             
-            assistant_response = completion.choices[0].message.content
+            # Collect the full response while streaming
+            full_response = ""
+            for chunk in stream:
+                if chunk.choices[0].delta.content is not None:
+                    chunk_content = chunk.choices[0].delta.content
+                    print(chunk_content, end="", flush=True)
+                    full_response += chunk_content
             
-            # Add to chat history (simplified for display)
+            # Add to chat history
             self.chat_history.append({
                 "role": "user",
                 "content": message
             })
             self.chat_history.append({
                 "role": "assistant",
-                "content": assistant_response
+                "content": full_response
             })
             
-            return assistant_response
+            return full_response
             
         except Exception as e:
             raise Exception(f"Error chatting with OpenAI: {e}")
@@ -293,8 +300,8 @@ def main():
                 
                 print("🤖 OpenAI: ", end="", flush=True)
                 try:
-                    response = chat.chat(user_input)
-                    print(response)
+                    chat.chat(user_input)
+                    print()  # Add newline after streaming is complete
                 except Exception as e:
                     print(f"❌ Error: {e}")
         
