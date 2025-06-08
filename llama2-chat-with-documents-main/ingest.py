@@ -1,14 +1,14 @@
 import os
 
-from langchain.document_loaders import (
+from langchain.document_loaders import ( # type: ignore
     DirectoryLoader,
     PyPDFLoader,
     TextLoader,
     UnstructuredMarkdownLoader,
 )
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.vectorstores import Chroma
+from langchain.embeddings import HuggingFaceEmbeddings # type: ignore
+from langchain.text_splitter import RecursiveCharacterTextSplitter# type: ignore
+from langchain.vectorstores import Chroma# type: ignore
 
 ABS_PATH: str = os.path.dirname(os.path.abspath(os.path.abspath(os.getcwd())))
 DB_DIR: str = os.path.join(ABS_PATH, "db")
