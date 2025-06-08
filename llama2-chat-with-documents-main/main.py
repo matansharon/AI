@@ -1,11 +1,11 @@
 import os
 
 import chainlit as cl # type: ignore
-from langchain.chains import RetrievalQA
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.llms import CTransformers
-from langchain.prompts import PromptTemplate
-from langchain.vectorstores import Chroma
+from langchain.chains import RetrievalQA # type: ignore
+from langchain.embeddings import HuggingFaceEmbeddings# type: ignore
+from langchain.llms import CTransformers# type: ignore
+from langchain.prompts import PromptTemplate# type: ignore
+from langchain.vectorstores import Chroma# type: ignore
 
 prompt_template = """Use the following pieces of context to answer the users question.
 If you don't know the answer, just say that you don't know, don't try to make up an answer.
