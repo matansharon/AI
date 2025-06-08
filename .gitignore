@@ -11,4 +11,5 @@ unsructered/docs/
 COC/venv
 Shipments_analysis/shipments_venv/
 unsructered/rag_venv/
-*.DS_Store.DS_Store
+*.DS_Store
+searchapi*
